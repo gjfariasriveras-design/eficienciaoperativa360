@@ -10,16 +10,6 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://eficienciaoperativa360.com">
 <meta name="twitter:card" content="summary_large_image">
-
-<!-- Canonical y SEO adicional -->
-<link rel="canonical" href="https://eficienciaoperativa360.com">
-<meta name="author" content="Eficiencia Operativa 360">
-<meta name="keywords" content="consultoría operativa Ecuador, eficiencia operativa, reducción de costos, OPEX, gestión operativa, Samborondón, Guayaquil">
-<meta name="robots" content="index, follow">
-
-<!-- Favicon inline (letra E en fondo navy) -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='15' fill='%231F3A5F'/%3E%3Ctext x='50' y='72' font-family='Montserrat,sans-serif' font-size='68' font-weight='900' text-anchor='middle' fill='white'%3EE%3C/text%3E%3C/svg%3E">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -995,7 +985,7 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
 }
 
-.form-group input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+.form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
@@ -1880,6 +1870,285 @@ footer {
   margin-top:10px;
 }
 
+
+
+/* ─────────────────────────────────────────────────────────
+   BLOQUE: MODELO DE INTERVENCIÓN FORMATIVA EO360
+───────────────────────────────────────────────────────── */
+#marco-metodologico {
+  padding: 110px 0;
+  background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
+  border-top: 1px solid var(--border);
+}
+.marco-shell {
+  background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(250,251,253,0.98) 100%);
+  border: 1px solid rgba(31,58,95,0.08);
+  border-radius: 22px;
+  box-shadow: 0 22px 56px rgba(31,58,95,0.10);
+  overflow: hidden;
+}
+.marco-top {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 0;
+  border-bottom: 1px solid rgba(31,58,95,0.08);
+}
+.marco-top-copy {
+  padding: 42px 42px 38px;
+}
+.marco-top-copy .section-sub {
+  max-width: 100%;
+}
+.marco-top-side {
+  background: linear-gradient(135deg, var(--navy) 0%, #274872 100%);
+  padding: 42px 38px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.marco-side-label {
+  font-family: var(--font-h);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: .68;
+  margin-bottom: 14px;
+}
+.marco-side-title {
+  font-family: var(--font-h);
+  font-size: 28px;
+  line-height: 1.18;
+  margin-bottom: 14px;
+}
+.marco-side-text {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.86);
+  margin-bottom: 18px;
+}
+.marco-side-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.marco-side-kpi {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 14px;
+}
+.marco-side-kpi strong {
+  display: block;
+  font-family: var(--font-h);
+  font-size: 20px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.marco-side-kpi span {
+  display: block;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.82);
+}
+.marco-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding: 34px;
+}
+.marco-card {
+  background: #fff;
+  border: 1px solid rgba(31,58,95,0.08);
+  border-radius: 18px;
+  padding: 24px 22px 22px;
+  box-shadow: 0 10px 24px rgba(31,58,95,0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+.marco-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(31,58,95,0.18);
+  box-shadow: 0 18px 36px rgba(31,58,95,0.08);
+}
+.marco-tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--navy-10);
+  color: var(--navy);
+  font-family: var(--font-h);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.marco-card h3 {
+  font-family: var(--font-h);
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.marco-card p {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.72;
+  margin-bottom: 12px;
+}
+.marco-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.marco-list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.marco-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--navy);
+  font-weight: 800;
+}
+.marco-cierre {
+  margin: 0 34px 34px;
+  background: linear-gradient(180deg, #faf7ee 0%, #fffdf7 100%);
+  border: 1px solid rgba(212,175,55,0.18);
+  border-left: 5px solid #c59b27;
+  border-radius: 18px;
+  padding: 28px 30px;
+  box-shadow: 0 16px 36px rgba(212,175,55,0.08);
+}
+.marco-cierre h3 {
+  font-family: var(--font-h);
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.marco-cierre p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-2);
+  max-width: 980px;
+}
+@media (max-width: 1023px) {
+  .marco-top { grid-template-columns: 1fr; }
+  .marco-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 639px) {
+  .marco-grid { grid-template-columns: 1fr; padding: 22px; }
+  .marco-top-copy, .marco-top-side { padding: 28px 22px; }
+  .marco-cierre { margin: 0 22px 22px; padding: 22px 20px; }
+  .marco-side-kpis { grid-template-columns: 1fr; }
+}
+
+/* FIX FINAL — NÚMERO CELULAR EN UNA SOLA LÍNEA */
+.contacto-strip {
+  display: grid !important;
+  grid-template-columns: minmax(260px, 320px) 1px 1fr !important;
+  background: var(--white);
+  border-radius: var(--r-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.contacto-block {
+  padding: 28px 36px;
+  min-width: 0;
+}
+.contacto-valor {
+  font-family: var(--font-h);
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  display: inline-block;
+}
+
+/* FIX FINAL — FORMULARIO DIAGNÓSTICO INTERACTIVO */
+#diagnostico .form-card,
+#diagnostico .form-card-header,
+#diagnostico .form-card-body,
+#diagnostico .form-shell,
+#diagnostico .form-row,
+#diagnostico .form-group,
+#diagnostico .problemas-wrap,
+#diagnostico .problemas-check,
+#diagnostico .check-label,
+#diagnostico .check-label input,
+#diagnostico input,
+#diagnostico select,
+#diagnostico textarea,
+#diagnostico button {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 20;
+}
+
+#diagnostico .check-label {
+  cursor: pointer !important;
+}
+
+#diagnostico .check-label input[type="checkbox"] {
+  appearance: auto !important;
+  -webkit-appearance: checkbox !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  accent-color: var(--navy);
+  pointer-events: auto !important;
+  z-index: 25;
+  flex-shrink: 0;
+}
+
+#diagnostico .check-label span,
+#diagnostico .check-label strong,
+#diagnostico .check-label p {
+  pointer-events: none !important;
+}
+
+#diagnostico .form-group select {
+  appearance: auto !important;
+  -webkit-appearance: menulist !important;
+  background-image: none !important;
+}
+
+#diagnostico .form-card::before,
+#diagnostico .form-card::after,
+#diagnostico .form-card-header::before,
+#diagnostico .form-card-header::after,
+#diagnostico .form-card-body::before,
+#diagnostico .form-card-body::after,
+#diagnostico .diagnostico-inner::before,
+#diagnostico .diagnostico-inner::after {
+  pointer-events: none !important;
+}
+
+@media (max-width: 639px) {
+  .contacto-strip {
+    grid-template-columns: 1fr !important;
+    max-width: 100%;
+  }
+  .contacto-valor {
+    font-size: 18px !important;
+    white-space: nowrap !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1906,7 +2175,7 @@ footer {
         <a href="#resultados">Casos</a>
         <a href="#consultor">Geovanny</a>
         <a href="#ia-rrhh">IA + RRHH</a>
-        <a href="#workbook">Recursos gratuitos</a>
+        <a href="#workbook">Recursos</a>
         <a href="#diagnostico" class="btn-cta">Diagnóstico gratuito</a>
       </div>
       <button class="nav-ham" type="button" onclick="toggleMenu()" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">
@@ -1933,32 +2202,32 @@ footer {
     <div class="hero-inner">
       <p class="hero-eyebrow fade-up">Consultoría Operativa · Ecuador · +14 años</p>
       <h1 class="hero-title fade-up fade-up-1">
-        Control total<span class="dot">.</span><br>
-        Costos a la baja<span class="dot">.</span><br>
-        Decisiones con datos<span class="dot">.</span>
+        Más orden<span class="dot">.</span><br>
+        Más claridad<span class="dot">.</span><br>
+        Más avance<span class="dot">.</span>
       </h1>
       <p class="hero-subtitle fade-up fade-up-2">
-        Ayudamos a empresas medianas a recuperar el control de su operación antes de que las pérdidas se vuelvan invisibles.
+        Ayudamos a empresas, emprendedores y profesionales a organizar mejor su operación, fortalecer procesos clave y trabajar con una estructura más clara, útil y aplicable.
       </p>
       <div class="hero-ctas fade-up fade-up-3">
-        <a href="#diagnostico" class="btn-primary">Agendar diagnóstico gratuito</a>
+        <a href="#diagnostico" class="btn-primary">Solicitar diagnóstico gratuito</a>
         <a href="#resultados" class="btn-outline">Ver casos reales</a>
       </div>
     </div>
   </div>
-  <!-- Strip de credencial -->
-  <div class="cred-strip" aria-label="Credenciales clave">
+  <!-- Strip de propósito -->
+  <div class="cred-strip" aria-label="Propósito de las capacitaciones EO360">
     <div class="container cred-strip-inner">
       <div class="cred-chip">
         <div class="cred-dot" aria-hidden="true"></div>
-        <span class="cred-title">Asesor — Cámara de Industrias de Guayaquil</span>
-        <span class="cred-sub">900+ empresas</span>
+        <span class="cred-title">Capacitación con aplicación real</span>
+        <span class="cred-sub">Diseñada para que el participante entienda, practique y lo lleve a su trabajo</span>
       </div>
       <div class="cred-sep" aria-hidden="true"></div>
       <div class="cred-chip">
         <div class="cred-dot" aria-hidden="true"></div>
-        <span class="cred-title">Habilitado</span>
-        <span class="cred-sub">Ministerio de Relaciones Laborales</span>
+        <span class="cred-title">Formación útil para empresa y profesional</span>
+        <span class="cred-sub">Más criterio, más estructura y más capacidad para ejecutar mejor</span>
       </div>
     </div>
   </div>
@@ -2255,8 +2524,8 @@ footer {
       <p class="section-sub" style="margin-bottom:36px;">Modelos flexibles según el nivel de madurez del área de RRHH.</p>
       <div class="ia-planes-grid">
         <div class="ia-plan">
-          <div class="ia-plan-nombre">Plan Diagnóstico</div>
-          <div class="ia-plan-precio">Desde $450</div>
+          <div class="ia-plan-nombre">Plan diagnóstico</div>
+          <div class="ia-plan-precio">Desde $190</div>
           <p class="ia-plan-desc">Evaluación del proceso actual de selección y detección de brechas.</p>
           <ul class="ia-plan-list">
             <li>Revisión del flujo de selección</li>
@@ -2267,8 +2536,8 @@ footer {
         </div>
         <div class="ia-plan destacado">
           <div class="ia-plan-badge">Más solicitado</div>
-          <div class="ia-plan-nombre">Plan Implementación</div>
-          <div class="ia-plan-precio">Desde $800</div>
+          <div class="ia-plan-nombre">Plan implementación</div>
+          <div class="ia-plan-precio">Desde $390</div>
           <p class="ia-plan-desc">Diseño e implementación del sistema de selección con IA.</p>
           <ul class="ia-plan-list">
             <li>Kit de prompts personalizados</li>
@@ -2278,8 +2547,8 @@ footer {
           <a href="https://wa.me/593979001810" target="_blank" class="btn-outline">Solicitar →</a>
         </div>
         <div class="ia-plan">
-          <div class="ia-plan-nombre">Implementación + Capacitación</div>
-          <div class="ia-plan-precio">Desde $1.200</div>
+          <div class="ia-plan-nombre">Implementación + capacitación</div>
+          <div class="ia-plan-precio">Desde $590</div>
           <p class="ia-plan-desc">Incluye formación al equipo de RRHH para uso autónomo y sostenible.</p>
           <ul class="ia-plan-list">
             <li>Todo el Plan Implementación</li>
@@ -2588,7 +2857,7 @@ footer {
       <div class="alternativa-card">
         <span class="alternativa-tag">Modalidad individual</span>
         <h3>Profesional independiente</h3>
-        <div class="alternativa-price">Desde $95</div>
+        <div class="alternativa-price">Desde $49</div>
         <div class="alternativa-price-sub">por persona · valor referencial</div>
         <p class="alternativa-desc">
           Para colaboradores, asistentes, coordinadores, analistas, jefes o profesionales que quieren fortalecer criterio, herramientas y capacidad de ejecución por su cuenta.
@@ -2605,7 +2874,7 @@ footer {
       <div class="alternativa-card">
         <span class="alternativa-tag">Grupo pequeño</span>
         <h3>2 a 3 colegas</h3>
-        <div class="alternativa-price">Desde $80</div>
+        <div class="alternativa-price">Desde $35</div>
         <div class="alternativa-price-sub">por persona · valor referencial</div>
         <p class="alternativa-desc">
           Para pequeños grupos que quieren compartir inversión y trabajar un mismo problema con mayor profundidad, sin esperar contratación corporativa formal.
@@ -2622,7 +2891,7 @@ footer {
       <div class="alternativa-card">
         <span class="alternativa-tag">Microcombo</span>
         <h3>4 a 5 personas</h3>
-        <div class="alternativa-price">Desde $65</div>
+        <div class="alternativa-price">Desde $28</div>
         <div class="alternativa-price-sub">por persona · valor referencial</div>
         <p class="alternativa-desc">
           Opción para mini grupos que buscan una experiencia más accesible sin perder estructura, materiales ni orientación práctica.
@@ -2638,7 +2907,7 @@ footer {
     </div>
 
     <div class="alternativas-note">
-      <strong>Importante:</strong> estos valores son referenciales y se confirman según el tema, la duración y la modalidad. El tarifario corporativo se mantiene aparte porque incluye contexto empresa, adaptación al equipo, reportes y seguimiento formal.
+      <strong>Importante:</strong> estos valores son referenciales y buscan facilitar entrada comercial en Ecuador. Se confirman según tema, duración y modalidad. El valor empresarial sube cuando incluye adaptación al contexto, reportes, seguimiento y trabajo con varias áreas.
     </div>
   </div>
 </section>
@@ -3039,14 +3308,9 @@ footer {
     <div class="workbook-capture">
       <h3>Recíbalos en su correo</h3>
       <p>Contenido útil para líderes, coordinadores, asistentes y profesionales que quieren mejorar su gestión con criterio práctico.</p>
-      <form class="workbook-form" action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="4aeab335-04ab-46a8-a84d-ebe9b274b0ff">
-        <input type="hidden" name="subject" value="Solicitud de Workbook gratuito — Eficiencia Operativa 360">
-        <input type="hidden" name="from_name" value="Web Eficiencia Operativa 360">
-        <input type="checkbox" name="botcheck" style="display:none;">
-        <input type="text" name="nombre" placeholder="Su nombre" required>
-        <input type="email" name="correo" placeholder="Su correo" required>
-        <input type="hidden" name="redirect" value="https://eficienciaoperativa360.com/?workbook=1">
+      <form class="workbook-form" onsubmit="submitWorkbook(event)">
+        <input type="text" placeholder="Su nombre" required>
+        <input type="email" placeholder="Su correo" required>
         <button type="submit" class="btn-primary">Solicitar recursos →</button>
       </form>
       <p class="workbook-helper">Sin spam. Material diseñado para uso real en PyMEs y trabajo independiente.</p>
@@ -3055,39 +3319,170 @@ footer {
 </section>
 
 
+
+
+<section id="marco-metodologico">
+  <div class="container">
+    <div class="marco-shell">
+      <div class="marco-top">
+        <div class="marco-top-copy">
+          <p class="section-label">Modelo de intervención formativa EO360</p>
+          <h2 class="section-title">La capacitación no se improvisa: se diseña para que el aprendizaje sí genere aplicación real</h2>
+          <p class="section-sub">
+            Cada capacitación de EO360 se estructura con una arquitectura metodológica que combina diseño instruccional, aprendizaje experiencial,
+            comunicación adaptada, participación activa y evaluación por competencias. El objetivo no es solo “dictar un tema”, sino asegurar comprensión,
+            práctica, criterio y transferencia al entorno de trabajo.
+          </p>
+        </div>
+        <div class="marco-top-side">
+          <div class="marco-side-label">Qué aporta este modelo</div>
+          <div class="marco-side-title">Más estructura, más didáctica y más valor percibido</div>
+          <p class="marco-side-text">
+            Esta base metodológica fortalece la experiencia del participante y también eleva la percepción de profesionalismo frente a empresa, emprendedor
+            o profesional que invierte de su propio bolsillo.
+          </p>
+          <div class="marco-side-kpis">
+            <div class="marco-side-kpi">
+              <strong>Diseño</strong>
+              <span>Programas con lógica, coherencia y secuencia</span>
+            </div>
+            <div class="marco-side-kpi">
+              <strong>Didáctica</strong>
+              <span>Sesiones más dinámicas, claras y memorables</span>
+            </div>
+            <div class="marco-side-kpi">
+              <strong>Aplicación</strong>
+              <span>Más aterrizaje al trabajo real del participante</span>
+            </div>
+            <div class="marco-side-kpi">
+              <strong>Medición</strong>
+              <span>Evidencia de aprendizaje con instrumentos concretos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="marco-grid">
+        <div class="marco-card">
+          <span class="marco-tag">Diseño instruccional</span>
+          <h3>ADDIE</h3>
+          <p>Usamos ADDIE como columna vertebral para diseñar programas robustos, coherentes y alineados con objetivos reales de aprendizaje y aplicación.</p>
+          <ul class="marco-list">
+            <li>Análisis del contexto, perfil y necesidad</li>
+            <li>Diseño de objetivos, secuencia y resultados esperados</li>
+            <li>Desarrollo de materiales, ejercicios y soportes</li>
+            <li>Implementación con orden metodológico</li>
+            <li>Evaluación para mejorar la experiencia</li>
+          </ul>
+        </div>
+
+        <div class="marco-card">
+          <span class="marco-tag">Aprendizaje experiencial</span>
+          <h3>ERCA / Kolb</h3>
+          <p>Estructuramos cada sesión bajo el ciclo natural del aprendizaje experiencial para que el participante entienda, reflexione y aplique.</p>
+          <ul class="marco-list">
+            <li>Experiencia conectada con un caso o situación real</li>
+            <li>Reflexión sobre lo que ocurre y por qué ocurre</li>
+            <li>Conceptualización con criterios, marcos y orden</li>
+            <li>Aplicación directa a decisiones y tareas reales</li>
+          </ul>
+        </div>
+
+        <div class="marco-card">
+          <span class="marco-tag">Comunicación didáctica</span>
+          <h3>VAC</h3>
+          <p>Adaptamos la facilitación a estilos de aprendizaje visual, auditivo y kinestésico para aumentar comprensión, atención y recordación.</p>
+          <ul class="marco-list">
+            <li>Visual: dashboards, cuadros, flujos y esquemas</li>
+            <li>Auditivo: explicación, contraste verbal y síntesis</li>
+            <li>Kinestésico: práctica, simulación y ejercicios</li>
+          </ul>
+        </div>
+
+        <div class="marco-card">
+          <span class="marco-tag">Conexión con el grupo</span>
+          <h3>PNL</h3>
+          <p>Incorporamos herramientas de influencia positiva y rapport para generar mejor conexión con el grupo y facilitar una experiencia más efectiva.</p>
+          <ul class="marco-list">
+            <li>Construcción de confianza desde el inicio</li>
+            <li>Mejor lectura del grupo y ajuste del lenguaje</li>
+            <li>Mayor conexión entre mensaje, emoción y participación</li>
+            <li>Más recordación mediante ejemplos y anclajes</li>
+          </ul>
+        </div>
+
+        <div class="marco-card">
+          <span class="marco-tag">Participación real</span>
+          <h3>Metodologías activas</h3>
+          <p>La sesión no se limita a exposición. Se apoya en métodos activos que obligan al participante a intervenir, resolver y construir criterio.</p>
+          <ul class="marco-list">
+            <li>ABP / aprendizaje basado en problemas</li>
+            <li>Análisis de casos y decisiones guiadas</li>
+            <li>Trabajo cooperativo y discusión estructurada</li>
+            <li>Clase invertida cuando aplica</li>
+            <li>Simulación y dinámicas tipo escape room</li>
+          </ul>
+        </div>
+
+        <div class="marco-card">
+          <span class="marco-tag">Evidencia de logro</span>
+          <h3>Evaluación por competencias</h3>
+          <p>La evaluación se integra desde el diseño para medir avance, comprensión y capacidad de aplicación mediante instrumentos reales.</p>
+          <ul class="marco-list">
+            <li>Diagnóstica: punto de partida del grupo</li>
+            <li>Formativa: seguimiento durante la sesión</li>
+            <li>Sumativa: cierre con evidencia de logro</li>
+            <li>Rúbricas, listas de cotejo e instrumentos aplicados</li>
+            <li>Feedback útil para mejora posterior</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="marco-cierre">
+        <h3>No es un componente accesorio: es parte del modelo de intervención formativa de EO360.</h3>
+        <p>
+          Esta base metodológica permite diseñar capacitaciones más sólidas, más didácticas y mejor orientadas a la aplicación real, elevando la calidad percibida de cada programa y fortaleciendo su valor frente a empresas y participantes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 <section id="inversion">
   <div class="container">
     <div class="inversion-header">
       <p class="section-label">Inversión</p>
-      <h2 class="section-title">Inversión corporativa: lo que cuesta vs. lo que le cuesta no hacerlo</h2>
-      <p class="section-sub" style="margin:0 auto;">Tarifario pensado para empresas. Si la organización no lo cubre, más abajo encontrará opciones para profesionales y grupos pequeños.</p>
+      <h2 class="section-title">Inversión referencial: pensada para empresas, emprendedores y profesionales</h2>
+      <p class="section-sub" style="margin:0 auto;">Ajustamos los valores para que el primer paso sea más viable en Ecuador, sin devaluar tu propuesta. La lógica es: entrada más accesible, ticket medio razonable y programas amplios solo bajo cotización.</p>
     </div>
     <div class="precios-grid">
       <div class="precio-card">
-        <div class="precio-nombre">Intervención individual</div>
-        <div class="precio-valor">$500</div>
-        <div class="precio-regular">hasta 15 participantes</div>
-        <div class="precio-detalle">1 tema del catálogo · 3-4 horas · Metodología ERCA · Caso real + workbook · Rúbrica · Informe a RRHH · Seguimiento 30 días</div>
+        <div class="precio-nombre">Intervención puntual</div>
+        <div class="precio-valor">$350</div>
+        <div class="precio-regular">hasta 12 participantes</div>
+        <div class="precio-detalle">1 tema del catálogo · 3 horas · Metodología ERCA · Caso real + material base · Cierre ejecutivo · Seguimiento breve</div>
         <a href="#diagnostico" class="btn-outline">Solicitar información</a>
       </div>
       <div class="precio-card featured">
         <div class="featured-badge">Más popular</div>
-        <div class="precio-nombre">Combo Impacto — 5 interv.</div>
-        <div class="precio-valor">$1.900</div>
-        <div class="precio-regular">Regular: $2.500</div>
-        <div class="precio-detalle">Cualquier 5 temas del catálogo. Se distribuyen en el calendario que mejor convenga a su empresa.</div>
+        <div class="precio-nombre">Combo impacto — 5 sesiones</div>
+        <div class="precio-valor">$1.250</div>
+        <div class="precio-regular">Regular: $1.750</div>
+        <div class="precio-detalle">5 temas del catálogo. Se distribuyen según la prioridad de la empresa y permiten ver avance real sin entrar a un programa grande desde el inicio.</div>
         <a href="#diagnostico" class="btn-outline">Agendar diagnóstico</a>
       </div>
       <div class="precio-card">
-        <div class="precio-nombre">Programa completo</div>
-        <div class="precio-valor">$6.800</div>
-        <div class="precio-regular">Regular: $10.000</div>
-        <div class="precio-detalle">30 intervenciones · Certificado · Secuencia por nivel · Seguimiento 12 meses · Informe consolidado por competencias</div>
+        <div class="precio-nombre">Programa integral</div>
+        <div class="precio-valor">A medida</div>
+        <div class="precio-regular">Según alcance</div>
+        <div class="precio-detalle">Cuando la empresa necesita varias áreas, adaptación interna, reportes formales y una ruta más amplia. Aquí conviene cotizar según alcance real, no dejar un precio alto genérico.</div>
         <a href="#diagnostico" class="btn-outline">Solicitar propuesta formal</a>
       </div>
     </div>
     <div class="condiciones">
-      <strong>Condiciones:</strong> Hasta 15 participantes. Grupos de 16-25: +$200 por intervención. Puede armar su propio combo con cualquier combinación del catálogo. No incluye IVA. Facturación disponible. <strong>Pago: 50% al confirmar / 50% al entregar el informe final.</strong>
+      <strong>Condiciones:</strong> Hasta 12 participantes en tarifa base. Grupos mayores se cotizan según formato. Puede armar su propio combo con cualquier combinación del catálogo. No incluye IVA. Facturación disponible. <strong>Pago: 50% al confirmar / 50% al ejecutar.</strong>
     </div>
   </div>
 </section>
@@ -3098,7 +3493,7 @@ footer {
     <h2 class="cta-final-title">Si identificó al menos 2 problemas,<br>ya tiene una decisión que tomar.</h2>
     <p class="cta-final-sub">Podemos empezar en 5 días.</p>
     <div class="cta-btns">
-      <a href="#diagnostico" class="btn-primary" style="font-size:15px;padding:14px 32px;">Agendar diagnóstico gratuito</a>
+      <a href="#diagnostico" class="btn-primary" style="font-size:15px;padding:14px 32px;">Solicitar diagnóstico gratuito</a>
       <a href="https://wa.me/593979001810" target="_blank" class="btn-secondary">WhatsApp directo →</a>
     </div>
     <div class="contacto-strip">
@@ -3169,27 +3564,21 @@ footer {
 
       <div class="form-card">
         <div class="form-card-header">
-          <h3>Agendar diagnóstico gratuito</h3>
+          <h3>Solicitar diagnóstico gratuito</h3>
           <p class="form-sub">Complete el formulario y evaluaremos su caso. Respuesta en menos de 24 horas.</p>
         </div>
 
         <div class="form-card-body">
-          <form class="form-shell" action="https://api.web3forms.com/submit" method="POST">
-            <!-- Web3Forms: pegar la access_key real aquí -->
-            <input type="hidden" name="access_key" value="4aeab335-04ab-46a8-a84d-ebe9b274b0ff">
-            <input type="hidden" name="subject" value="Nuevo diagnóstico solicitado — Eficiencia Operativa 360">
-            <input type="hidden" name="from_name" value="Web Eficiencia Operativa 360">
-            <input type="checkbox" name="botcheck" style="display:none;">
-
+          <form class="form-shell">
             <div class="form-row">
               <div class="form-group">
                 <label for="nombre">Nombre completo *</label>
-                <input id="nombre" name="nombre" type="text" placeholder="Su nombre completo" required>
+                <input id="nombre" type="text" placeholder="Su nombre completo">
               </div>
               <div class="form-group">
                 <label for="cargo">Cargo *</label>
-                <select id="cargo" name="cargo" required>
-                  <option selected disabled value="">Seleccione</option>
+                <select id="cargo">
+                  <option selected disabled>Seleccione</option>
                   <option>Gerencia General</option>
                   <option>Gerencia Administrativa</option>
                   <option>Operaciones</option>
@@ -3203,12 +3592,12 @@ footer {
             <div class="form-row">
               <div class="form-group">
                 <label for="empresa">Empresa *</label>
-                <input id="empresa" name="empresa" type="text" placeholder="Nombre de su empresa" required>
+                <input id="empresa" type="text" placeholder="Nombre de su empresa">
               </div>
               <div class="form-group">
                 <label for="empleados">Número de empleados</label>
-                <select id="empleados" name="empleados">
-                  <option selected disabled value="">Seleccione</option>
+                <select id="empleados">
+                  <option selected disabled>Seleccione</option>
                   <option>1 - 20</option>
                   <option>21 - 50</option>
                   <option>51 - 100</option>
@@ -3224,32 +3613,32 @@ footer {
               <p class="problemas-help">Seleccione hasta tres frentes donde hoy percibe mayor fuga operativa.</p>
 
               <div class="problemas-check">
-                <label class="check-label"><input type="checkbox" name="problema[]" value="Compras sin control"><span>Compras sin control</span></label>
-                <label class="check-label"><input type="checkbox" name="problema[]" value="Presupuesto sin seguimiento"><span>Presupuesto sin seguimiento</span></label>
-                <label class="check-label"><input type="checkbox" name="problema[]" value="Mantenimiento reactivo"><span>Mantenimiento reactivo</span></label>
-                <label class="check-label"><input type="checkbox" name="problema[]" value="KPIs que nadie revisa"><span>KPIs que nadie revisa</span></label>
-                <label class="check-label"><input type="checkbox" name="problema[]" value="Mandos sin herramientas"><span>Mandos sin herramientas</span></label>
-                <label class="check-label"><input type="checkbox" name="problema[]" value="Procesos no documentados"><span>Procesos no documentados</span></label>
-                <label class="check-label"><input type="checkbox" name="problema[]" value="Alta rotación de personal"><span>Alta rotación de personal</span></label>
-                <label class="check-label"><input type="checkbox" name="problema[]" value="Capacitación sin resultado"><span>Capacitación sin resultado</span></label>
+                <label class="check-label"><input type="checkbox"><span>Compras sin control</span></label>
+                <label class="check-label"><input type="checkbox"><span>Presupuesto sin seguimiento</span></label>
+                <label class="check-label"><input type="checkbox"><span>Mantenimiento reactivo</span></label>
+                <label class="check-label"><input type="checkbox"><span>KPIs que nadie revisa</span></label>
+                <label class="check-label"><input type="checkbox"><span>Mandos sin herramientas</span></label>
+                <label class="check-label"><input type="checkbox"><span>Procesos no documentados</span></label>
+                <label class="check-label"><input type="checkbox"><span>Alta rotación de personal</span></label>
+                <label class="check-label"><input type="checkbox"><span>Capacitación sin resultado</span></label>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="whatsapp">WhatsApp *</label>
-                <input id="whatsapp" name="whatsapp" type="text" placeholder="09__ ___ ___" required>
+                <input id="whatsapp" type="text" placeholder="09__ ___ ___">
               </div>
               <div class="form-group">
                 <label for="correo">Correo electrónico *</label>
-                <input id="correo" name="correo" type="email" placeholder="correo@empresa.com" required>
+                <input id="correo" type="email" placeholder="correo@empresa.com">
               </div>
             </div>
 
             <div class="form-group">
               <label for="origen">¿Cómo nos conoció?</label>
-              <select id="origen" name="origen">
-                <option selected disabled value="">Seleccione</option>
+              <select id="origen">
+                <option selected disabled>Seleccione</option>
                 <option>LinkedIn</option>
                 <option>Recomendación</option>
                 <option>Google</option>
@@ -3258,8 +3647,6 @@ footer {
                 <option>Otro</option>
               </select>
             </div>
-
-            <input type="hidden" name="redirect" value="https://eficienciaoperativa360.com/?enviado=1">
 
             <button type="submit" class="btn-primary form-submit">Enviar y agendar diagnóstico →</button>
             <p class="form-note">Sus datos son confidenciales. No compartimos información con terceros.</p>
@@ -3293,7 +3680,7 @@ footer {
         <a href="#intervenciones">Las 30 intervenciones</a>
         <a href="#inversion">Precios y combos</a>
         <a href="#metodologia">Metodología ERCA</a>
-        <a href="#workbook">Workbook gratuito</a>
+        <a href="#workbook">Recursos</a>
       </div>
       <div class="footer-col">
         <h4>Empresa</h4>
@@ -3301,7 +3688,7 @@ footer {
         <a href="#resultados">Casos de éxito</a>
         <a href="#diferenciador">Por qué EO360</a>
         <a href="#ia-rrhh">IA aplicada a RRHH</a>
-        <a href="#workbook">Recursos gratuitos</a>
+        <a href="#workbook">Recursos</a>
       </div>
       <div class="footer-col">
         <h4>Contacto</h4>
@@ -3467,8 +3854,19 @@ document.getElementById('compRows').innerHTML = comp.map(([m,b]) => `
 `).join('');
 
 // ── FORMS ────────────────────────────────────────────────
-// Los formularios ahora envían a Web3Forms directamente (action + method POST).
-// Las funciones submitForm y submitWorkbook fueron reemplazadas por envío real.
+function submitForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ Enviado — Le contactamos en menos de 24 horas';
+  btn.style.background = '#065F46';
+  btn.disabled = true;
+}
+function submitWorkbook(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = '✓ Revise su correo';
+  btn.disabled = true;
+}
 </script>
 
 <!-- ── BOTÓN FLOTANTE WHATSAPP ── -->
