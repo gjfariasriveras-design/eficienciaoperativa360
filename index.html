@@ -2149,6 +2149,40 @@ footer {
   }
 }
 
+
+/* AJUSTE — HEADER PORTAFOLIO MÁS COMPACTO Y ALINEADO */
+#intervenciones .intervenciones-header{
+  max-width: 980px;
+  margin: 0 auto 28px;
+  text-align: left;
+}
+#intervenciones .intervenciones-header .section-label{
+  margin-bottom: 10px;
+}
+#intervenciones .intervenciones-header .section-title{
+  font-size: clamp(28px, 3.2vw, 38px);
+  line-height: 1.15;
+  max-width: 900px;
+  margin-bottom: 14px;
+}
+#intervenciones .intervenciones-header .section-sub{
+  max-width: 900px;
+  margin: 0 0 10px 0 !important;
+  font-size: 16px;
+  line-height: 1.65;
+}
+@media (max-width: 639px){
+  #intervenciones .intervenciones-header{
+    margin-bottom: 22px;
+  }
+  #intervenciones .intervenciones-header .section-title{
+    font-size: 26px;
+  }
+  #intervenciones .intervenciones-header .section-sub{
+    font-size: 15px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2215,22 +2249,7 @@ footer {
       </div>
     </div>
   </div>
-  <!-- Strip de propósito -->
-  <div class="cred-strip" aria-label="Propósito de las capacitaciones EO360">
-    <div class="container cred-strip-inner">
-      <div class="cred-chip">
-        <div class="cred-dot" aria-hidden="true"></div>
-        <span class="cred-title">Capacitación con aplicación real</span>
-        <span class="cred-sub">Diseñada para que el participante entienda, practique y lo lleve a su trabajo</span>
-      </div>
-      <div class="cred-sep" aria-hidden="true"></div>
-      <div class="cred-chip">
-        <div class="cred-dot" aria-hidden="true"></div>
-        <span class="cred-title">Formación útil para empresa y profesional</span>
-        <span class="cred-sub">Más criterio, más estructura y más capacidad para ejecutar mejor</span>
-      </div>
-    </div>
-  </div>
+
   <div class="hero-kpis hero-servicios">
     <div class="kpi-item fade-up fade-up-1">
       <div class="kpi-num">IA para selección de personal</div>
@@ -3228,9 +3247,9 @@ footer {
   <div class="container">
     <div class="intervenciones-header">
         <p class="section-label">Portafolio de charlas y capacitaciones</p>
-        <h2 class="section-title">30 temas diseñados para abordar problemas reales de gestión, operación, control y desarrollo organizacional</h2>
-        <p class="section-sub" style="margin:0 auto;">Cada empresa puede contratar un tema puntual o combinar varios según su prioridad, contexto y presupuesto.</p>
-        <p class="section-sub" style="margin:14px auto 0;max-width:860px;">No necesita avanzar sobre todo el portafolio desde el inicio. Puede empezar por la necesidad más urgente y construir una ruta progresiva con los temas que generen mayor valor para su equipo, su operación o su estructura interna.</p>
+        <h2 class="section-title">30 temas para resolver problemas reales de gestión, operación, control y desarrollo organizacional</h2>
+        <p class="section-sub">Puede contratar un tema puntual o combinar varios según su prioridad, contexto y presupuesto.</p>
+        <p class="section-sub">Empiece por la necesidad más urgente y construya una ruta con los temas que hoy generen mayor valor para su equipo y su operación.</p>
       </div>
       <div class="filtros">
       <button class="filtro-btn active" onclick="filtrar('todos',this)">Todos</button>
