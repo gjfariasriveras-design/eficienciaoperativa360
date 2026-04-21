@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EO360 | Workbook: Las 10 debilidades críticas</title>
+<style>
+:root {
+  --navy:#1F3A5F;
+  --navy-dark:#172E4D;
+  --navy-10:#F0F4F9;
+  --navy-20:#DDE7F0;
+  --gold:#C59B27;
+  --gold-soft:#FAF7EE;
+  --text:#1A1F2E;
+  --text-2:#374151;
+  --gray:#6B7280;
+  --border:#E8ECF0;
+  --bg:#F7FAFC;
+  --white:#FFFFFF;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.55}
+.page{max-width:920px;margin:28px auto;background:#fff;box-shadow:0 14px 34px rgba(31,58,95,.08)}
+.hero{background:linear-gradient(135deg,var(--navy-dark),var(--navy));color:#fff;padding:46px 54px 38px;position:relative;overflow:hidden}
+.hero:after{content:"EO360";position:absolute;right:18px;top:10px;font-size:72px;font-weight:800;opacity:.06;letter-spacing:-2px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:.72;margin-bottom:14px}
+.hero h1{font-size:38px;line-height:1.08;margin:0 0 14px;font-weight:800;max-width:680px}
+.hero p{max-width:640px;margin:0;font-size:16px;color:rgba(255,255,255,.86)}
+.brandbar{display:flex;justify-content:space-between;gap:18px;padding:14px 54px;background:var(--gold-soft);border-bottom:1px solid rgba(197,155,39,.24)}
+.brandchip{font-size:12px;font-weight:700;color:#7A5A08;letter-spacing:.06em;text-transform:uppercase}
+.content{padding:36px 54px 44px}
+.grid-2{display:grid;grid-template-columns:1.15fr .85fr;gap:24px}
+.card{border:1px solid var(--border);border-radius:14px;padding:22px;background:#fff}
+.card.soft{background:var(--navy-10)}
+.card.gold{background:var(--gold-soft);border-color:rgba(197,155,39,.24)}
+.h2{font-size:24px;color:var(--navy);margin:0 0 10px;font-weight:800}
+.h3{font-size:18px;color:var(--navy);margin:0 0 10px;font-weight:800}
+.p{font-size:14px;color:var(--text-2);margin:0 0 10px}
+.list{margin:0;padding-left:18px}
+.list li{margin:0 0 8px;color:var(--text-2);font-size:14px}
+.section{margin-top:28px}
+.audit-table{width:100%;border-collapse:collapse;margin-top:12px}
+.audit-table th,.audit-table td{border:1px solid var(--border);padding:10px 12px;vertical-align:top}
+.audit-table th{background:var(--navy-10);text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+.audit-table td{font-size:13px;color:var(--text-2)}
+.note{margin-top:16px;padding:16px 18px;border-left:4px solid var(--navy);background:var(--navy-10);font-size:13px;color:var(--text-2)}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.score-box{border:1px solid var(--border);border-radius:12px;padding:14px;background:#fff}
+.score-box strong{display:block;color:var(--navy);font-size:14px;margin-bottom:6px}
+.footer{padding:16px 54px 24px;color:var(--gray);font-size:11px;border-top:1px solid var(--border)}
+hr.sep{border:none;border-top:1px solid var(--border);margin:26px 0}
+@page{size:A4;margin:14mm}
+@media print{
+  html,body{background:#fff}
+  .page{max-width:none;margin:0;box-shadow:none}
+}
+</style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="kicker">EO360 · Recurso ejecutivo</div>
+      <h1>Workbook: Las 10 debilidades críticas</h1>
+      <p>Diagnostique en 15 minutos las fugas operativas más comunes y priorice qué corregir primero. Diseñado para PyMEs, jefaturas y profesionales independientes que necesitan una revisión rápida, clara y accionable.</p>
+    </section>
+
+    <div class="brandbar">
+      <div class="brandchip">Eficiencia Operativa 360</div>
+      <div class="brandchip">Control · Trazabilidad · Prioridad</div>
+    </div>
+
+    <main class="content">
+      <div class="grid-2">
+        <div class="card">
+          <h2 class="h2">Qué encontrará en este workbook</h2>
+          <ul class="list">
+            <li>Checklist de debilidades frecuentes.</li>
+            <li>Plantilla simple de priorización.</li>
+            <li>Lectura rápida para decidir qué corregir primero.</li>
+            <li>Base útil para conversaciones de gerencia, administración y operaciones.</li>
+          </ul>
+        </div>
+        <div class="card gold">
+          <h3 class="h3">Cómo usarlo</h3>
+          <p class="p">Marque cada punto como <strong>Controlado</strong>, <strong>Parcial</strong> o <strong>Crítico</strong>. Luego priorice por impacto, urgencia y facilidad de corrección.</p>
+        </div>
+      </div>
+
+      <section class="section">
+        <h2 class="h2">Checklist de debilidades frecuentes</h2>
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th style="width:6%">#</th>
+              <th style="width:49%">Debilidad crítica</th>
+              <th style="width:15%">Estado</th>
+              <th style="width:30%">Observación breve</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Compras sin control, sin cotización o sin criterio técnico claro.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>2</td><td>Presupuesto revisado tarde o sin seguimiento mensual real.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>3</td><td>Activos, equipos o instalaciones operando en modo reactivo.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>4</td><td>Procesos clave dependen de una sola persona y no están documentados.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>5</td><td>Falta de indicadores claros para administración, RRHH o control operativo.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>6</td><td>Reportes se generan tarde, con reproceso o sin trazabilidad suficiente.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>7</td><td>Mandos medios ejecutan, pero no controlan ni hacen seguimiento.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>8</td><td>Problemas recurrentes se resuelven, pero no se corrigen de raíz.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>9</td><td>Alta dependencia de urgencias, improvisación o mensajes dispersos.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+            <tr><td>10</td><td>Capacitación o soporte interno sin traducción a ejecución real.</td><td>☐ Controlado ☐ Parcial ☐ Crítico</td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2 class="h2">Plantilla de priorización</h2>
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Problema detectado</th>
+              <th style="width:14%">Impacto</th>
+              <th style="width:14%">Urgencia</th>
+              <th style="width:14%">Facilidad</th>
+              <th style="width:18%">Prioridad final</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td></td><td>1 2 3</td><td>1 2 3</td><td>1 2 3</td><td>Alta / Media / Baja</td></tr>
+            <tr><td></td><td>1 2 3</td><td>1 2 3</td><td>1 2 3</td><td>Alta / Media / Baja</td></tr>
+            <tr><td></td><td>1 2 3</td><td>1 2 3</td><td>1 2 3</td><td>Alta / Media / Baja</td></tr>
+            <tr><td></td><td>1 2 3</td><td>1 2 3</td><td>1 2 3</td><td>Alta / Media / Baja</td></tr>
+          </tbody>
+        </table>
+        <div class="note"><strong>Criterio sugerido:</strong> priorice primero lo que afecta costos, continuidad operativa, servicio interno o capacidad de decisión. No corrija todo al mismo tiempo. Corrija primero lo que desordena más.</div>
+      </section>
+
+      <section class="section">
+        <div class="card soft">
+          <h2 class="h2">Lectura rápida del resultado</h2>
+          <div class="score-grid">
+            <div class="score-box"><strong>0 a 2 críticos</strong>La base existe, pero hay áreas a reforzar antes de que crezcan.</div>
+            <div class="score-box"><strong>3 a 5 críticos</strong>La operación ya muestra fugas visibles y requiere priorización inmediata.</div>
+            <div class="score-box"><strong>6 o más críticos</strong>La empresa está funcionando con alto nivel de fricción y pérdida de control.</div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="sep" />
+
+      <section class="section">
+        <div class="card gold">
+          <h3 class="h3">EO360</h3>
+          <p class="p">Eficiencia Operativa 360 ayuda a empresas, jefaturas y profesionales a ordenar procesos, fortalecer control y tomar decisiones con más estructura. Este recurso puede usarse como punto de partida para una revisión interna o una conversación diagnóstica.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">EO360 · eficienciaoperativa360.com · Recurso corporativo para uso comercial y diagnóstico interno</footer>
+  </div>
+</body>
+</html>
