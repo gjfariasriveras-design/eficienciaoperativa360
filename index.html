@@ -3338,16 +3338,16 @@ footer {
         <input type="hidden" name="tipo_formulario" value="Solicitud de recurso">
         <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
         <select id="recursoSolicitado" name="recurso_solicitado" required>
-          <option value="" selected disabled>Seleccione el recurso que desea recibir</option>
-          <option value="Guía de IA para selección de personal">Guía de IA para selección de personal</option>
-          <option value="Guía de IA para control administrativo">Guía de IA para control administrativo</option>
-          <option value="Guía de IA para formatos y documentos">Guía de IA para formatos y documentos</option>
+          <option value="" selected disabled>Seleccione el recurso que desea descargar</option>
+          <option value="Workbook: Las 10 debilidades críticas">Workbook: Las 10 debilidades críticas</option>
+          <option value="Pack de prompts listos para ejecutar">Pack de prompts listos para ejecutar</option>
+          <option value="Checklist de control para PyMEs">Checklist de control para PyMEs</option>
         </select>
         <input type="text" id="workbookNombre" name="nombre" placeholder="Su nombre" required>
         <input type="email" id="workbookCorreo" name="email" placeholder="Su correo" required>
         <button type="submit" class="btn-primary">Solicitar recurso →</button>
       </form>
-      <p class="workbook-helper" id="workbook-message">Solicitud ejecutiva y específica. Usted decide después si comparte o no el material solicitado.</p>
+      <p class="workbook-helper" id="workbook-message">Seleccione un recurso, deje sus datos y la descarga se activará automáticamente. El lead también quedará registrado en su correo.</p>
     </div>
   </div>
 </section>
@@ -3972,11 +3972,24 @@ if (workbookForm) {
 
     const btn = workbookForm.querySelector('button');
     const msg = document.getElementById('workbook-message');
+    const recurso = document.getElementById('recursoSolicitado').value;
     const originalText = btn.textContent;
+
+    const resourceMap = {
+      'Workbook: Las 10 debilidades críticas': 'eo360_recurso_workbook_10_debilidades.html',
+      'Pack de prompts listos para ejecutar': 'eo360_recurso_pack_prompts_ia.html',
+      'Checklist de control para PyMEs': 'eo360_recurso_checklist_control_pymes.html'
+    };
+
+    if (!resourceMap[recurso]) {
+      msg.textContent = 'Seleccione un recurso válido.';
+      msg.style.color = '#B91C1C';
+      return;
+    }
 
     btn.disabled = true;
     btn.textContent = 'Enviando...';
-    msg.textContent = 'Procesando solicitud...';
+    msg.textContent = 'Procesando solicitud y preparando descarga...';
     msg.style.color = '#6B7280';
 
     try {
@@ -3990,10 +4003,17 @@ if (workbookForm) {
 
       if (result.success) {
         workbookForm.reset();
-        btn.textContent = '✓ Solicitud enviada';
+        btn.textContent = '✓ Descarga iniciada';
         btn.style.background = '#065F46';
-        msg.textContent = 'Gracias. Hemos recibido su solicitud y el contacto quedó registrado correctamente.';
+        msg.textContent = 'Lead registrado correctamente. La descarga del recurso se ha activado.';
         msg.style.color = '#065F46';
+
+        const link = document.createElement('a');
+        link.href = resourceMap[recurso];
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
         setTimeout(() => {
           btn.disabled = false;
