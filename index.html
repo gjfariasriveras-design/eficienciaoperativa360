@@ -687,15 +687,18 @@ img { max-width: 100%; display: block; }
 .workbook-copy .section-title { font-size: clamp(22px, 3vw, 30px); }
 .workbook-copy .section-sub { font-size: 15px; margin-bottom: 28px; }
 .workbook-form { display: flex; gap: 12px; flex-wrap: wrap; }
-.workbook-form input {
+.workbook-form input,
+.workbook-form select {
   flex: 1; min-width: 200px;
   padding: 13px 16px; border: 1px solid var(--navy-20);
   border-radius: var(--r-btn); font-family: var(--font-b);
   font-size: 14px; color: var(--text); background: var(--white);
   transition: border-color 0.2s;
 }
-.workbook-form input:focus { outline: none; border-color: var(--navy); border-width: 2px; }
+.workbook-form input:focus,
+.workbook-form select:focus { outline: none; border-color: var(--navy); border-width: 2px; }
 .workbook-form input::placeholder { color: var(--gray); }
+.workbook-form select { cursor: pointer; }
 .workbook-visual {
   width: 220px; height: 280px; background: var(--navy);
   border-radius: 6px; display: flex; flex-direction: column;
@@ -3326,19 +3329,25 @@ footer {
     </div>
 
     <div class="workbook-capture">
-      <h3>Recíbalos en su correo</h3>
-      <p>Contenido útil para líderes, coordinadores, asistentes y profesionales que quieren mejorar su gestión con criterio práctico.</p>
+      <h3>Solicite el recurso de su interés</h3>
+      <p>Seleccione el material que desea recibir y deje sus datos. Así podremos responderle con mayor precisión y enviarle únicamente el recurso alineado a su interés.</p>
       <form class="workbook-form" id="workbookForm" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="4aeab335-04ab-46a8-a84d-ebe9b274b0ff">
-        <input type="hidden" name="subject" value="Nuevo lead de recursos descargables - EO360">
+        <input type="hidden" name="subject" value="Nuevo lead de recurso solicitado - EO360">
         <input type="hidden" name="from_name" value="EO360 Web">
-        <input type="hidden" name="tipo_formulario" value="Recursos descargables">
+        <input type="hidden" name="tipo_formulario" value="Solicitud de recurso">
         <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+        <select id="recursoSolicitado" name="recurso_solicitado" required>
+          <option value="" selected disabled>Seleccione el recurso que desea recibir</option>
+          <option value="Guía de IA para selección de personal">Guía de IA para selección de personal</option>
+          <option value="Guía de IA para control administrativo">Guía de IA para control administrativo</option>
+          <option value="Guía de IA para formatos y documentos">Guía de IA para formatos y documentos</option>
+        </select>
         <input type="text" id="workbookNombre" name="nombre" placeholder="Su nombre" required>
         <input type="email" id="workbookCorreo" name="email" placeholder="Su correo" required>
-        <button type="submit" class="btn-primary">Solicitar recursos →</button>
+        <button type="submit" class="btn-primary">Solicitar recurso →</button>
       </form>
-      <p class="workbook-helper" id="workbook-message">Sin spam. Material diseñado para uso real en PyMEs y trabajo independiente.</p>
+      <p class="workbook-helper" id="workbook-message">Solicitud ejecutiva y específica. Usted decide después si comparte o no el material solicitado.</p>
     </div>
   </div>
 </section>
