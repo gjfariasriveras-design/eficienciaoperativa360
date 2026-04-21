@@ -3328,12 +3328,17 @@ footer {
     <div class="workbook-capture">
       <h3>Recíbalos en su correo</h3>
       <p>Contenido útil para líderes, coordinadores, asistentes y profesionales que quieren mejorar su gestión con criterio práctico.</p>
-      <form class="workbook-form" onsubmit="submitWorkbook(event)">
-        <input type="text" placeholder="Su nombre" required>
-        <input type="email" placeholder="Su correo" required>
+      <form class="workbook-form" id="workbookForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="4aeab335-04ab-46a8-a84d-ebe9b274b0ff">
+        <input type="hidden" name="subject" value="Nuevo lead de recursos descargables - EO360">
+        <input type="hidden" name="from_name" value="EO360 Web">
+        <input type="hidden" name="tipo_formulario" value="Recursos descargables">
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+        <input type="text" id="workbookNombre" name="nombre" placeholder="Su nombre" required>
+        <input type="email" id="workbookCorreo" name="email" placeholder="Su correo" required>
         <button type="submit" class="btn-primary">Solicitar recursos →</button>
       </form>
-      <p class="workbook-helper">Sin spam. Material diseñado para uso real en PyMEs y trabajo independiente.</p>
+      <p class="workbook-helper" id="workbook-message">Sin spam. Material diseñado para uso real en PyMEs y trabajo independiente.</p>
     </div>
   </div>
 </section>
@@ -3950,11 +3955,55 @@ if (diagnosticoForm) {
   });
 }
 
-function submitWorkbook(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('button');
-  btn.textContent = '✓ Revise su correo';
-  btn.disabled = true;
+const workbookForm = document.getElementById('workbookForm');
+
+if (workbookForm) {
+  workbookForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const btn = workbookForm.querySelector('button');
+    const msg = document.getElementById('workbook-message');
+    const originalText = btn.textContent;
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    msg.textContent = 'Procesando solicitud...';
+    msg.style.color = '#6B7280';
+
+    try {
+      const formData = new FormData(workbookForm);
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        workbookForm.reset();
+        btn.textContent = '✓ Solicitud enviada';
+        btn.style.background = '#065F46';
+        msg.textContent = 'Gracias. Hemos recibido su solicitud y el contacto quedó registrado correctamente.';
+        msg.style.color = '#065F46';
+
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = originalText;
+          btn.style.background = '';
+        }, 4000);
+      } else {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        msg.textContent = 'No se pudo enviar la solicitud. Revise la configuración de Web3Forms.';
+        msg.style.color = '#B91C1C';
+      }
+    } catch (error) {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      msg.textContent = 'Error de conexión. Intente nuevamente.';
+      msg.style.color = '#B91C1C';
+    }
+  });
 }
 </script>
 
