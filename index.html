@@ -3347,7 +3347,7 @@ footer {
         <input type="email" id="workbookCorreo" name="email" placeholder="Su correo" required>
         <button type="submit" class="btn-primary">Solicitar recurso →</button>
       </form>
-      <p class="workbook-helper" id="workbook-message">Seleccione un recurso, deje sus datos y la descarga se activará automáticamente. El lead también quedará registrado en su correo.</p>
+      <p class="workbook-helper" id="workbook-message">Seleccione un recurso, deje sus datos y el material se abrirá en una nueva pestaña. El lead también quedará registrado en su correo.</p>
     </div>
   </div>
 </section>
@@ -3989,7 +3989,7 @@ if (workbookForm) {
 
     btn.disabled = true;
     btn.textContent = 'Enviando...';
-    msg.textContent = 'Procesando solicitud y preparando recurso...';
+    msg.textContent = 'Procesando solicitud y abriendo recurso...';
     msg.style.color = '#6B7280';
 
     try {
@@ -4003,7 +4003,7 @@ if (workbookForm) {
 
       if (result.success) {
         workbookForm.reset();
-        btn.textContent = '✓ Descarga iniciada';
+        btn.textContent = '✓ Recurso abierto';
         btn.style.background = '#065F46';
         msg.textContent = 'Lead registrado correctamente. El recurso se abrirá en una nueva pestaña.';
         msg.style.color = '#065F46';
