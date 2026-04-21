@@ -3589,22 +3589,27 @@ footer {
         </div>
 
         <div class="form-card-body">
-          <form class="form-shell">
+          <form class="form-shell" id="diagnosticoForm" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="4aeab335-04ab-46a8-a84d-ebe9b274b0ff">
+            <input type="hidden" name="subject" value="Nuevo diagnóstico desde EO360">
+            <input type="hidden" name="from_name" value="EO360 Web">
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+
             <div class="form-row">
               <div class="form-group">
                 <label for="nombre">Nombre completo *</label>
-                <input id="nombre" type="text" placeholder="Su nombre completo">
+                <input id="nombre" name="nombre" type="text" placeholder="Su nombre completo" required>
               </div>
               <div class="form-group">
                 <label for="cargo">Cargo *</label>
-                <select id="cargo">
-                  <option selected disabled>Seleccione</option>
-                  <option>Gerencia General</option>
-                  <option>Gerencia Administrativa</option>
-                  <option>Operaciones</option>
-                  <option>Compras</option>
-                  <option>Talento Humano</option>
-                  <option>Otro</option>
+                <select id="cargo" name="cargo" required>
+                  <option value="" selected disabled>Seleccione</option>
+                  <option value="Gerencia General">Gerencia General</option>
+                  <option value="Gerencia Administrativa">Gerencia Administrativa</option>
+                  <option value="Operaciones">Operaciones</option>
+                  <option value="Compras">Compras</option>
+                  <option value="Talento Humano">Talento Humano</option>
+                  <option value="Otro">Otro</option>
                 </select>
               </div>
             </div>
@@ -3612,18 +3617,18 @@ footer {
             <div class="form-row">
               <div class="form-group">
                 <label for="empresa">Empresa *</label>
-                <input id="empresa" type="text" placeholder="Nombre de su empresa">
+                <input id="empresa" name="empresa" type="text" placeholder="Nombre de su empresa" required>
               </div>
               <div class="form-group">
                 <label for="empleados">Número de empleados</label>
-                <select id="empleados">
-                  <option selected disabled>Seleccione</option>
-                  <option>1 - 20</option>
-                  <option>21 - 50</option>
-                  <option>51 - 100</option>
-                  <option>101 - 250</option>
-                  <option>251 - 500</option>
-                  <option>500+</option>
+                <select id="empleados" name="empleados">
+                  <option value="" selected disabled>Seleccione</option>
+                  <option value="1-20">1 - 20</option>
+                  <option value="21-50">21 - 50</option>
+                  <option value="51-100">51 - 100</option>
+                  <option value="101-250">101 - 250</option>
+                  <option value="251-500">251 - 500</option>
+                  <option value="500+">500+</option>
                 </select>
               </div>
             </div>
@@ -3633,43 +3638,43 @@ footer {
               <p class="problemas-help">Seleccione hasta tres frentes donde hoy percibe mayor fuga operativa.</p>
 
               <div class="problemas-check">
-                <label class="check-label"><input type="checkbox"><span>Compras sin control</span></label>
-                <label class="check-label"><input type="checkbox"><span>Presupuesto sin seguimiento</span></label>
-                <label class="check-label"><input type="checkbox"><span>Mantenimiento reactivo</span></label>
-                <label class="check-label"><input type="checkbox"><span>KPIs que nadie revisa</span></label>
-                <label class="check-label"><input type="checkbox"><span>Mandos sin herramientas</span></label>
-                <label class="check-label"><input type="checkbox"><span>Procesos no documentados</span></label>
-                <label class="check-label"><input type="checkbox"><span>Alta rotación de personal</span></label>
-                <label class="check-label"><input type="checkbox"><span>Capacitación sin resultado</span></label>
+                <label class="check-label"><input type="checkbox" name="problemas" value="Compras sin control"><span>Compras sin control</span></label>
+                <label class="check-label"><input type="checkbox" name="problemas" value="Presupuesto sin seguimiento"><span>Presupuesto sin seguimiento</span></label>
+                <label class="check-label"><input type="checkbox" name="problemas" value="Mantenimiento reactivo"><span>Mantenimiento reactivo</span></label>
+                <label class="check-label"><input type="checkbox" name="problemas" value="KPIs que nadie revisa"><span>KPIs que nadie revisa</span></label>
+                <label class="check-label"><input type="checkbox" name="problemas" value="Mandos sin herramientas"><span>Mandos sin herramientas</span></label>
+                <label class="check-label"><input type="checkbox" name="problemas" value="Procesos no documentados"><span>Procesos no documentados</span></label>
+                <label class="check-label"><input type="checkbox" name="problemas" value="Alta rotación de personal"><span>Alta rotación de personal</span></label>
+                <label class="check-label"><input type="checkbox" name="problemas" value="Capacitación sin resultado"><span>Capacitación sin resultado</span></label>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="whatsapp">WhatsApp *</label>
-                <input id="whatsapp" type="text" placeholder="09__ ___ ___">
+                <input id="whatsapp" name="whatsapp" type="text" placeholder="09__ ___ ___" required>
               </div>
               <div class="form-group">
                 <label for="correo">Correo electrónico *</label>
-                <input id="correo" type="email" placeholder="correo@empresa.com">
+                <input id="correo" name="email" type="email" placeholder="correo@empresa.com" required>
               </div>
             </div>
 
             <div class="form-group">
               <label for="origen">¿Cómo nos conoció?</label>
-              <select id="origen">
-                <option selected disabled>Seleccione</option>
-                <option>LinkedIn</option>
-                <option>Recomendación</option>
-                <option>Google</option>
-                <option>WhatsApp</option>
-                <option>Evento o conferencia</option>
-                <option>Otro</option>
+              <select id="origen" name="origen">
+                <option value="" selected disabled>Seleccione</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Recomendación">Recomendación</option>
+                <option value="Google">Google</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Evento o conferencia">Evento o conferencia</option>
+                <option value="Otro">Otro</option>
               </select>
             </div>
 
             <button type="submit" class="btn-primary form-submit">Enviar y agendar diagnóstico →</button>
-            <p class="form-note">Sus datos son confidenciales. No compartimos información con terceros.</p>
+            <p class="form-note" id="form-message">Sus datos son confidenciales. No compartimos información con terceros.</p>
           </form>
         </div>
       </div>
@@ -3874,13 +3879,77 @@ document.getElementById('compRows').innerHTML = comp.map(([m,b]) => `
 `).join('');
 
 // ── FORMS ────────────────────────────────────────────────
-function submitForm(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = '✓ Enviado — Le contactamos en menos de 24 horas';
-  btn.style.background = '#065F46';
-  btn.disabled = true;
+const diagnosticoForm = document.getElementById('diagnosticoForm');
+
+if (diagnosticoForm) {
+  diagnosticoForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const btn = diagnosticoForm.querySelector('.form-submit');
+    const msg = document.getElementById('form-message');
+    const checked = diagnosticoForm.querySelectorAll('input[name="problemas"]:checked');
+
+    if (checked.length === 0) {
+      msg.textContent = 'Seleccione al menos 1 problema principal.';
+      msg.style.color = '#B91C1C';
+      return;
+    }
+
+    if (checked.length > 3) {
+      msg.textContent = 'Seleccione máximo 3 problemas principales.';
+      msg.style.color = '#B91C1C';
+      return;
+    }
+
+    const formData = new FormData(diagnosticoForm);
+    const problemas = Array.from(checked).map(item => item.value).join(', ');
+    formData.delete('problemas');
+    formData.append('problemas', problemas);
+
+    const originalText = btn.textContent;
+    const originalBackground = btn.style.background;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    msg.textContent = 'Procesando solicitud...';
+    msg.style.color = '#6B7280';
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        diagnosticoForm.reset();
+        btn.textContent = '✓ Enviado correctamente';
+        btn.style.background = '#065F46';
+        msg.textContent = 'Gracias. Hemos recibido su solicitud y le contactaremos en menos de 24 horas hábiles.';
+        msg.style.color = '#065F46';
+
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = originalText;
+          btn.style.background = originalBackground;
+        }, 4000);
+      } else {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        btn.style.background = originalBackground;
+        msg.textContent = 'No se pudo enviar el formulario. Revise la configuración de Web3Forms.';
+        msg.style.color = '#B91C1C';
+      }
+    } catch (error) {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      btn.style.background = originalBackground;
+      msg.textContent = 'Error de conexión. Intente nuevamente.';
+      msg.style.color = '#B91C1C';
+    }
+  });
 }
+
 function submitWorkbook(e) {
   e.preventDefault();
   const btn = e.target.querySelector('button');
