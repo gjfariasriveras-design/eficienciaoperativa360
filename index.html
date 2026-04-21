@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eficiencia Operativa 360 | Consultoría Operativa Ecuador</title>
 <meta name="description" content="Reducimos costos operativos y mejoramos el control en empresas medianas de Ecuador. 30 intervenciones ejecutivas con resultados medibles.">
-<meta property="og:title" content="Eficiencia Operativa 360 | Control total. Costos a la baja. Decisiones con datos.">
+<meta property="og:title" content="Eficiencia Operativa 360 | Fortalecimiento de la estructura administrativa. Implementación de modelos de medición y reportes ejecutivos. Decisiones con datos.">
 <meta property="og:description" content="30 intervenciones ejecutivas para empresas medianas en Ecuador. Resultados medibles: -18% OPEX · +30% disponibilidad de activos · -25% consumo energético.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://eficienciaoperativa360.com">
@@ -3336,18 +3336,21 @@ footer {
         <input type="hidden" name="subject" value="Nuevo lead de recurso solicitado - EO360">
         <input type="hidden" name="from_name" value="EO360 Web">
         <input type="hidden" name="tipo_formulario" value="Solicitud de recurso">
+        <input type="hidden" name="resource_code" id="resourceCode" value="">
+        <input type="hidden" name="resource_name" id="resourceName" value="">
+        <input type="hidden" name="page_source" value="https://eficienciaoperativa360.com/#workbook">
         <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
-        <select id="recursoSolicitado" name="recurso_solicitado" required>
-          <option value="" selected disabled>Seleccione el recurso que desea descargar</option>
-          <option value="Workbook: Las 10 debilidades críticas">Workbook: Las 10 debilidades críticas</option>
-          <option value="Pack de prompts listos para ejecutar">Pack de prompts listos para ejecutar</option>
-          <option value="Checklist de control para PyMEs">Checklist de control para PyMEs</option>
+        <select id="recursoSolicitado" required>
+          <option value="" selected disabled>Seleccione el recurso que desea abrir</option>
+          <option value="workbook">Workbook: Las 10 debilidades críticas</option>
+          <option value="prompts">Pack de prompts listos para ejecutar</option>
+          <option value="checklist">Checklist de control para PyMEs</option>
         </select>
         <input type="text" id="workbookNombre" name="nombre" placeholder="Su nombre" required>
         <input type="email" id="workbookCorreo" name="email" placeholder="Su correo" required>
         <button type="submit" class="btn-primary">Solicitar recurso →</button>
       </form>
-      <p class="workbook-helper" id="workbook-message">Seleccione un recurso, deje sus datos y el PDF se abrirá en una nueva pestaña. El lead también quedará registrado en su correo.</p>
+      <p class="workbook-helper" id="workbook-message">Seleccione un recurso, deje sus datos y el material se abrirá en una nueva pestaña. El lead también quedará registrado en su correo.</p>
     </div>
   </div>
 </section>
@@ -3976,9 +3979,18 @@ if (workbookForm) {
     const originalText = btn.textContent;
 
     const resourceMap = {
-      'Workbook: Las 10 debilidades críticas': 'eo360_recurso_workbook_10_debilidades.pdf',
-      'Pack de prompts listos para ejecutar': 'eo360_recurso_pack_prompts_ia.pdf',
-      'Checklist de control para PyMEs': 'eo360_recurso_checklist_control_pymes.pdf'
+      workbook: {
+        name: 'Workbook: Las 10 debilidades críticas',
+        url: 'eo360_recurso_workbook_10_debilidades.pdf'
+      },
+      prompts: {
+        name: 'Pack de prompts listos para ejecutar',
+        url: 'eo360_recurso_pack_prompts_ia.pdf'
+      },
+      checklist: {
+        name: 'Checklist de control para PyMEs',
+        url: 'eo360_recurso_checklist_control_pymes.pdf'
+      }
     };
 
     if (!resourceMap[recurso]) {
@@ -3987,28 +3999,35 @@ if (workbookForm) {
       return;
     }
 
+    document.getElementById('resourceCode').value = recurso;
+    document.getElementById('resourceName').value = resourceMap[recurso].name;
+
     btn.disabled = true;
     btn.textContent = 'Enviando...';
-    msg.textContent = 'Procesando solicitud y abriendo PDF...';
+    msg.textContent = 'Procesando solicitud y abriendo recurso...';
     msg.style.color = '#6B7280';
 
     try {
       const formData = new FormData(workbookForm);
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
         body: formData
       });
 
       const result = await response.json();
 
-      if (result.success) {
+      if (response.ok && result.success) {
         workbookForm.reset();
-        btn.textContent = '✓ PDF abierto';
+        btn.textContent = '✓ Recurso abierto';
         btn.style.background = '#065F46';
-        msg.textContent = 'Lead registrado correctamente. El PDF se abrirá en una nueva pestaña.';
+        msg.textContent = 'Lead registrado correctamente. El recurso se abrirá en una nueva pestaña.';
         msg.style.color = '#065F46';
 
-        window.open(resourceMap[recurso], '_blank');
+        window.open(resourceMap[recurso].url, '_blank', 'noopener');
 
         setTimeout(() => {
           btn.disabled = false;
@@ -4018,7 +4037,7 @@ if (workbookForm) {
       } else {
         btn.disabled = false;
         btn.textContent = originalText;
-        msg.textContent = 'No se pudo enviar la solicitud. Revise la configuración de Web3Forms.';
+        msg.textContent = result.message ? result.message : 'No se pudo enviar la solicitud. Revise la configuración de Web3Forms.';
         msg.style.color = '#B91C1C';
       }
     } catch (error) {
