@@ -44,24 +44,29 @@
     .cta-block{padding:30px;border-radius:24px;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);color:#fff;box-shadow:var(--shadow);display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}.cta-block h3{font-family:var(--font-h);font-size:clamp(28px,3.5vw,40px);line-height:1.14;margin-bottom:12px}.cta-block p{color:rgba(255,255,255,.86);font-size:15px;line-height:1.75}.cta-actions{display:flex;flex-direction:column;gap:12px}.cta-actions .btn-secondary{color:#fff;border-color:rgba(255,255,255,.28)}.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}footer{padding:36px 0 54px;color:var(--gray);text-align:center;font-size:13px}
     @media(max-width:1023px){.hero-grid,.service-box,.case-layout,.cta-block{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.modes-grid{grid-template-columns:1fr}.logos-inner{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:639px){.section{padding:66px 0}.hero{padding-top:42px}.hero-points,.grid3,.grid4,.logos-inner,.mini-kpis,.contact-grid{grid-template-columns:1fr}.nav-inner{height:auto;padding:16px 0;align-items:flex-start;flex-direction:column}.nav-actions{width:100%}.nav-actions .btn{width:100%}.hero-actions{flex-direction:column}.hero-actions .btn,.cta-actions .btn{width:100%}.container{padding:0 18px}}
+  </style>
+
   <style>
 /* ========================= */
 /* FIX ALINEACIÓN TARJETAS   */
 /* ========================= */
 
 .grid4{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap:18px;
-  align-items:stretch;
+  display:grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  gap:18px !important;
+  align-items:stretch !important;
+  width:100% !important;
 }
 
 .grid4 .card{
+  width:100% !important;
+  max-width:100% !important;
   height:100%;
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
-  min-height:190px; /* controla altura uniforme */
+  min-height:170px; /* controla altura uniforme sin romper el contenedor */
 }
 
 .grid4 .card h4{
@@ -77,15 +82,9 @@
 }
 
 /* RESPONSIVE */
-@media (max-width:1023px){
-  .grid4{
-    grid-template-columns:1fr 1fr;
-  }
-}
-
 @media (max-width:639px){
   .grid4{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr !important;
   }
 }
 </style>
