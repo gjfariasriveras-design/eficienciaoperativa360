@@ -44,129 +44,51 @@
     .cta-block{padding:30px;border-radius:24px;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);color:#fff;box-shadow:var(--shadow);display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}.cta-block h3{font-family:var(--font-h);font-size:clamp(28px,3.5vw,40px);line-height:1.14;margin-bottom:12px}.cta-block p{color:rgba(255,255,255,.86);font-size:15px;line-height:1.75}.cta-actions{display:flex;flex-direction:column;gap:12px}.cta-actions .btn-secondary{color:#fff;border-color:rgba(255,255,255,.28)}.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}footer{padding:36px 0 54px;color:var(--gray);text-align:center;font-size:13px}
     @media(max-width:1023px){.hero-grid,.service-box,.case-layout,.cta-block{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.modes-grid{grid-template-columns:1fr}.logos-inner{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:639px){.section{padding:66px 0}.hero{padding-top:42px}.hero-points,.grid3,.grid4,.logos-inner,.mini-kpis,.contact-grid{grid-template-columns:1fr}.nav-inner{height:auto;padding:16px 0;align-items:flex-start;flex-direction:column}.nav-actions{width:100%}.nav-actions .btn{width:100%}.hero-actions{flex-direction:column}.hero-actions .btn,.cta-actions .btn{width:100%}.container{padding:0 18px}}
-  </style>
+  <style>
+/* ========================= */
+/* FIX ALINEACIÓN TARJETAS   */
+/* ========================= */
 
-  <style id="eo360-landing-fixes">
-    /* FIX EO360: layout más compacto y alineado */
-    .hero-grid{
-      align-items:center !important;
-      grid-template-columns:minmax(0,1.08fr) minmax(320px,.82fr) !important;
-      gap:36px !important;
-    }
+.grid4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  align-items:stretch;
+}
 
-    .hero-card{
-      height:auto !important;
-      align-self:center !important;
-    }
+.grid4 .card{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  min-height:190px; /* controla altura uniforme */
+}
 
-    .hero-card-body{
-      padding:22px 24px 24px !important;
-      gap:14px !important;
-    }
+.grid4 .card h4{
+  min-height:48px;
+  display:flex;
+  align-items:flex-start;
+}
 
-    .mini-kpis{
-      gap:12px !important;
-      margin-bottom:0 !important;
-    }
+.grid4 .card p{
+  flex-grow:1;
+  display:flex;
+  align-items:flex-start;
+}
 
-    .mini-kpi{
-      min-height:88px !important;
-      padding:14px !important;
-      display:flex !important;
-      flex-direction:column !important;
-      justify-content:center !important;
-    }
+/* RESPONSIVE */
+@media (max-width:1023px){
+  .grid4{
+    grid-template-columns:1fr 1fr;
+  }
+}
 
-    .mini-kpi .value{
-      font-size:25px !important;
-      margin-bottom:6px !important;
-    }
-
-    .mini-kpi .label{
-      font-size:12px !important;
-      line-height:1.35 !important;
-    }
-
-    .hero-card-note{
-      margin-top:4px !important;
-      padding:14px 16px !important;
-    }
-
-    .case-layout{
-      align-items:start !important;
-      grid-template-columns:1fr 1fr !important;
-    }
-
-    .case-box{
-      height:auto !important;
-      min-height:0 !important;
-      align-self:start !important;
-      padding:26px !important;
-    }
-
-    .case-list{
-      gap:8px !important;
-      margin-bottom:0 !important;
-    }
-
-    .case-list li{
-      line-height:1.5 !important;
-    }
-
-    .case-callout{
-      margin-top:18px !important;
-      margin-bottom:0 !important;
-    }
-
-    .correction-grid{
-      gap:12px !important;
-    }
-
-    .correction-item{
-      padding:14px 16px !important;
-    }
-
-    .service-box{
-      align-items:start !important;
-    }
-
-    .card{
-      height:auto !important;
-    }
-
-    .grid4 .card{
-      min-height:130px !important;
-    }
-
-    .contact-grid .card p{
-      word-break:normal !important;
-      overflow-wrap:normal !important;
-    }
-
-    @media (max-width:1023px){
-      .hero-grid{
-        grid-template-columns:1fr !important;
-      }
-      .case-layout{
-        grid-template-columns:1fr !important;
-      }
-    }
-
-    @media (max-width:639px){
-      .hero-card-top h3{
-        font-size:22px !important;
-      }
-      .mini-kpis{
-        grid-template-columns:1fr 1fr !important;
-      }
-      .mini-kpi{
-        min-height:82px !important;
-      }
-      .case-box{
-        padding:22px !important;
-      }
-    }
-  </style>
+@media (max-width:639px){
+  .grid4{
+    grid-template-columns:1fr;
+  }
+}
+</style>
 
 </head>
 <body>
