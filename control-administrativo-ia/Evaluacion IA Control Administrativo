@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Evaluación IA aplicada a control administrativo y trazabilidad operativa · EO360</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#1F3A5F; --navy-dark:#172E4D; --navy-10:#F0F4F9; --navy-20:#DDE7F0;
+  --gold:#D4AF37; --gold-2:#B88A1B;
+  --text:#1A1F2E; --text-2:#374151; --gray:#6B7280;
+  --border:#E8ECF0; --lt:#F7F9FC;
+  --ok:#0F766E; --ok-bg:#ECFDF5; --ok-border:#A7F3D0;
+  --warn:#92400E; --warn-bg:#FFFBEB; --warn-border:#FDE68A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Open Sans',sans-serif;color:var(--text);background:#fff;line-height:1.65;padding-top:64px}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.hero{padding:52px 0 30px;background:linear-gradient(180deg,#fff 0%,var(--lt) 100%);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-30px;width:280px;height:280px;background:radial-gradient(circle,rgba(212,175,55,.18) 0%,rgba(212,175,55,.04) 45%,transparent 75%);pointer-events:none}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:999px;background:rgba(31,58,95,.06);border:1px solid rgba(31,58,95,.08);font:800 11px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-2));flex-shrink:0}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;margin:0}
+h1{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.03em;margin-bottom:12px;color:var(--text)}
+h2{font-size:24px;color:var(--navy);margin-bottom:10px;line-height:1.2}
+h3{font-size:18px;color:var(--navy);margin-bottom:8px;line-height:1.25}
+.sub{font-size:17px;color:var(--gray);max-width:900px;line-height:1.75}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.meta-box{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 4px 14px rgba(31,58,95,.05)}
+.meta-box small{display:block;font:800 10px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.62;margin-bottom:7px}
+.meta-box strong{display:block;font:700 16px 'Montserrat',sans-serif;color:var(--navy)}
+.section{padding:40px 0}
+.block{background:#fff;border:1px solid var(--border);border-radius:20px;padding:26px;margin-bottom:20px;box-shadow:0 8px 24px rgba(31,58,95,.05)}
+.block-label{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:rgba(31,58,95,.07);border:1px solid rgba(31,58,95,.09);font:800 10px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.block-label .dot-label{width:6px;height:6px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-2))}
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field-group label{display:block;font:700 11px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:7px;opacity:.75}
+.field-input{border:1px solid var(--border);border-radius:10px;padding:11px 14px;width:100%;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--text);background:#fff;min-height:44px}
+.instructions{background:var(--navy-10);border:1px solid var(--navy-20);border-left:4px solid var(--gold);border-radius:0 14px 14px 0;padding:16px 20px}
+.instructions p{margin:0 0 8px;font-size:14px;color:var(--text-2);line-height:1.7}
+.instructions li{font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:4px}
+.method-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);color:#fff;padding:8px 16px;border-radius:999px;font:700 12px 'Montserrat',sans-serif;margin-bottom:18px}
+.method-badge span{background:rgba(212,175,55,.25);border:1px solid rgba(212,175,55,.4);color:var(--gold);padding:2px 9px;border-radius:999px;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.part-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.part-num{width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;font:800 16px 'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.part-header-text h2{margin-bottom:3px;font-size:20px}
+.part-header-text p{font-size:13px;color:var(--gray);margin:0}
+.part-value{margin-left:auto;background:var(--navy-10);border:1px solid var(--navy-20);border-radius:999px;padding:6px 14px;font:700 12px 'Montserrat',sans-serif;color:var(--navy);white-space:nowrap}
+.q{padding:20px 0;border-bottom:1px solid rgba(31,58,95,.07)}
+.q:last-child{border-bottom:none;padding-bottom:0}
+.q-header{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.q-num{width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--navy-dark);font:800 13px 'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.q-title{font:600 15px 'Open Sans',sans-serif;color:var(--text);line-height:1.55;flex:1}
+.q-title strong{font-weight:700;color:var(--navy)}
+.scenario{background:var(--navy-10);border:1px solid var(--navy-20);border-radius:12px;padding:14px 16px;margin:10px 0 14px;font-size:14px;color:var(--text-2);line-height:1.7;position:relative}
+.scenario::before{content:"📋 Situación";display:block;font:700 9px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.65;margin-bottom:6px}
+.resp-area{border:1px dashed #cbd5e1;border-radius:12px;min-height:80px;padding:12px 14px;color:var(--text-2);background:#fcfdff;font-family:'Open Sans',sans-serif;font-size:13px;line-height:1.65;margin-top:10px;resize:vertical;width:100%}
+.resp-area.tall{min-height:115px}
+.resp-label{font:700 10px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:5px;display:block}
+.opts{display:grid;gap:7px;margin-top:10px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1px solid var(--border);border-radius:12px;background:#fff;cursor:pointer;font-size:14px;color:var(--text-2);line-height:1.5;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--navy);background:var(--navy-10)}
+.opt input[type=radio]{flex-shrink:0;margin-top:2px;accent-color:var(--navy)}
+.opt-letter{font:700 11px 'Montserrat',sans-serif;color:var(--navy);min-width:18px;flex-shrink:0;margin-top:1px}
+.rank-list{display:grid;gap:8px;margin-top:10px}
+.rank-item{display:flex;align-items:center;gap:12px;padding:11px 14px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--text-2)}
+.rank-box{width:32px;height:32px;border:2px solid var(--navy-20);border-radius:8px;display:flex;align-items:center;justify-content:center;font:700 13px 'Montserrat',sans-serif;color:var(--gray);flex-shrink:0}
+.yn-row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.yn-opt{display:flex;align-items:center;gap:8px;padding:9px 18px;border:1px solid var(--border);border-radius:999px;font:600 13px 'Open Sans',sans-serif;color:var(--text-2);cursor:pointer;transition:all .15s}
+.yn-opt:hover{border-color:var(--navy);background:var(--navy-10);color:var(--navy)}
+.yn-opt input{display:none}
+.selfcheck{display:grid;gap:10px;margin-top:12px}
+.selfcheck-row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:11px 14px;background:var(--lt);border:1px solid var(--border);border-radius:12px}
+.selfcheck-row:first-child{background:var(--navy-10);border-color:var(--navy-20);font-weight:700}
+.selfcheck-text{font-size:13px;color:var(--text-2);line-height:1.5}
+.selfcheck-scale{display:flex;gap:6px}
+.sc-btn{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:#fff;font:700 11px 'Montserrat',sans-serif;color:var(--gray);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.sc-btn:hover{border-color:var(--navy);background:var(--navy-10);color:var(--navy)}
+.sc-btn.active{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important;transform:scale(1.1)}
+.score-table{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.score-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;box-shadow:0 3px 10px rgba(31,58,95,.04)}
+.score-box .range{font:800 16px 'Montserrat',sans-serif;color:var(--navy);display:block;margin-bottom:5px}
+.score-box .interp{font-size:12px;color:var(--gray);line-height:1.4}
+.result-field{background:var(--lt);border:1px solid var(--border);border-radius:12px;padding:14px 16px;min-height:56px;margin-top:12px}
+.commit-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.commit-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px}
+.commit-box label{display:block;font:700 10px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);opacity:.7;margin-bottom:7px}
+.commit-input{border:1px dashed #cbd5e1;border-radius:10px;min-height:82px;padding:10px 12px;width:100%;font-family:'Open Sans',sans-serif;font-size:13px;color:var(--text-2);background:#fcfdff;resize:vertical}
+.footer{padding:28px 0 44px;text-align:center;border-top:1px solid var(--border)}
+.footer p{font-size:13px;color:var(--gray);margin:4px 0}
+.footer strong{color:var(--navy);font-family:'Montserrat',sans-serif}
+.opt.selected-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important}
+.opt.selected-correct .opt-letter{color:var(--ok)}
+.opt.selected-wrong{border-color:#B91C1C!important;background:#FEF2F2!important}
+.opt.selected-wrong .opt-letter{color:#B91C1C}
+.opt.reveal-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important;font-weight:600}
+.yn-opt.selected-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important;color:var(--ok)!important;font-weight:700}
+.yn-opt.selected-wrong{border-color:#B91C1C!important;background:#FEF2F2!important;color:#B91C1C!important}
+.yn-opt.reveal-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important;color:var(--ok)!important;font-weight:700}
+.opt.selected-participant,.yn-opt.selected-participant{border-color:var(--navy)!important;background:var(--navy-10)!important;color:var(--navy)!important;font-weight:700}
+.score-panel{position:fixed;bottom:24px;right:24px;z-index:200;background:var(--navy);color:#fff;border-radius:20px;padding:0;box-shadow:0 20px 60px rgba(31,58,95,.35);min-width:290px;overflow:hidden;transition:all .3s ease}
+.score-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer}
+.score-panel-header h4{font:800 11px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);margin:0}
+.score-panel-toggle{font-size:11px;color:rgba(255,255,255,.5);padding:2px 8px;background:rgba(255,255,255,.08);border-radius:999px;cursor:pointer}
+.score-panel-body{padding:12px 18px 18px}
+.score-panel.collapsed .score-panel-body{display:none}
+.score-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.score-row:last-child{border:none}
+.score-row-label{font-size:12px;color:rgba(255,255,255,.65);font-family:'Montserrat',sans-serif;font-weight:600}
+.score-row-val{font:800 14px 'Montserrat',sans-serif;color:var(--gold)}
+.score-total{margin-top:12px;padding-top:12px;border-top:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:space-between}
+.score-total-label{font:800 11px 'Montserrat',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.score-total-val{font:800 32px 'Montserrat',sans-serif;color:var(--gold);line-height:1}
+.score-interp{margin-top:10px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.08);font-size:12px;color:rgba(255,255,255,.85);line-height:1.5;text-align:center;min-height:36px}
+.score-bar{height:6px;background:rgba(255,255,255,.12);border-radius:999px;margin-top:10px;overflow:hidden}
+.score-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px;transition:width .6s ease;width:0%}
+.eo360-mode-bar{position:fixed;top:0;left:0;right:0;z-index:9999;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 8px 24px rgba(31,58,95,.12)}
+.eo360-mode-inner{max-width:1100px;margin:0 auto;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.eo360-mode-label{font:800 12px 'Montserrat',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--navy)}
+.eo360-mode-label span{display:inline-block;width:9px;height:9px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-2));margin-right:8px}
+.eo360-mode-actions{display:flex;gap:10px;flex-wrap:wrap}
+.eo360-btn{border:none;border-radius:999px;padding:10px 16px;cursor:pointer;font:800 11px 'Montserrat',sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);box-shadow:0 8px 20px rgba(31,58,95,.16)}
+.eo360-btn.gold{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-2) 100%);color:var(--navy-dark)}
+.eo360-btn.light{background:#fff;color:var(--navy);border:1px solid var(--navy-20);box-shadow:none}
+.eo360-bottom-bar{position:fixed;right:24px;bottom:24px;z-index:9999;display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.evaluator-only{display:none!important}
+body.evaluator-mode .evaluator-only{display:inline-flex!important}
+body.evaluator-mode .participant-only{display:none!important}
+body:not(.evaluator-mode) .score-panel{display:none!important}
+body.evaluator-mode .score-panel{display:block!important}
+.eo360-callout{background:var(--navy-10);border:1px solid var(--navy-20);border-left:4px solid var(--gold);border-radius:0 14px 14px 0;padding:14px 18px;margin-top:16px;color:var(--text-2);font-size:14px;line-height:1.65}
+.eo360-callout strong{color:var(--navy)}
+.eo360-saved{display:none;background:var(--ok-bg);border:1px solid var(--ok-border);border-left:4px solid var(--ok);border-radius:0 14px 14px 0;padding:14px 18px;margin-top:14px;color:#065f46;font-size:14px;line-height:1.65}
+.eo360-saved.show{display:block}
+.print-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.print-summary-box{background:var(--lt);border:1px solid var(--border);border-radius:14px;padding:14px}
+.print-summary-box small{display:block;font:800 9px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.65;margin-bottom:5px}
+.print-summary-box strong{display:block;font:800 16px 'Montserrat',sans-serif;color:var(--navy)}
+.print-summary-box.full{grid-column:1/-1}
+#printSummaryBlock .print-summary-box.full small{display:block;margin-bottom:8px}
+#printSummaryBlock .print-summary-box.full strong{display:block;font-size:15px;line-height:1.45;white-space:normal}
+#psInterp{display:block;margin-top:2px}
+body:not(.evaluator-mode) #printSummaryBlock{display:none!important}
+.confidential-note{margin-top:14px;padding:12px 14px;border-radius:12px;background:#F0F4F9;border:1px solid #DDE7F0;border-left:4px solid #D4AF37;color:#374151;font-size:13px;line-height:1.55}
+.confidential-note strong{color:#1F3A5F;font-family:'Montserrat',sans-serif}
+@media(max-width:900px){.meta,.fields-grid,.score-table,.commit-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){body{padding-top:120px}.eo360-mode-inner{align-items:flex-start;flex-direction:column;padding:10px 16px}.eo360-mode-actions{width:100%}.eo360-btn{flex:1}.eo360-bottom-bar{left:12px;right:12px;bottom:12px}.eo360-bottom-bar .eo360-btn{flex:1 1 auto}}
+@media(max-width:640px){.container{padding:0 16px}h1{font-size:30px}.meta,.fields-grid,.score-table,.commit-grid,.print-summary-grid{grid-template-columns:1fr}.selfcheck-row{grid-template-columns:1fr;gap:8px}.part-value{display:none}.score-panel{bottom:12px;right:12px;left:12px;min-width:0}}
+@media print{
+  .score-panel,.eo360-mode-bar,.eo360-bottom-bar,.eo360-callout,.eo360-saved,.participant-only,.evaluator-only{display:none!important}
+  body{padding-top:0!important;background:#fff!important}
+  .hero{padding:18px 0 12px!important}
+  .section{padding:18px 0!important}
+  .block{box-shadow:none!important;break-inside:avoid-page;page-break-inside:avoid;border-radius:12px!important;margin-bottom:14px!important}
+  .q{break-inside:avoid-page;page-break-inside:avoid}
+  .field-input,.resp-area,.commit-input{border:1px solid #cbd5e1!important;color:#111827!important;background:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .confidential-note{display:block!important;break-inside:avoid!important;page-break-inside:avoid!important;font-size:10.5px!important;line-height:1.4!important;padding:8px 10px!important;margin-top:8px!important}
+}
+</style>
+</head>
+<body>
+
+<div class="eo360-mode-bar">
+  <div class="eo360-mode-inner">
+    <div class="eo360-mode-label" id="eo360ModeLabel"><span></span>MODO EVALUADO ACTIVO</div>
+    <div class="eo360-mode-actions">
+      <button class="eo360-btn gold participant-only" type="button" onclick="saveEvaluation()">💾 Guardar evaluación</button>
+      <button class="eo360-btn light" type="button" onclick="evaluatorLogin()">🔐 Evaluador</button>
+      <button class="eo360-btn evaluator-only" type="button" onclick="printResults()">🖨️ Imprimir resultados</button>
+      <button class="eo360-btn light evaluator-only" type="button" onclick="returnToParticipantMode()">👤 Volver a evaluado</button>
+    </div>
+  </div>
+</div>
+<div class="eo360-bottom-bar">
+  <button class="eo360-btn gold participant-only" type="button" onclick="saveEvaluation()">💾 Guardar evaluación</button>
+  <button class="eo360-btn light" type="button" onclick="evaluatorLogin()">🔐 Evaluador</button>
+  <button class="eo360-btn evaluator-only" type="button" onclick="printResults()">🖨️ Imprimir resultados</button>
+</div>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow"><span class="dot"></span>EO360 · Diagnóstico de control administrativo con IA</div>
+    <h1>Evaluación Diagnóstica de IA aplicada a control administrativo y trazabilidad operativa</h1>
+    <p class="sub">Instrumento individual y de discusión guiada para evaluar comprensión práctica de seguimiento administrativo, trazabilidad, reportes ejecutivos, prompts, dashboards y uso responsable de inteligencia artificial en el control diario.</p>
+    <div class="meta">
+      <div class="meta-box"><small>Programa</small><strong>IA aplicada a control administrativo</strong></div>
+      <div class="meta-box"><small>Metodología</small><strong>Diagnóstico + Aplicación</strong></div>
+      <div class="meta-box"><small>Duración</small><strong>25 a 35 minutos</strong></div>
+      <div class="meta-box"><small>Uso</small><strong>Individual + Grupal</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<div class="container">
+
+<div class="block">
+  <div class="block-label"><span class="dot-label"></span>Datos del participante</div>
+  <div class="fields-grid">
+    <div class="field-group"><label for="nombre">Nombre completo</label><input class="field-input" id="nombre" placeholder="Escriba su nombre y apellido" type="text"/></div>
+    <div class="field-group"><label for="cargo">Cargo actual</label><input class="field-input" id="cargo" placeholder="Asistente, coordinador, jefe, analista..." type="text"/></div>
+    <div class="field-group"><label for="area">Área / proceso</label><input class="field-input" id="area" placeholder="Administración, RRHH, operaciones, compras..." type="text"/></div>
+    <div class="field-group"><label for="fecha">Fecha</label><input class="field-input" id="fecha" placeholder="dd / mm / aaaa" type="text"/></div>
+  </div>
+</div>
+
+<div class="block">
+  <div class="block-label"><span class="dot-label"></span>Instrucciones para el participante</div>
+  <div class="instructions">
+    <p>Esta evaluación mide comprensión práctica, criterio administrativo y capacidad para aplicar IA en seguimiento, control, trazabilidad, reportes, prompts y dashboards.</p>
+    <ul>
+      <li>Responda pensando en situaciones reales de su área o puesto de trabajo.</li>
+      <li>Las preguntas combinan situaciones, autoevaluación, reflexión, verdadero/falso y compromisos.</li>
+      <li>El puntaje será revisado por el evaluador al finalizar.</li>
+      <li>Al terminar, presione <strong>Guardar evaluación</strong>.</li>
+    </ul>
+  </div>
+  <div class="method-badge" style="margin-top:16px"><span>Metodología</span> Diagnóstico · Discusión guiada · Autoevaluación · Plan de acción</div>
+
+  <div class="eo360-callout participant-only">
+    <strong>Modo evaluado:</strong> responda la evaluación. Las respuestas correctas y el puntaje están ocultos. Al finalizar, presione <strong>Guardar evaluación</strong>.
+  </div>
+  <div class="eo360-callout evaluator-only" style="background:var(--ok-bg);border-color:var(--ok-border);border-left-color:var(--ok);">
+    <strong>Modo evaluador activo:</strong> ahora se muestran respuestas correctas, respuestas incorrectas, puntaje e interpretación. Puede imprimir los resultados.
+  </div>
+  <div class="eo360-saved" id="eo360Saved">✅ Evaluación guardada. Ahora el facilitador puede ingresar al modo evaluador con clave y revisar los resultados.</div>
+</div>
+
+<div class="block">
+  <div class="part-header">
+    <div class="part-num">A</div>
+    <div class="part-header-text"><h2>Diagnóstico de Situaciones Reales</h2><p>Seleccione la respuesta más profesional según el enfoque EO360.</p></div>
+    <div class="part-value">6 preguntas · Scoring</div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">1</div><div class="q-title">Un equipo tiene pendientes dispersos entre WhatsApp, correos, Excel y memoria personal. <strong>¿Cuál es el primer paso correcto?</strong></div></div>
+    <div class="scenario">Nadie tiene una fuente única de verdad y los reportes se arman manualmente cada semana.</div>
+    <div class="opts">
+      <label class="opt"><input name="q1" type="radio"/><span class="opt-letter">A</span>Pedir a todos que envíen más mensajes de avance.</label>
+      <label class="opt"><input name="q1" type="radio"/><span class="opt-letter">B</span>Centralizar pendientes con responsable, fecha, estado, riesgo y evidencia.</label>
+      <label class="opt"><input name="q1" type="radio"/><span class="opt-letter">C</span>Eliminar todos los pendientes anteriores para empezar de cero.</label>
+      <label class="opt"><input name="q1" type="radio"/><span class="opt-letter">D</span>Usar IA para inventar estados faltantes.</label>
+    </div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">2</div><div class="q-title">Para EO360, <strong>¿cuándo existe control administrativo real?</strong></div></div>
+    <div class="opts">
+      <label class="opt"><input name="q2" type="radio"/><span class="opt-letter">A</span>Cuando hay muchas reuniones de seguimiento.</label>
+      <label class="opt"><input name="q2" type="radio"/><span class="opt-letter">B</span>Cuando cada pendiente tiene responsable, fecha, estado, riesgo, próximo paso y evidencia.</label>
+      <label class="opt"><input name="q2" type="radio"/><span class="opt-letter">C</span>Cuando el jefe recuerda verbalmente las tareas.</label>
+      <label class="opt"><input name="q2" type="radio"/><span class="opt-letter">D</span>Cuando se tiene un Excel aunque esté incompleto.</label>
+    </div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">3</div><div class="q-title">Un reporte semanal tarda 3 horas porque se consolida manualmente. <strong>¿Dónde aporta más valor la IA?</strong></div></div>
+    <div class="opts">
+      <label class="opt"><input name="q3" type="radio"/><span class="opt-letter">A</span>En ordenar información dispersa, resumir avances, detectar alertas y estructurar un reporte ejecutivo.</label>
+      <label class="opt"><input name="q3" type="radio"/><span class="opt-letter">B</span>En tomar decisiones sin validar información.</label>
+      <label class="opt"><input name="q3" type="radio"/><span class="opt-letter">C</span>En reemplazar al responsable operativo.</label>
+      <label class="opt"><input name="q3" type="radio"/><span class="opt-letter">D</span>En eliminar la necesidad de seguimiento.</label>
+    </div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">4</div><div class="q-title">Un prompt dice: “Ordena estas tareas y dime cuáles son importantes”. <strong>¿Cuál es su principal debilidad?</strong></div></div>
+    <div class="scenario">El resultado sale ambiguo, sin formato y requiere mucha edición.</div>
+    <div class="opts">
+      <label class="opt"><input name="q4" type="radio"/><span class="opt-letter">A</span>No tiene contexto, criterios, formato de salida ni alertas definidas.</label>
+      <label class="opt"><input name="q4" type="radio"/><span class="opt-letter">B</span>Es demasiado largo y técnico.</label>
+      <label class="opt"><input name="q4" type="radio"/><span class="opt-letter">C</span>Está muy orientado a dashboard.</label>
+      <label class="opt"><input name="q4" type="radio"/><span class="opt-letter">D</span>No incluye colores corporativos.</label>
+    </div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">5</div><div class="q-title">En un dashboard de control administrativo, <strong>¿qué indicador muestra mejor riesgo operativo inmediato?</strong></div></div>
+    <div class="opts">
+      <label class="opt"><input name="q5" type="radio"/><span class="opt-letter">A</span>Cantidad de correos enviados.</label>
+      <label class="opt"><input name="q5" type="radio"/><span class="opt-letter">B</span>Alertas activas por tareas vencidas, sin avance o sin responsable.</label>
+      <label class="opt"><input name="q5" type="radio"/><span class="opt-letter">C</span>Número de reuniones realizadas.</label>
+      <label class="opt"><input name="q5" type="radio"/><span class="opt-letter">D</span>Total de archivos guardados.</label>
+    </div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">6</div><div class="q-title">La IA detecta que falta fecha compromiso en varios pendientes. <strong>¿Qué debe hacer el responsable?</strong></div></div>
+    <div class="opts">
+      <label class="opt"><input name="q6" type="radio"/><span class="opt-letter">A</span>Permitir que la IA invente fechas razonables.</label>
+      <label class="opt"><input name="q6" type="radio"/><span class="opt-letter">B</span>Completar o validar la información faltante con los responsables reales antes de reportar.</label>
+      <label class="opt"><input name="q6" type="radio"/><span class="opt-letter">C</span>Eliminar esos pendientes del reporte.</label>
+      <label class="opt"><input name="q6" type="radio"/><span class="opt-letter">D</span>Reportarlos como cerrados para no generar alerta.</label>
+    </div>
+  </div>
+</div>
+
+<div class="block">
+  <div class="part-header">
+    <div class="part-num">B</div>
+    <div class="part-header-text"><h2>Autoevaluación de Competencias de Control Administrativo con IA</h2><p>Escala: 1 = Nunca o casi nunca · 2 = A veces · 3 = Con frecuencia · 4 = Siempre o casi siempre.</p></div>
+    <div class="part-value">10 competencias</div>
+  </div>
+  <div class="selfcheck">
+    <div class="selfcheck-row"><div class="selfcheck-text">Competencia aplicada al seguimiento administrativo</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Centralizo pendientes con responsable, fecha, estado y próximo paso.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Distingo seguimiento, control administrativo, trazabilidad y reporte ejecutivo.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Identifico tareas atrasadas, bloqueadas o sin responsable asignado.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Uso IA con rol, contexto, criterios, formato de salida y restricciones claras.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Valido datos antes de convertirlos en reporte o alerta ejecutiva.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Genero reportes semanales con estado, prioridad, riesgo y próximos pasos.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Trabajo con una matriz base de seguimiento administrativo.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Uso indicadores como pendientes trazados, cerrados, tasa de cierre y alertas activas.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Transformo información dispersa en dashboard o reporte claro para jefatura.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+    <div class="selfcheck-row"><div class="selfcheck-text">Mantengo trazabilidad con evidencia de avance o cierre.</div><div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div></div>
+  </div>
+  <div class="score-table" style="margin-top:18px">
+    <div class="score-box"><span class="range">36 – 40</span><span class="interp">Alta madurez. Puede aplicar IA con criterio de control administrativo.</span></div>
+    <div class="score-box"><span class="range">26 – 35</span><span class="interp">Buen dominio. Requiere consolidar matriz, responsables y KPIs.</span></div>
+    <div class="score-box"><span class="range">16 – 25</span><span class="interp">Nivel en desarrollo. Priorizar trazabilidad, prompts y dashboard básico.</span></div>
+    <div class="score-box"><span class="range">10 – 15</span><span class="interp">Requiere acompañamiento. Riesgo de seguimiento disperso y reportes débiles.</span></div>
+  </div>
+  <div style="margin-top:18px"><span class="resp-label">Puntaje total autoevaluación:</span><div class="result-field"></div></div>
+</div>
+
+<div class="block">
+  <div class="part-header">
+    <div class="part-num">C</div>
+    <div class="part-header-text"><h2>Reflexión Abierta — Aplicación al Proceso Real</h2><p>Responda con sus propias palabras. Estas preguntas serán punto de partida para discusión y mejora.</p></div>
+    <div class="part-value">5 preguntas abiertas</div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">7</div><div class="q-title">Piense en su área. <strong>¿Dónde se pierde más trazabilidad actualmente?</strong></div></div>
+    <span class="resp-label">Su respuesta:</span><textarea class="resp-area tall" placeholder="Puede ser WhatsApp, correos, Excel, falta de responsable, fechas no definidas, falta de evidencia..."></textarea>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">8</div><div class="q-title"><strong>Escriba un prompt débil y luego mejórelo</strong> para ordenar pendientes, alertas o reportes semanales.</div></div>
+    <div class="fields-grid" style="margin-top:10px">
+      <div><span class="resp-label">Prompt débil:</span><textarea class="resp-area" placeholder='Ej: "Ordena estas tareas"...'></textarea></div>
+      <div><span class="resp-label">Prompt mejorado:</span><textarea class="resp-area" placeholder="Rol · contexto · criterios · responsables · estado · riesgo · tabla de salida..."></textarea></div>
+    </div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">9</div><div class="q-title">Ordene de mayor a menor (1 = más frecuente) los principales <strong>problemas de control administrativo</strong> que reconoce:</div></div>
+    <div class="rank-list">
+      <div class="rank-item"><div class="rank-box">__</div> Pendientes dispersos en múltiples canales</div>
+      <div class="rank-item"><div class="rank-box">__</div> Tareas sin responsable claro</div>
+      <div class="rank-item"><div class="rank-box">__</div> Fechas compromiso no definidas o no actualizadas</div>
+      <div class="rank-item"><div class="rank-box">__</div> Reportes tardíos o incompletos</div>
+      <div class="rank-item"><div class="rank-box">__</div> Alertas críticas detectadas tarde</div>
+      <div class="rank-item"><div class="rank-box">__</div> Uso de IA sin validación humana</div>
+    </div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">10</div><div class="q-title"><strong>¿Qué KPI administrativo debería empezar a medir su área desde ahora?</strong> Explique por qué.</div></div>
+    <span class="resp-label">Su respuesta:</span><textarea class="resp-area tall" placeholder="Pendientes trazados, tasa de cierre, alertas activas, cobertura de responsables, tiempo recuperado..."></textarea>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">11</div><div class="q-title"><strong>Construya una mini matriz de seguimiento</strong> con un pendiente real de su área.</div></div>
+    <span class="resp-label">Su respuesta:</span><textarea class="resp-area tall" placeholder="Pendiente · responsable · área · fecha compromiso · estado · riesgo · próximo paso · evidencia..."></textarea>
+  </div>
+</div>
+
+<div class="block">
+  <div class="part-header">
+    <div class="part-num">D</div>
+    <div class="part-header-text"><h2>Verdadero, Falso y ¿Por qué?</h2><p>Marque su respuesta y explique brevemente su razonamiento.</p></div>
+    <div class="part-value">6 afirmaciones · Scoring</div>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">12</div><div class="q-title">"La IA puede ayudar a ordenar pendientes y detectar alertas, pero no debe inventar información faltante."</div></div>
+    <div class="yn-row"><label class="yn-opt"><input name="q12" type="radio"/> Verdadero</label><label class="yn-opt"><input name="q12" type="radio"/> Falso</label><label class="yn-opt"><input name="q12" type="radio"/> Depende del contexto</label></div>
+    <span class="resp-label" style="margin-top:12px">¿Por qué?</span><textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">13</div><div class="q-title">"Un pendiente sin responsable, fecha y evidencia todavía puede considerarse controlado."</div></div>
+    <div class="yn-row"><label class="yn-opt"><input name="q13" type="radio"/> Verdadero</label><label class="yn-opt"><input name="q13" type="radio"/> Falso</label><label class="yn-opt"><input name="q13" type="radio"/> Depende del contexto</label></div>
+    <span class="resp-label" style="margin-top:12px">¿Por qué?</span><textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">14</div><div class="q-title">"Un prompt ejecutivo debe incluir rol, criterios, formato de salida, alertas y restricciones."</div></div>
+    <div class="yn-row"><label class="yn-opt"><input name="q14" type="radio"/> Verdadero</label><label class="yn-opt"><input name="q14" type="radio"/> Falso</label><label class="yn-opt"><input name="q14" type="radio"/> Depende del contexto</label></div>
+    <span class="resp-label" style="margin-top:12px">¿Por qué?</span><textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">15</div><div class="q-title">"El dashboard reemplaza el criterio del responsable administrativo."</div></div>
+    <div class="yn-row"><label class="yn-opt"><input name="q15" type="radio"/> Verdadero</label><label class="yn-opt"><input name="q15" type="radio"/> Falso</label><label class="yn-opt"><input name="q15" type="radio"/> Depende del contexto</label></div>
+    <span class="resp-label" style="margin-top:12px">¿Por qué?</span><textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">16</div><div class="q-title">"La tasa de cierre y las alertas activas ayudan a medir la salud del seguimiento administrativo."</div></div>
+    <div class="yn-row"><label class="yn-opt"><input name="q16" type="radio"/> Verdadero</label><label class="yn-opt"><input name="q16" type="radio"/> Falso</label><label class="yn-opt"><input name="q16" type="radio"/> Depende del contexto</label></div>
+    <span class="resp-label" style="margin-top:12px">¿Por qué?</span><textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+  </div>
+
+  <div class="q"><div class="q-header"><div class="q-num">17</div><div class="q-title">"El reporte ejecutivo debe responder qué está pendiente, quién es responsable, qué está en riesgo y cuál es el próximo paso."</div></div>
+    <div class="yn-row"><label class="yn-opt"><input name="q17" type="radio"/> Verdadero</label><label class="yn-opt"><input name="q17" type="radio"/> Falso</label><label class="yn-opt"><input name="q17" type="radio"/> Depende del contexto</label></div>
+    <span class="resp-label" style="margin-top:12px">¿Por qué?</span><textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+  </div>
+</div>
+
+<div class="block">
+  <div class="part-header">
+    <div class="part-num">E</div>
+    <div class="part-header-text"><h2>Compromisos de Mejora Personal</h2><p>Defina compromisos concretos para aplicar IA con criterio de control administrativo.</p></div>
+    <div class="part-value">Aplicación inmediata</div>
+  </div>
+  <div class="commit-grid">
+    <div class="commit-box"><label>Compromiso 1 · ¿Qué voy a mejorar?</label><textarea class="commit-input" placeholder="Ej: centralizar pendientes en una matriz de seguimiento..."></textarea></div>
+    <div class="commit-box"><label>Compromiso 1 · ¿Cómo lo mediré?</label><textarea class="commit-input" placeholder="Indicador, fecha o evidencia que usaré..."></textarea></div>
+    <div class="commit-box"><label>Compromiso 2 · ¿Qué voy a mejorar?</label><textarea class="commit-input" placeholder="Ej: usar prompts ejecutivos con criterios claros..."></textarea></div>
+    <div class="commit-box"><label>Compromiso 2 · ¿Cómo lo mediré?</label><textarea class="commit-input" placeholder="Reporte generado, horas recuperadas, alertas reducidas..."></textarea></div>
+  </div>
+  <div style="margin-top:20px"><span class="resp-label">Mi principal fortaleza identificada:</span><textarea class="resp-area" placeholder="Lo que ya hago bien y debo consolidar..."></textarea></div>
+  <div style="margin-top:14px"><span class="resp-label">Mi principal área de mejora:</span><textarea class="resp-area" placeholder="La práctica de seguimiento o control que más debo fortalecer..."></textarea></div>
+</div>
+
+<div class="block">
+  <div class="block-label"><span class="dot-label"></span>Feedback del participante sobre el programa</div>
+  <div class="q"><div class="q-header"><div class="q-num" style="background:var(--navy-20);color:var(--navy)">F1</div><div class="q-title">¿Qué parte del programa le resultó más útil para su trabajo?</div></div><textarea class="resp-area" placeholder="Gobierno del control, prompts, dashboard, ejercicio práctico..."></textarea></div>
+  <div class="q"><div class="q-header"><div class="q-num" style="background:var(--navy-20);color:var(--navy)">F2</div><div class="q-title">¿Qué tema le gustaría profundizar más en futuras sesiones?</div></div><textarea class="resp-area" placeholder="Dashboards, reportes ejecutivos, prompts, KPIs, seguimiento multiárea..."></textarea></div>
+  <div class="q"><div class="q-header"><div class="q-num" style="background:var(--navy-20);color:var(--navy)">F3</div><div class="q-title">¿Qué recomendaría para mejorar la dinámica del programa?</div></div><textarea class="resp-area" placeholder="Sugerencias sobre formato, duración, ejemplos, ejercicios..."></textarea></div>
+  <div class="q" style="border-bottom:none;padding-bottom:0"><div class="q-header"><div class="q-num" style="background:var(--navy-20);color:var(--navy)">F4</div><div class="q-title">¿Qué otro tema administrativo, operativo o de IA le gustaría desarrollar?</div></div><textarea class="resp-area" placeholder="Otros programas, habilidades o procesos que quiera fortalecer..."></textarea></div>
+</div>
+
+<div class="block" id="printSummaryBlock">
+  <div class="block-label"><span class="dot-label"></span>Resumen para impresión de resultados</div>
+  <div class="print-summary-grid">
+    <div class="print-summary-box"><small>Participante</small><strong id="psNombre">—</strong></div>
+    <div class="print-summary-box"><small>Cargo</small><strong id="psCargo">—</strong></div>
+    <div class="print-summary-box"><small>Área / proceso</small><strong id="psArea">—</strong></div>
+    <div class="print-summary-box"><small>Fecha</small><strong id="psFecha">—</strong></div>
+    <div class="print-summary-box"><small>Parte A</small><strong id="psScoreA">0 / 6</strong></div>
+    <div class="print-summary-box"><small>Parte B</small><strong id="psScoreB">0 / 40</strong></div>
+    <div class="print-summary-box"><small>Parte D</small><strong id="psScoreD">0 / 6</strong></div>
+    <div class="print-summary-box"><small>Total</small><strong id="psScoreTotal">0 / 52</strong></div>
+    <div class="print-summary-box full"><small>Interpretación</small><strong id="psInterp">Complete las respuestas para ver el resultado.</strong></div>
+  </div>
+  <div class="confidential-note" id="confidentialReportNote">
+    <strong>Confidencialidad del reporte:</strong> este reporte de resultados es de uso exclusivo del área de Recursos Humanos / Talento Humano o del responsable autorizado por la organización. Su finalidad es apoyar el análisis, retroalimentación y mejora del participante. La evaluación, metodología y materiales del programa pertenecen a EO360.
+  </div>
+</div>
+
+</div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>EO360 · Eficiencia Operativa 360</strong> · Diagnóstico IA aplicada a control administrativo y trazabilidad operativa</p>
+    <p>Geovanny Javier Farías Riveras · eficienciaoperativa360.com · 0979 001 810 · Guayaquil, Ecuador</p>
+  </div>
+</footer>
+
+<div class="score-panel" id="scorePanel">
+  <div class="score-panel-header" onclick="togglePanel()">
+    <h4>🎯 Puntaje en tiempo real</h4>
+    <span class="score-panel-toggle" id="panelToggle">▲ ocultar</span>
+  </div>
+  <div class="score-panel-body" id="panelBody">
+    <div class="score-row"><span class="score-row-label">Parte A · Situaciones</span><span class="score-row-val" id="scoreA">0 / 6</span></div>
+    <div class="score-row"><span class="score-row-label">Parte B · Autoevaluación</span><span class="score-row-val" id="scoreB">0 / 40</span></div>
+    <div class="score-row"><span class="score-row-label">Parte D · V/F Razonado</span><span class="score-row-val" id="scoreD">0 / 6</span></div>
+    <div class="score-total"><span class="score-total-label">Total</span><span class="score-total-val" id="scoreTotal">0 / 52</span></div>
+    <div class="score-bar"><div class="score-bar-fill" id="scoreBar"></div></div>
+    <div class="score-interp" id="scoreInterp">Complete las respuestas para ver el resultado.</div>
+  </div>
+</div>
+
+<script>
+const correctA = { q1:'B', q2:'B', q3:'A', q4:'A', q5:'B', q6:'B' };
+const correctD = { q12:'Verdadero', q13:'Falso', q14:'Verdadero', q15:'Falso', q16:'Verdadero', q17:'Verdadero' };
+let scoresA = Object.fromEntries(Object.keys(correctA).map(k => [k, 0]));
+let scoresD = Object.fromEntries(Object.keys(correctD).map(k => [k, 0]));
+let scoresB = [0,0,0,0,0,0,0,0,0,0];
+const EVALUATOR_PASSWORD = 'EO360';
+
+function getSelectedLetter(name){const checked=document.querySelector(`input[name="${name}"]:checked`);if(!checked)return null;const opt=checked.closest('.opt');return opt?opt.querySelector('.opt-letter')?.textContent?.trim():null;}
+function getSelectedYN(name){const checked=document.querySelector(`input[name="${name}"]:checked`);if(!checked)return null;const yn=checked.closest('.yn-opt');return yn?yn.textContent.trim():null;}
+function clearFeedbackClasses(){document.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected-correct','selected-wrong','reveal-correct','selected-participant'));document.querySelectorAll('.yn-opt').forEach(o=>o.classList.remove('selected-correct','selected-wrong','reveal-correct','selected-participant'));}
+function markParticipantSelections(){clearFeedbackClasses();document.querySelectorAll('.opts').forEach(group=>{const checked=group.querySelector('input[type=radio]:checked');if(checked)checked.closest('.opt')?.classList.add('selected-participant');});document.querySelectorAll('.yn-row').forEach(group=>{const checked=group.querySelector('input[type=radio]:checked');if(checked)checked.closest('.yn-opt')?.classList.add('selected-participant');});}
+function calculateScoresOnly(){Object.keys(scoresA).forEach(name=>{scoresA[name]=getSelectedLetter(name)===correctA[name]?1:0;});Object.keys(scoresD).forEach(name=>{scoresD[name]=getSelectedYN(name)===correctD[name]?1:0;});scoresB=[];document.querySelectorAll('.selfcheck-row:not(:first-child)').forEach(row=>{const active=row.querySelector('.sc-btn.active');scoresB.push(active?Number(active.textContent.trim()):0);});}
+function applyEvaluatorFeedback(){clearFeedbackClasses();Object.keys(correctA).forEach(name=>{const group=document.querySelector(`input[name="${name}"]`)?.closest('.opts');if(!group)return;const selected=getSelectedLetter(name);group.querySelectorAll('.opt').forEach(o=>{const letter=o.querySelector('.opt-letter')?.textContent?.trim();if(selected&&letter===selected)o.classList.add(letter===correctA[name]?'selected-correct':'selected-wrong');if(selected&&letter===correctA[name]&&letter!==selected)o.classList.add('reveal-correct');});});Object.keys(correctD).forEach(name=>{const group=document.querySelector(`input[name="${name}"]`)?.closest('.yn-row');if(!group)return;const selected=getSelectedYN(name);group.querySelectorAll('.yn-opt').forEach(o=>{const val=o.textContent.trim();if(selected&&val===selected)o.classList.add(val===correctD[name]?'selected-correct':'selected-wrong');if(selected&&val===correctD[name]&&val!==selected)o.classList.add('reveal-correct');});});}
+function updatePrintSummary(){const val=id=>document.getElementById(id)?.value || '—';document.getElementById('psNombre').textContent=val('nombre');document.getElementById('psCargo').textContent=val('cargo');document.getElementById('psArea').textContent=val('area');document.getElementById('psFecha').textContent=val('fecha');document.getElementById('psScoreA').textContent=document.getElementById('scoreA')?.textContent||'0 / 6';document.getElementById('psScoreB').textContent=document.getElementById('scoreB')?.textContent||'0 / 40';document.getElementById('psScoreD').textContent=document.getElementById('scoreD')?.textContent||'0 / 6';document.getElementById('psScoreTotal').textContent=document.getElementById('scoreTotal')?.textContent||'0 / 52';document.getElementById('psInterp').innerText=document.getElementById('scoreInterp')?.innerText||'—';}
+function updateScores(){calculateScoresOnly();const totalA=Object.values(scoresA).reduce((a,b)=>a+b,0);const totalB=scoresB.reduce((a,b)=>a+b,0);const totalD=Object.values(scoresD).reduce((a,b)=>a+b,0);const total=totalA+totalB+totalD;const maxTotal=52;document.getElementById('scoreA').textContent=totalA+' / 6';document.getElementById('scoreB').textContent=totalB+' / 40';document.getElementById('scoreD').textContent=totalD+' / 6';document.getElementById('scoreTotal').textContent=total+' / '+maxTotal;const bar=document.getElementById('scoreBar');if(bar)bar.style.width=Math.round((total/maxTotal)*100)+'%';const interp=document.getElementById('scoreInterp');if(interp){if(total===0)interp.textContent='Complete las respuestas para ver el resultado.';else if(total>=47)interp.innerHTML='🏆 <strong>Nivel alto</strong><br>Dominio sólido de control administrativo, trazabilidad y uso de IA.';else if(total>=36)interp.innerHTML='✅ <strong>Buen dominio</strong><br>Debe consolidar matriz, prompts, alertas y dashboard.';else if(total>=24)interp.innerHTML='📈 <strong>Nivel en desarrollo</strong><br>Priorizar seguimiento visible, responsables y validación de datos.';else interp.innerHTML='🔄 <strong>Requiere acompañamiento</strong><br>Riesgo de operar con información dispersa y reportes débiles.';}document.querySelectorAll('.result-field').forEach(el=>{el.textContent=totalB+' / 40';});if(document.body.classList.contains('evaluator-mode'))applyEvaluatorFeedback();updatePrintSummary();}
+function saveEvaluation(){calculateScoresOnly();markParticipantSelections();document.getElementById('eo360Saved')?.classList.add('show');const label=document.getElementById('eo360ModeLabel');if(label)label.innerHTML='<span></span>EVALUACIÓN GUARDADA · ESPERANDO EVALUADOR';window.scrollTo({top:0,behavior:'smooth'});}
+function evaluatorLogin(){const pass=prompt('Ingrese clave de evaluador:');if(pass!==EVALUATOR_PASSWORD){alert('Clave incorrecta.');return;}document.body.classList.add('evaluator-mode');const label=document.getElementById('eo360ModeLabel');if(label)label.innerHTML='<span></span>MODO EVALUADOR ACTIVO';document.getElementById('scorePanel')?.classList.remove('collapsed');updateScores();window.scrollTo({top:0,behavior:'smooth'});}
+function returnToParticipantMode(){document.body.classList.remove('evaluator-mode');const label=document.getElementById('eo360ModeLabel');if(label)label.innerHTML='<span></span>MODO EVALUADO ACTIVO';markParticipantSelections();}
+function togglePanel(){const panel=document.getElementById('scorePanel');const toggle=document.getElementById('panelToggle');if(!panel||!toggle)return;panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'▼ ver':'▲ ocultar';}
+document.querySelectorAll('.opts .opt').forEach(opt=>{opt.addEventListener('click',function(){const input=this.querySelector('input[type=radio]');if(!input)return;input.checked=true;if(document.body.classList.contains('evaluator-mode'))updateScores();else{const group=this.closest('.opts');group.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected-participant'));this.classList.add('selected-participant');}});});
+document.querySelectorAll('.yn-opt').forEach(opt=>{opt.addEventListener('click',function(){const input=this.querySelector('input[type=radio]');if(!input)return;input.checked=true;if(document.body.classList.contains('evaluator-mode'))updateScores();else{const group=this.closest('.yn-row');group.querySelectorAll('.yn-opt').forEach(o=>o.classList.remove('selected-participant'));this.classList.add('selected-participant');}});});
+document.querySelectorAll('.selfcheck-row:not(:first-child)').forEach(row=>{const btns=row.querySelectorAll('.sc-btn');btns.forEach(btn=>{btn.addEventListener('click',function(){btns.forEach(b=>b.classList.remove('active'));this.classList.add('active');if(document.body.classList.contains('evaluator-mode'))updateScores();});});});
+
+function syncValuesForPrint(){document.querySelectorAll('input').forEach(input=>{if(input.type==='radio'||input.type==='checkbox'){if(input.checked)input.setAttribute('checked','checked');else input.removeAttribute('checked');}else{input.setAttribute('value',input.value||'');}});document.querySelectorAll('textarea').forEach(t=>{t.textContent=t.value||t.getAttribute('placeholder')||'';});}
+function buildPrintHtml(){
+  updateScores();syncValuesForPrint();
+  const clone=document.body.cloneNode(true);
+  clone.querySelectorAll('.eo360-mode-bar,.eo360-bottom-bar,.score-panel,#scorePanel,.eo360-callout,.eo360-saved,.participant-only,.evaluator-only,button,script').forEach(el=>el.remove());
+  clone.querySelectorAll('textarea').forEach(t=>{const div=document.createElement('div');div.className='print-textbox';div.textContent=(t.value||t.textContent||' ').trim()||' ';t.replaceWith(div);});
+  clone.querySelectorAll('input.field-input').forEach(inp=>{const div=document.createElement('div');div.className='print-inputbox';div.textContent=inp.value||inp.getAttribute('placeholder')||' ';inp.replaceWith(div);});
+  clone.querySelectorAll('input[type="radio"]').forEach(inp=>inp.remove());
+  const summary=clone.querySelector('#printSummaryBlock');const footer=clone.querySelector('.footer');if(summary&&footer&&footer.parentNode)footer.parentNode.insertBefore(summary,footer);
+  const css=`@page{size:A4;margin:16mm 14mm}*{box-sizing:border-box}body{font-family:'Open Sans',Arial,sans-serif;color:#1A1F2E;font-size:11.5px;line-height:1.38}.container{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}.hero{padding:0 0 10px 0!important;margin:0 0 10px 0!important;background:#fff!important;border-bottom:1px solid #E8ECF0}.hero::after{display:none!important}h1{font-size:22px!important;line-height:1.15!important;margin:0 0 6px;color:#1F3A5F!important}h2{font-size:16px!important;color:#1F3A5F!important;margin:0 0 5px}.sub{font-size:10.8px!important;line-height:1.45!important;color:#374151!important}.block{border:1px solid #D9E1EA!important;border-radius:10px!important;padding:12px!important;margin:0 0 10px!important;box-shadow:none!important;break-inside:avoid-page}.meta,.print-summary-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:7px!important}.meta-box,.print-summary-box{padding:7px 8px!important;border:1px solid #E8ECF0!important;border-radius:9px!important}.fields-grid,.commit-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}.part-header{display:flex!important;gap:9px!important;border-bottom:1px solid #E8ECF0!important;margin-bottom:10px!important;padding-bottom:8px!important}.part-num,.q-num{background:#1F3A5F!important;color:#fff!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important}.part-num{width:28px!important;height:28px!important;flex:0 0 28px!important}.q-num{width:22px!important;height:22px!important;flex:0 0 22px!important;background:#D4AF37!important;color:#172E4D!important}.q{padding:9px 0!important;border-bottom:1px solid rgba(31,58,95,.08)!important;break-inside:avoid-page}.q-header{display:flex!important;gap:8px!important}.q-title,.opt,.yn-opt,.selfcheck-text{font-size:10px!important;line-height:1.3!important}.scenario,.instructions{background:#F0F4F9!important;border:1px solid #DDE7F0!important;padding:8px 10px!important;border-radius:8px!important}.opt{display:flex!important;gap:7px!important;border:1px solid #E8ECF0!important;border-radius:8px!important;padding:6px 9px!important}.selected-correct,.reveal-correct{background:#ECFDF5!important;border-color:#0F766E!important}.selected-wrong{background:#FEF2F2!important;border-color:#B91C1C!important}.selfcheck-row{display:grid!important;grid-template-columns:1fr auto!important;gap:10px!important;padding:7px 9px!important;border:1px solid #E8ECF0!important;border-radius:8px!important;background:#F7F9FC!important}.selfcheck-scale{display:flex!important;gap:5px!important}.sc-btn{width:20px!important;height:20px!important;border-radius:50%!important;border:1px solid #DDE7F0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}.sc-btn.active{background:#1F3A5F!important;color:#fff!important}.print-textbox,.print-inputbox,.result-field{width:100%!important;min-height:62px!important;border:1px solid #CBD5E1!important;border-radius:8px!important;padding:7px 9px!important;white-space:pre-wrap!important}.confidential-note{font-size:10.5px!important;line-height:1.4!important;padding:8px 10px!important;margin-top:8px!important;border-left:4px solid #D4AF37!important}.footer{padding:10px 0 0!important;border-top:1px solid #E8ECF0!important;text-align:center}.footer p{font-size:8.8px!important;color:#6B7280!important}`;
+  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Resultados EO360</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"><style>${css}</style></head><body>${clone.innerHTML}</body></html>`;
+}
+function printResults(){if(!document.body.classList.contains('evaluator-mode')){alert('Primero debe ingresar al modo evaluador con la clave.');evaluatorLogin();if(!document.body.classList.contains('evaluator-mode'))return;}updateScores();const w=window.open('','_blank');if(!w){alert('El navegador bloqueó la ventana de impresión. Permita ventanas emergentes.');return;}w.document.open();w.document.write(buildPrintHtml());w.document.close();w.onload=function(){setTimeout(()=>{w.focus();w.print();},250);};}
+document.addEventListener('DOMContentLoaded',()=>{markParticipantSelections();updatePrintSummary();});
+</script>
+</body>
+</html>
