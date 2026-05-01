@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Diagnóstico de Liderazgo · EO360</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#1F3A5F; --navy-dark:#172E4D; --navy-10:#F0F4F9; --navy-20:#DDE7F0;
+  --gold:#D4AF37; --gold-2:#B88A1B;
+  --text:#1A1F2E; --text-2:#374151; --gray:#6B7280;
+  --border:#E8ECF0; --lt:#F7F9FC;
+  --ok:#0F766E; --ok-bg:#ECFDF5; --ok-border:#A7F3D0;
+  --warn:#92400E; --warn-bg:#FFFBEB; --warn-border:#FDE68A;
+  --info-bg:#EFF6FF; --info-border:#BFDBFE; --info-text:#1E40AF;
+  --disc-bg:#F0F4F9; --disc-border:#C7D9EA;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Open Sans',sans-serif;color:var(--text);background:#fff;line-height:1.65}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* ── HERO ── */
+.hero{padding:52px 0 30px;background:linear-gradient(180deg,#fff 0%,var(--lt) 100%);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-30px;width:280px;height:280px;background:radial-gradient(circle,rgba(212,175,55,.18) 0%,rgba(212,175,55,.04) 45%,transparent 75%);pointer-events:none}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:999px;background:rgba(31,58,95,.06);border:1px solid rgba(31,58,95,.08);font:800 11px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-2));flex-shrink:0}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;margin:0}
+h1{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-.03em;margin-bottom:12px;color:var(--text)}
+h2{font-size:24px;color:var(--navy);margin-bottom:10px;line-height:1.2}
+h3{font-size:18px;color:var(--navy);margin-bottom:8px;line-height:1.25}
+.sub{font-size:17px;color:var(--gray);max-width:820px;line-height:1.75}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.meta-box{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 4px 14px rgba(31,58,95,.05)}
+.meta-box small{display:block;font:800 10px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.62;margin-bottom:7px}
+.meta-box strong{display:block;font:700 16px 'Montserrat',sans-serif;color:var(--navy)}
+
+/* ── SECTION ── */
+.section{padding:40px 0}
+
+/* ── BLOCK CARDS ── */
+.block{background:#fff;border:1px solid var(--border);border-radius:20px;padding:26px;margin-bottom:20px;box-shadow:0 8px 24px rgba(31,58,95,.05)}
+.block-label{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:rgba(31,58,95,.07);border:1px solid rgba(31,58,95,.09);font:800 10px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.block-label .dot-label{width:6px;height:6px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-2))}
+
+/* ── PARTICIPANT FIELDS ── */
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field-group label{display:block;font:700 11px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:7px;opacity:.75}
+.field-input{border:1px solid var(--border);border-radius:10px;padding:11px 14px;width:100%;font-family:'Open Sans',sans-serif;font-size:14px;color:var(--text);background:#fff;min-height:44px}
+.field-input:focus{outline:2px solid rgba(31,58,95,.3);border-color:var(--navy)}
+
+/* ── INSTRUCTIONS CALLOUT ── */
+.instructions{background:var(--navy-10);border:1px solid var(--navy-20);border-left:4px solid var(--gold);border-radius:0 14px 14px 0;padding:16px 20px}
+.instructions p{margin:0 0 8px;font-size:14px;color:var(--text-2);line-height:1.7}
+.instructions p:last-child{margin-bottom:0}
+.instructions ul{margin:6px 0 0;padding-left:20px}
+.instructions li{font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:4px}
+
+/* ── METHODOLOGY BADGE ── */
+.method-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);color:#fff;padding:8px 16px;border-radius:999px;font:700 12px 'Montserrat',sans-serif;margin-bottom:18px}
+.method-badge span{background:rgba(212,175,55,.25);border:1px solid rgba(212,175,55,.4);color:var(--gold);padding:2px 9px;border-radius:999px;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+
+/* ── PART DIVIDER ── */
+.part-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--border)}
+.part-num{width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;font:800 16px 'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.part-header-text h2{margin-bottom:3px;font-size:20px}
+.part-header-text p{font-size:13px;color:var(--gray);margin:0}
+.part-value{margin-left:auto;background:var(--navy-10);border:1px solid var(--navy-20);border-radius:999px;padding:6px 14px;font:700 12px 'Montserrat',sans-serif;color:var(--navy);white-space:nowrap}
+
+/* ── QUESTION BLOCK ── */
+.q{padding:20px 0;border-bottom:1px solid rgba(31,58,95,.07)}
+.q:last-child{border-bottom:none;padding-bottom:0}
+.q-header{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.q-num{width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--navy-dark);font:800 13px 'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.q-title{font:600 15px 'Open Sans',sans-serif;color:var(--text);line-height:1.55;flex:1}
+.q-title strong{font-weight:700;color:var(--navy)}
+
+/* ── SCENARIO BOX (situación para diagnosticar) ── */
+.scenario{background:var(--navy-10);border:1px solid var(--navy-20);border-radius:12px;padding:14px 16px;margin:10px 0 14px;font-size:14px;color:var(--text-2);line-height:1.7;position:relative}
+.scenario::before{content:"📋 Situación";display:block;font:700 9px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.65;margin-bottom:6px}
+
+/* ── RESPONSE AREA ── */
+.resp-area{border:1px dashed #cbd5e1;border-radius:12px;min-height:80px;padding:12px 14px;color:#94a3b8;background:#fcfdff;font-family:'Open Sans',sans-serif;font-size:13px;line-height:1.65;margin-top:10px;resize:vertical}
+.resp-area.tall{min-height:110px}
+.resp-label{font:700 10px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:5px;display:block}
+
+/* ── SCALE OPTIONS ── */
+.scale-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.scale-opt{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+.scale-opt:hover{border-color:var(--navy);background:var(--navy-10)}
+.scale-opt input{display:none}
+.scale-opt .score{font:800 20px 'Montserrat',sans-serif;color:var(--navy);display:block;margin-bottom:4px}
+.scale-opt .desc{font-size:12px;color:var(--gray);line-height:1.4}
+
+/* ── MULTIPLE CHOICE ── */
+.opts{display:grid;gap:7px;margin-top:10px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1px solid var(--border);border-radius:12px;background:#fff;cursor:pointer;font-size:14px;color:var(--text-2);line-height:1.5;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--navy);background:var(--navy-10)}
+.opt input[type=radio]{flex-shrink:0;margin-top:2px;accent-color:var(--navy)}
+.opt-letter{font:700 11px 'Montserrat',sans-serif;color:var(--navy);min-width:18px;flex-shrink:0;margin-top:1px}
+
+/* ── RANKING ── */
+.rank-list{display:grid;gap:8px;margin-top:10px}
+.rank-item{display:flex;align-items:center;gap:12px;padding:11px 14px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--text-2)}
+.rank-box{width:32px;height:32px;border:2px solid var(--navy-20);border-radius:8px;display:flex;align-items:center;justify-content:center;font:700 13px 'Montserrat',sans-serif;color:var(--gray);flex-shrink:0}
+
+/* ── YES/NO ── */
+.yn-row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.yn-opt{display:flex;align-items:center;gap:8px;padding:9px 18px;border:1px solid var(--border);border-radius:999px;font:600 13px 'Open Sans',sans-serif;color:var(--text-2);cursor:pointer;transition:all .15s}
+.yn-opt:hover{border-color:var(--navy);background:var(--navy-10);color:var(--navy)}
+.yn-opt input{display:none}
+
+/* ── ANSWER / FACILITATOR NOTE ── */
+.facilitator-note{margin-top:14px;padding:13px 16px;border-radius:12px;font-size:14px;line-height:1.65}
+.fn-correct{background:var(--ok-bg);border:1px solid var(--ok-border);color:#065f46}
+.fn-discussion{background:var(--disc-bg);border:1px solid var(--disc-border);color:var(--navy-dark)}
+.fn-warning{background:var(--warn-bg);border:1px solid var(--warn-border);color:var(--warn)}
+.fn-info{background:var(--info-bg);border:1px solid var(--info-border);color:var(--info-text)}
+.fn-label{font:800 9px 'Montserrat',sans-serif;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px;display:block;opacity:.75}
+.fn-points{display:inline-flex;align-items:center;gap:5px;background:rgba(31,58,95,.1);border-radius:999px;padding:3px 10px;font:700 11px 'Montserrat',sans-serif;color:var(--navy);margin-top:8px}
+
+/* ── DISCUSSION TRIGGER ── */
+.disc-trigger{display:flex;align-items:flex-start;gap:10px;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);border-radius:12px;padding:13px 16px;margin-top:14px}
+.disc-trigger .icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.disc-trigger p{font-size:13px;color:rgba(255,255,255,.88);line-height:1.65;margin:0;flex:1}
+.disc-trigger strong{color:var(--gold);font-family:'Montserrat',sans-serif}
+
+/* ── SELF-ASSESSMENT GRID ── */
+.selfcheck{display:grid;gap:10px;margin-top:12px}
+.selfcheck-row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:11px 14px;background:var(--lt);border:1px solid var(--border);border-radius:12px}
+.selfcheck-row:first-child{background:var(--navy-10);border-color:var(--navy-20);font-weight:700}
+.selfcheck-text{font-size:13px;color:var(--text-2);line-height:1.5}
+.selfcheck-scale{display:flex;gap:6px}
+.sc-btn{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:#fff;font:700 11px 'Montserrat',sans-serif;color:var(--gray);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.sc-btn:hover{border-color:var(--navy);background:var(--navy-10);color:var(--navy)}
+
+/* ── SCORE TABLE ── */
+.score-table{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.score-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;box-shadow:0 3px 10px rgba(31,58,95,.04)}
+.score-box .range{font:800 16px 'Montserrat',sans-serif;color:var(--navy);display:block;margin-bottom:5px}
+.score-box .interp{font-size:12px;color:var(--gray);line-height:1.4}
+
+/* ── RESULT FIELD ── */
+.result-field{background:var(--lt);border:1px solid var(--border);border-radius:12px;padding:14px 16px;min-height:56px;margin-top:12px}
+
+/* ── COMMITMENTS ── */
+.commit-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.commit-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px}
+.commit-box label{display:block;font:700 10px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);opacity:.7;margin-bottom:7px}
+.commit-input{border:1px dashed #cbd5e1;border-radius:10px;min-height:70px;padding:10px 12px;width:100%;font-family:'Open Sans',sans-serif;font-size:13px;color:var(--text-2);background:#fcfdff;resize:vertical}
+
+/* ── FOOTER ── */
+.footer{padding:28px 0 44px;text-align:center;border-top:1px solid var(--border)}
+.footer p{font-size:13px;color:var(--gray);margin:4px 0}
+.footer strong{color:var(--navy);font-family:'Montserrat',sans-serif}
+
+
+/* ── SCORING INTERACTIVO ── */
+.opt.selected-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important}
+.opt.selected-correct .opt-letter{color:var(--ok)}
+.opt.selected-wrong{border-color:#B91C1C!important;background:#FEF2F2!important}
+.opt.selected-wrong .opt-letter{color:#B91C1C}
+.opt.reveal-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important;font-weight:600}
+.yn-opt.selected-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important;color:var(--ok)!important;font-weight:700}
+.yn-opt.selected-wrong{border-color:#B91C1C!important;background:#FEF2F2!important;color:#B91C1C!important}
+.yn-opt.reveal-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important;color:var(--ok)!important;font-weight:700}
+.sc-btn.active{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important;transform:scale(1.1)}
+.score-panel{position:fixed;bottom:24px;right:24px;z-index:200;background:var(--navy);color:#fff;border-radius:20px;padding:0;box-shadow:0 20px 60px rgba(31,58,95,.35);min-width:270px;overflow:hidden;transition:all .3s ease}
+.score-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer}
+.score-panel-header h4{font:800 11px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);margin:0}
+.score-panel-toggle{font-size:11px;color:rgba(255,255,255,.5);padding:2px 8px;background:rgba(255,255,255,.08);border-radius:999px;cursor:pointer}
+.score-panel-body{padding:12px 18px 18px}
+.score-panel.collapsed .score-panel-body{display:none}
+.score-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.score-row:last-child{border:none}
+.score-row-label{font-size:12px;color:rgba(255,255,255,.65);font-family:'Montserrat',sans-serif;font-weight:600}
+.score-row-val{font:800 14px 'Montserrat',sans-serif;color:var(--gold)}
+.score-total{margin-top:12px;padding-top:12px;border-top:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:space-between}
+.score-total-label{font:800 11px 'Montserrat',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.score-total-val{font:800 32px 'Montserrat',sans-serif;color:var(--gold);line-height:1}
+.score-interp{margin-top:10px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.08);font-size:12px;color:rgba(255,255,255,.85);line-height:1.5;text-align:center;min-height:36px}
+.score-bar{height:6px;background:rgba(255,255,255,.12);border-radius:999px;margin-top:10px;overflow:hidden}
+.score-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px;transition:width .6s ease;width:0%}
+.q-answered .q-num{background:var(--ok)!important;color:#fff!important}
+.q-answered-wrong .q-num{background:#B91C1C!important;color:#fff!important}
+@media(max-width:640px){.score-panel{bottom:12px;right:12px;left:12px;min-width:0}}
+
+/* ── PRINT ── */
+@media print{
+  .hero{padding-top:20px}
+  .block{box-shadow:none;break-inside:avoid;border-radius:12px}
+  .q{break-inside:avoid}
+  .disc-trigger{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .meta,.fields-grid,.score-table,.commit-grid,.scale-opts{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .container{padding:0 16px}
+  h1{font-size:30px}
+  .meta,.fields-grid,.score-table,.commit-grid,.scale-opts{grid-template-columns:1fr}
+  .selfcheck-row{grid-template-columns:1fr;gap:8px}
+  .part-value{display:none}
+}
+
+/* ── BOTONES E IMPRESIÓN DE RESULTADOS ── */
+.print-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+.print-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:none;
+  cursor:pointer;
+  border-radius:999px;
+  padding:11px 18px;
+  background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);
+  color:#fff;
+  font:800 12px 'Montserrat',sans-serif;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  box-shadow:0 8px 24px rgba(31,58,95,.18);
+}
+.print-btn.secondary{
+  background:#fff;
+  color:var(--navy);
+  border:1px solid var(--navy-20);
+  box-shadow:none;
+}
+.print-btn:hover{filter:brightness(.98)}
+.print-summary-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+.print-summary-box{
+  background:var(--lt);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+}
+.print-summary-box small{
+  display:block;
+  font:800 9px 'Montserrat',sans-serif;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--navy);
+  opacity:.65;
+  margin-bottom:5px;
+}
+.print-summary-box strong{
+  display:block;
+  font:800 16px 'Montserrat',sans-serif;
+  color:var(--navy);
+}
+.print-summary-box.full{grid-column:1/-1}
+.print-note{
+  font-size:13px;
+  color:var(--text-2);
+  line-height:1.65;
+  margin-top:10px;
+}
+@media(max-width:900px){
+  .print-summary-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .print-summary-grid{grid-template-columns:1fr}
+}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff!important}
+  .score-panel,.print-actions{display:none!important}
+  .hero{padding:18px 0 12px!important}
+  .section{padding:18px 0!important}
+  .block{box-shadow:none!important;break-inside:avoid-page;page-break-inside:avoid;border-radius:12px!important;margin-bottom:14px!important}
+  .q{break-inside:avoid-page;page-break-inside:avoid}
+  .field-input,.resp-area,.commit-input{
+    border:1px solid #cbd5e1!important;
+    color:#111827!important;
+    background:#fff!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .opt.selected-correct,.opt.reveal-correct,.yn-opt.selected-correct,.yn-opt.reveal-correct,.sc-btn.active{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+}
+
+
+/* =========================================================
+   EO360 · VERSIÓN ÚNICA CONTROLADA
+   Evaluado / Evaluador con clave EO360
+   ========================================================= */
+.eo360-mode-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:9999;
+  background:#ffffff;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 8px 24px rgba(31,58,95,.12);
+}
+.eo360-mode-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:10px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.eo360-mode-label{
+  font:800 12px 'Montserrat',sans-serif;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--navy);
+}
+.eo360-mode-label span{
+  display:inline-block;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:linear-gradient(180deg,var(--gold),var(--gold-2));
+  margin-right:8px;
+}
+.eo360-mode-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.eo360-btn{
+  border:none;
+  border-radius:999px;
+  padding:10px 16px;
+  cursor:pointer;
+  font:800 11px 'Montserrat',sans-serif;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:#fff;
+  background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);
+  box-shadow:0 8px 20px rgba(31,58,95,.16);
+}
+.eo360-btn.gold{
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-2) 100%);
+  color:var(--navy-dark);
+}
+.eo360-btn.light{
+  background:#fff;
+  color:var(--navy);
+  border:1px solid var(--navy-20);
+  box-shadow:none;
+}
+.eo360-bottom-bar{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  z-index:9999;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+body{
+  padding-top:64px;
+}
+.evaluator-only{
+  display:none!important;
+}
+body.evaluator-mode .evaluator-only{
+  display:inline-flex!important;
+}
+body.evaluator-mode .participant-only{
+  display:none!important;
+}
+body:not(.evaluator-mode) .score-panel{
+  display:none!important;
+}
+body.evaluator-mode .score-panel{
+  display:block!important;
+}
+.eo360-callout{
+  background:var(--navy-10);
+  border:1px solid var(--navy-20);
+  border-left:4px solid var(--gold);
+  border-radius:0 14px 14px 0;
+  padding:14px 18px;
+  margin-top:16px;
+  color:var(--text-2);
+  font-size:14px;
+  line-height:1.65;
+}
+.eo360-callout strong{
+  color:var(--navy);
+}
+.eo360-saved{
+  display:none;
+  background:var(--ok-bg);
+  border:1px solid var(--ok-border);
+  border-left:4px solid var(--ok);
+  border-radius:0 14px 14px 0;
+  padding:14px 18px;
+  margin-top:14px;
+  color:#065f46;
+  font-size:14px;
+  line-height:1.65;
+}
+.eo360-saved.show{
+  display:block;
+}
+.resp-area,
+.commit-input{
+  width:100%!important;
+  max-width:100%!important;
+  min-height:130px!important;
+  display:block!important;
+}
+.resp-area.tall{
+  min-height:160px!important;
+}
+.fields-grid .resp-area{
+  width:100%!important;
+  min-height:140px!important;
+}
+.opt.selected-participant,
+.yn-opt.selected-participant{
+  border-color:var(--navy)!important;
+  background:var(--navy-10)!important;
+  color:var(--navy)!important;
+  font-weight:700;
+}
+.opt.selected-participant .opt-letter{
+  color:var(--navy)!important;
+}
+body:not(.evaluator-mode) .selected-correct,
+body:not(.evaluator-mode) .selected-wrong,
+body:not(.evaluator-mode) .reveal-correct{
+  border-color:var(--navy)!important;
+  background:var(--navy-10)!important;
+  color:var(--navy)!important;
+}
+body:not(.evaluator-mode) .q-answered-wrong .q-num,
+body:not(.evaluator-mode) .q-answered .q-num{
+  background:var(--navy)!important;
+  color:#fff!important;
+}
+body:not(.evaluator-mode) #printSummaryBlock{
+  display:none!important;
+}
+@media(max-width:760px){
+  body{padding-top:120px}
+  .eo360-mode-inner{
+    align-items:flex-start;
+    flex-direction:column;
+    padding:10px 16px;
+  }
+  .eo360-mode-actions{
+    width:100%;
+  }
+  .eo360-btn{
+    flex:1;
+  }
+  .eo360-bottom-bar{
+    left:12px;
+    right:12px;
+    bottom:12px;
+  }
+  .eo360-bottom-bar .eo360-btn{
+    flex:1 1 auto;
+  }
+}
+@media print{
+  body{
+    padding-top:0!important;
+  }
+  .eo360-mode-bar,
+  .eo360-bottom-bar,
+  .participant-only,
+  .score-panel .score-panel-header{
+    display:none!important;
+  }
+  body:not(.evaluator-mode) .score-panel{
+    display:none!important;
+  }
+  .resp-area,
+  .commit-input{
+    width:100%!important;
+    min-height:130px!important;
+    overflow:visible!important;
+    color:#111827!important;
+    background:#fff!important;
+    border:1px solid #cbd5e1!important;
+  }
+}
+
+
+/* =========================================================
+   EO360 · CORRECCIÓN DEFINITIVA DE IMPRESIÓN / PDF
+   Objetivo: evitar panel flotante repetido, overlays, cortes y cajas pequeñas.
+   ========================================================= */
+.resp-area,
+.commit-input{
+  width:100% !important;
+  max-width:100% !important;
+  display:block !important;
+  min-height:132px !important;
+  overflow:visible !important;
+}
+.resp-area.tall{
+  min-height:165px !important;
+}
+.fields-grid .resp-area,
+.fields-grid .commit-input{
+  width:100% !important;
+  min-height:142px !important;
+}
+textarea{
+  white-space:pre-wrap !important;
+}
+@media print{
+  @page{
+    size:A4;
+    margin:12mm;
+  }
+
+  html, body{
+    width:100% !important;
+    height:auto !important;
+    overflow:visible !important;
+    background:#fff !important;
+  }
+
+  body{
+    padding-top:0 !important;
+    font-size:12px !important;
+    line-height:1.45 !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+
+  .eo360-mode-bar,
+  .eo360-bottom-bar,
+  .score-panel,
+  .participant-only,
+  .evaluator-only,
+  .eo360-callout,
+  .eo360-saved{
+    display:none !important;
+  }
+
+  .hero{
+    padding:18px 0 16px !important;
+    margin:0 0 12px 0 !important;
+    border-bottom:1px solid var(--border) !important;
+    page-break-after:auto !important;
+    break-after:auto !important;
+  }
+
+  .section{
+    padding:0 !important;
+  }
+
+  .container{
+    max-width:none !important;
+    width:100% !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+
+  .block{
+    box-shadow:none !important;
+    border:1px solid #d9e1ea !important;
+    border-radius:12px !important;
+    padding:18px !important;
+    margin:0 0 14px 0 !important;
+    break-inside:avoid-page !important;
+    page-break-inside:avoid !important;
+  }
+
+  .q{
+    break-inside:avoid-page !important;
+    page-break-inside:avoid !important;
+    padding:14px 0 !important;
+  }
+
+  .part-header{
+    break-inside:avoid-page !important;
+    page-break-inside:avoid !important;
+    margin-bottom:14px !important;
+  }
+
+  .meta{
+    grid-template-columns:repeat(4,1fr) !important;
+    gap:10px !important;
+  }
+
+  .meta-box{
+    box-shadow:none !important;
+    padding:10px !important;
+  }
+
+  .fields-grid{
+    grid-template-columns:1fr 1fr !important;
+    gap:12px !important;
+  }
+
+  .score-table{
+    grid-template-columns:repeat(4,1fr) !important;
+    gap:8px !important;
+  }
+
+  .commit-grid{
+    grid-template-columns:1fr 1fr !important;
+    gap:12px !important;
+  }
+
+  .selfcheck-row{
+    grid-template-columns:1fr auto !important;
+    gap:12px !important;
+    padding:8px 10px !important;
+    break-inside:avoid !important;
+  }
+
+  .selfcheck-scale{
+    white-space:nowrap !important;
+  }
+
+  .resp-area,
+  .commit-input,
+  .field-input{
+    width:100% !important;
+    max-width:100% !important;
+    min-height:118px !important;
+    color:#111827 !important;
+    background:#fff !important;
+    border:1px solid #cbd5e1 !important;
+    border-radius:10px !important;
+    overflow:visible !important;
+    resize:none !important;
+    box-shadow:none !important;
+  }
+
+  .resp-area.tall{
+    min-height:145px !important;
+  }
+
+  .field-input{
+    min-height:36px !important;
+  }
+
+  .rank-item,
+  .opt,
+  .yn-opt,
+  .scenario,
+  .instructions,
+  .result-field,
+  .score-box{
+    break-inside:avoid !important;
+    page-break-inside:avoid !important;
+    box-shadow:none !important;
+  }
+
+  #printSummaryBlock{
+    display:block !important;
+    page-break-before:auto !important;
+  }
+
+  .footer{
+    padding:16px 0 0 !important;
+  }
+}
+
+
+/* =========================================================
+   EO360 · PRINT FIX V2 — fuerza ocultamiento de elementos UI
+   ========================================================= */
+@media print{
+  .score-panel,
+  #scorePanel,
+  .eo360-mode-bar,
+  .eo360-bottom-bar,
+  .eo360-callout,
+  .eo360-saved,
+  .participant-only,
+  .evaluator-only,
+  [class*="mode-bar"],
+  [class*="bottom-bar"]{
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    height:0 !important;
+    max-height:0 !important;
+    overflow:hidden !important;
+    position:absolute !important;
+    left:-99999px !important;
+    top:-99999px !important;
+  }
+
+  body{
+    padding-top:0 !important;
+  }
+
+  .resp-area,
+  .commit-input,
+  textarea{
+    width:100% !important;
+    max-width:100% !important;
+    min-height:135px !important;
+    overflow:visible !important;
+    resize:none !important;
+  }
+
+  .resp-area.tall{
+    min-height:165px !important;
+  }
+
+  .fields-grid textarea{
+    width:100% !important;
+    min-height:145px !important;
+  }
+
+  .block{
+    box-shadow:none !important;
+    break-inside:avoid-page !important;
+    page-break-inside:avoid !important;
+  }
+
+  .q{
+    break-inside:avoid-page !important;
+    page-break-inside:avoid !important;
+  }
+}
+body.eo360-printing .score-panel,
+body.eo360-printing #scorePanel,
+body.eo360-printing .eo360-mode-bar,
+body.eo360-printing .eo360-bottom-bar,
+body.eo360-printing .eo360-callout,
+body.eo360-printing .eo360-saved,
+body.eo360-printing .participant-only,
+body.eo360-printing .evaluator-only{
+  display:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
+  height:0 !important;
+  max-height:0 !important;
+  overflow:hidden !important;
+  position:absolute !important;
+  left:-99999px !important;
+  top:-99999px !important;
+}
+
+</style>
+</head>
+<body>
+
+<div class="eo360-mode-bar">
+  <div class="eo360-mode-inner">
+    <div class="eo360-mode-label" id="eo360ModeLabel"><span></span>MODO EVALUADO ACTIVO</div>
+    <div class="eo360-mode-actions">
+      <button class="eo360-btn gold participant-only" type="button" onclick="saveEvaluation()">💾 Guardar evaluación</button>
+      <button class="eo360-btn light" type="button" onclick="evaluatorLogin()">🔐 Evaluador</button>
+      <button class="eo360-btn evaluator-only" type="button" onclick="printResults()">🖨️ Imprimir resultados</button>
+      <button class="eo360-btn light evaluator-only" type="button" onclick="returnToParticipantMode()">👤 Volver a evaluado</button>
+    </div>
+  </div>
+</div>
+<div class="eo360-bottom-bar">
+  <button class="eo360-btn gold participant-only" type="button" onclick="saveEvaluation()">💾 Guardar evaluación</button>
+  <button class="eo360-btn light" type="button" onclick="evaluatorLogin()">🔐 Evaluador</button>
+  <button class="eo360-btn evaluator-only" type="button" onclick="printResults()">🖨️ Imprimir resultados</button>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+<div class="container">
+<div class="eyebrow"><span class="dot"></span>EO360 · Diagnóstico de Liderazgo</div>
+<h1>Cuestionario Diagnóstico de Liderazgo Aplicado</h1>
+<p class="sub">Instrumento de diagnóstico individual y discusión guiada para identificar el nivel de madurez del liderazgo operativo, áreas de fortaleza y oportunidades de desarrollo.</p>
+<div class="meta">
+<div class="meta-box"><small>Programa</small><strong>Liderazgo Aplicado</strong></div>
+<div class="meta-box"><small>Metodología</small><strong>Diagnóstico + Discusión</strong></div>
+<div class="meta-box"><small>Duración</small><strong>20 a 30 minutos</strong></div>
+<div class="meta-box"><small>Uso</small><strong>Individual + Grupal</strong></div>
+</div>
+</div>
+</section>
+<!-- ══ CONTENT ══ -->
+<section class="section">
+<div class="container">
+<!-- Datos del participante -->
+<div class="block">
+<div class="block-label"><span class="dot-label"></span>Datos del participante</div>
+<div class="fields-grid">
+<div class="field-group">
+<label for="nombre">Nombre completo</label>
+<input class="field-input" id="nombre" placeholder="Escriba su nombre y apellido" type="text"/>
+</div>
+<div class="field-group">
+<label for="cargo">Cargo actual</label>
+<input class="field-input" id="cargo" placeholder="Supervisor, jefe de área, coordinador..." type="text"/>
+</div>
+<div class="field-group">
+<label for="area">Área o equipo a cargo</label>
+<input class="field-input" id="area" placeholder="Bodega, campo, administración..." type="text"/>
+</div>
+<div class="field-group">
+<label for="fecha">Fecha</label>
+<input class="field-input" id="fecha" placeholder="dd / mm / aaaa" type="text"/>
+</div>
+</div>
+</div>
+<!-- Instrucciones -->
+<div class="block">
+<div class="block-label"><span class="dot-label"></span>Instrucciones para el participante</div>
+<div class="instructions">
+<p>Este cuestionario no tiene respuestas únicas correctas o incorrectas. Su objetivo es que usted identifique con honestidad cómo ejerce actualmente su liderazgo y qué prácticas puede fortalecer.</p>
+<ul>
+<li>Responda desde lo que <strong>realmente hace</strong>, no desde lo que le gustaría hacer.</li>
+<li>En las preguntas de situación, describa cómo actuaría en su entorno real (bodega, oficina, campo).</li>
+<li>Algunas preguntas serán retomadas para discusión grupal: prepárese para compartir su razonamiento.</li>
+<li>Al final encontrará un espacio para sus compromisos de mejora.</li>
+</ul>
+</div>
+<div class="method-badge" style="margin-top:16px">
+<span>Metodología</span> Cuestionario diagnóstico · Discusión guiada · Autoevaluación reflexiva
+    </div>
+
+<div class="eo360-callout participant-only">
+  <strong>Modo evaluado:</strong> responda la evaluación. Las respuestas correctas y el puntaje están ocultos. Al finalizar, presione <strong>Guardar evaluación</strong>. Luego el facilitador puede ingresar al modo evaluador con clave.
+</div>
+<div class="eo360-callout evaluator-only" style="background:var(--ok-bg);border-color:var(--ok-border);border-left-color:var(--ok);">
+  <strong>Modo evaluador activo:</strong> ahora se muestran respuestas correctas, respuestas incorrectas, puntaje e interpretación. Puede imprimir los resultados.
+</div>
+<div class="eo360-saved" id="eo360Saved">
+  ✅ Evaluación guardada. Ahora el facilitador puede hacer clic en <strong>Evaluador</strong>, ingresar la clave y revisar el puntaje.
+</div>
+</div>
+
+<div class="print-actions">
+  <button class="print-btn" type="button" onclick="printResults()">🖨️ Imprimir resultados</button>
+  <button class="print-btn secondary" type="button" onclick="updatePrintSummary()">↻ Actualizar resumen</button>
+</div>
+
+<!-- ══ PARTE A — Diagnóstico de Situaciones Reales ══ -->
+<div class="block">
+<div class="part-header">
+<div class="part-num">A</div>
+<div class="part-header-text">
+<h2>Diagnóstico de Situaciones Reales</h2>
+<p>Lea cada situación y responda cómo actuaría en su contexto operativo real.</p>
+</div>
+<div class="part-value">5 preguntas · Discusión guiada</div>
+</div>
+<!-- Q1 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">1</div>
+<div class="q-title">Inicio de turno. Su equipo llega y hay bastante carga de trabajo. <strong>¿Cómo abre usted ese turno habitualmente?</strong></div>
+</div>
+<div class="opts">
+<label class="opt"><input name="q1" type="radio"/><span class="opt-letter">A</span>Les digo que hay mucho trabajo y que no puede haber retrasos ni errores.</label>
+<label class="opt"><input name="q1" type="radio"/><span class="opt-letter">B</span>Explico el objetivo del turno, las prioridades y habilito que me hagan preguntas antes de empezar.</label>
+<label class="opt"><input name="q1" type="radio"/><span class="opt-letter">C</span>Confío en que el equipo ya sabe qué hacer y empezamos directamente.</label>
+<label class="opt"><input name="q1" type="radio"/><span class="opt-letter">D</span>Depende del día y de cómo me sienta en ese momento.</label>
+</div>
+
+</div>
+<!-- Q2 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">2</div>
+<div class="q-title">Uno de sus colaboradores cometió un error que causó retrabajo. <strong>¿Cuál es su primera reacción habitual?</strong></div>
+</div>
+<div class="opts">
+<label class="opt"><input name="q2" type="radio"/><span class="opt-letter">A</span>Lo llamo de inmediato frente al grupo y señalo el error para que no se repita.</label>
+<label class="opt"><input name="q2" type="radio"/><span class="opt-letter">B</span>Primero resuelvo el problema del retrabajo. Luego hablo con la persona en privado para entender qué pasó.</label>
+<label class="opt"><input name="q2" type="radio"/><span class="opt-letter">C</span>No digo nada en el momento. Espero que no vuelva a ocurrir.</label>
+<label class="opt"><input name="q2" type="radio"/><span class="opt-letter">D</span>Escalo el tema inmediatamente a mi jefe para que quede documentado.</label>
+</div>
+
+
+</div>
+<!-- Q3 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">3</div>
+<div class="q-title">Llega una instrucción desde oficina que afecta la operación de su área, pero nadie les consultó antes. <strong>¿Qué hace usted?</strong></div>
+</div>
+<div class="scenario">La instrucción ordena cambiar el horario de despacho sin considerar la disponibilidad real de su equipo y los tiempos de campo.</div>
+<div class="opts">
+<label class="opt"><input name="q3" type="radio"/><span class="opt-letter">A</span>La aplico sin decir nada. No es mi decisión cuestionarla.</label>
+<label class="opt"><input name="q3" type="radio"/><span class="opt-letter">B</span>Me quejo con el equipo pero la aplico igual.</label>
+<label class="opt"><input name="q3" type="radio"/><span class="opt-letter">C</span>Solicito una reunión con quienes decidieron para exponer el impacto operativo real y proponer un ajuste.</label>
+<label class="opt"><input name="q3" type="radio"/><span class="opt-letter">D</span>Ignoro la instrucción hasta que alguien pregunte por qué no se cumplió.</label>
+</div>
+
+</div>
+<!-- Q4 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">4</div>
+<div class="q-title">Hay un conflicto recurrente entre su área y otra. Se culpan mutuamente y la tensión va en aumento. <strong>¿Cuál es su postura como líder?</strong></div>
+</div>
+<div class="opts">
+<label class="opt"><input name="q4" type="radio"/><span class="opt-letter">A</span>Evito meterme. Si no es mi problema directo, no intervengo.</label>
+<label class="opt"><input name="q4" type="radio"/><span class="opt-letter">B</span>Le digo a mi equipo que tienen razón y que el problema es del otro lado.</label>
+<label class="opt"><input name="q4" type="radio"/><span class="opt-letter">C</span>Propongo una reunión con hechos concretos: qué pasó, qué impacto generó y qué solución acordamos.</label>
+<label class="opt"><input name="q4" type="radio"/><span class="opt-letter">D</span>Espero que el jefe de ambas áreas lo resuelva por su cuenta.</label>
+</div>
+
+</div>
+<!-- Q5 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">5</div>
+<div class="q-title">Su equipo terminó el día sin cumplir el objetivo. <strong>¿Cuál es su análisis de lo ocurrido?</strong></div>
+</div>
+<div class="scenario">El objetivo era despachar 120 pedidos antes de las 17:00. Solo se despacharon 90. No hubo alertas tempranas durante el día.</div>
+<div class="opts">
+<label class="opt"><input name="q5" type="radio"/><span class="opt-letter">A</span>El equipo no rindió lo suficiente. Hay que exigir más.</label>
+<label class="opt"><input name="q5" type="radio"/><span class="opt-letter">B</span>El objetivo estaba mal planificado desde el inicio. No era alcanzable.</label>
+<label class="opt"><input name="q5" type="radio"/><span class="opt-letter">C</span>Analizo qué pasó en cada etapa del proceso, identifico en qué punto se desvió el ritmo y qué ajuste de seguimiento habría detectado el problema a tiempo.</label>
+<label class="opt"><input name="q5" type="radio"/><span class="opt-letter">D</span>Lo dejo pasar y espero que mañana sea mejor.</label>
+</div>
+
+
+</div>
+</div><!-- /block Parte A -->
+<!-- ══ PARTE B — Autoevaluación de Competencias ══ -->
+<div class="block">
+<div class="part-header">
+<div class="part-num">B</div>
+<div class="part-header-text">
+<h2>Autoevaluación de Competencias de Liderazgo</h2>
+<p>Evalúe con honestidad su nivel actual en cada competencia. Escala: 1 = Nunca o casi nunca · 2 = A veces · 3 = Con frecuencia · 4 = Siempre o casi siempre.</p>
+</div>
+<div class="part-value">10 competencias</div>
+</div>
+<div class="selfcheck">
+<div class="selfcheck-row">
+<div class="selfcheck-text">Competencia de liderazgo</div>
+<div class="selfcheck-scale">
+<div class="sc-btn">1</div>
+<div class="sc-btn">2</div>
+<div class="sc-btn">3</div>
+<div class="sc-btn">4</div>
+</div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Explico el objetivo y las prioridades al inicio de cada turno o tarea importante.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Cuando doy instrucciones, indico responsable, tiempo esperado y resultado concreto.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Doy feedback en privado y lo enfoco en la acción específica, no en la persona.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Hago seguimiento en momentos fijos del día, sin interrumpir constantemente al equipo.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Cuando aparece un error, analizo la causa antes de corregir o sancionar.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Coordino con otras áreas antes de confirmar compromisos que dependen de ellas.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Asigno tareas con nombre de responsable, fecha y entregable claro — no digo "todos lo vemos".</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Uso indicadores simples para saber si el día va bien, sin esperar al cierre para enterarme de problemas.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Intervengo activamente cuando hay un conflicto entre áreas o personas de mi equipo.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+<div class="selfcheck-row">
+<div class="selfcheck-text">Adapto mi forma de comunicar según si hablo con oficina, bodega o campo.</div>
+<div class="selfcheck-scale"><div class="sc-btn">1</div><div class="sc-btn">2</div><div class="sc-btn">3</div><div class="sc-btn">4</div></div>
+</div>
+</div>
+
+<div class="score-table" style="margin-top:18px">
+<div class="score-box"><span class="range">36 – 40</span><span class="interp">Liderazgo estructurado. Fortalecer consistencia en contextos de presión.</span></div>
+<div class="score-box"><span class="range">26 – 35</span><span class="interp">Buen dominio. Dos o tres prácticas clave pueden consolidarse con mayor regularidad.</span></div>
+<div class="score-box"><span class="range">16 – 25</span><span class="interp">Liderazgo en desarrollo. Priorizar las 3 competencias con puntaje más bajo.</span></div>
+<div class="score-box"><span class="range">10 – 15</span><span class="interp">Requiere acompañamiento sostenido. Plan de desarrollo individual recomendado.</span></div>
+</div>
+<div style="margin-top:18px">
+<span class="resp-label">Puntaje total autoevaluación (suma de los 10 ítems):</span>
+<div class="result-field"></div>
+</div>
+</div>
+<!-- ══ PARTE C — Preguntas de Reflexión Abierta ══ -->
+<div class="block">
+<div class="part-header">
+<div class="part-num">C</div>
+<div class="part-header-text">
+<h2>Reflexión Abierta — Discusión Guiada</h2>
+<p>Responda con sus propias palabras. Estas preguntas serán punto de partida para la conversación grupal.</p>
+</div>
+<div class="part-value">4 preguntas abiertas</div>
+</div>
+<!-- Q6 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">6</div>
+<div class="q-title">Piense en un momento en que su equipo no cumplió un resultado esperado. <strong>¿Qué hizo usted en ese momento y qué haría diferente hoy?</strong></div>
+</div>
+<span class="resp-label">Su respuesta:</span>
+<textarea class="resp-area tall" placeholder="Describa la situación brevemente y su reflexión sobre ella..."></textarea>
+
+</div>
+<!-- Q7 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">7</div>
+<div class="q-title"><strong>¿Cuál es la instrucción más común que da a su equipo que podría ser más clara?</strong> Escríbala como la dice hoy y luego mejórela aplicando el formato: qué, quién, cuándo y resultado esperado.</div>
+</div>
+<div class="fields-grid" style="margin-top:10px">
+<div>
+<span class="resp-label">Instrucción como la doy hoy:</span>
+<textarea class="resp-area" placeholder='Ej: "Revisen eso" / "Apúrense" / "Ayúdenme con esto"...'></textarea>
+</div>
+<div>
+<span class="resp-label">Instrucción mejorada (qué · quién · cuándo · resultado):</span>
+<textarea class="resp-area" placeholder='Ej: "Carlos: revisa el lote 245, hoy a las 14:00, y me envías foto de validación"...'></textarea>
+</div>
+</div>
+
+</div>
+<!-- Q8 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">8</div>
+<div class="q-title">Ordene de mayor a menor (1 = más frecuente en usted) los siguientes <strong>errores de liderazgo</strong> que reconoce en su práctica actual:</div>
+</div>
+<div class="rank-list">
+<div class="rank-item"><div class="rank-box">__</div> Dar instrucciones sin definir responsable concreto</div>
+<div class="rank-item"><div class="rank-box">__</div> Corregir errores en público o con tono agresivo</div>
+<div class="rank-item"><div class="rank-box">__</div> No hacer seguimiento intermedio — solo revisar al cierre</div>
+<div class="rank-item"><div class="rank-box">__</div> Tomar decisiones sin consultar a quienes las ejecutan</div>
+<div class="rank-item"><div class="rank-box">__</div> Evitar intervenir cuando hay conflicto entre áreas o personas</div>
+<div class="rank-item"><div class="rank-box">__</div> Comunicar igual para oficina, bodega y campo sin adaptar el mensaje</div>
+</div>
+
+</div>
+<!-- Q9 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">9</div>
+<div class="q-title"><strong>¿Cuándo fue la última vez que alineó a su equipo con el objetivo del día antes de que empezaran a trabajar?</strong> Describa cómo lo hizo.</div>
+</div>
+<span class="resp-label">Su respuesta:</span>
+<textarea class="resp-area tall" placeholder="¿Lo hace a diario? ¿Cómo lo comunica? ¿Tarda más o menos de 5 minutos?..."></textarea>
+
+</div>
+</div><!-- /block Parte C -->
+<!-- ══ PARTE D — Verdadero o Falso con Razonamiento ══ -->
+<div class="block">
+<div class="part-header">
+<div class="part-num">D</div>
+<div class="part-header-text">
+<h2>Verdadero, Falso y ¿Por qué?</h2>
+<p>Marque su respuesta Y explique brevemente su razonamiento. El "por qué" es más valioso que la respuesta.</p>
+</div>
+<div class="part-value">5 afirmaciones</div>
+</div>
+<!-- Q10 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">10</div>
+<div class="q-title">"Un buen líder no necesita medir indicadores si confía en su equipo."</div>
+</div>
+<div class="yn-row">
+<label class="yn-opt"><input name="q10" type="radio"/> Verdadero</label>
+<label class="yn-opt"><input name="q10" type="radio"/> Falso</label>
+<label class="yn-opt"><input name="q10" type="radio"/> Depende del contexto</label>
+</div>
+<span class="resp-label" style="margin-top:12px">¿Por qué? Explique su razonamiento:</span>
+<textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+
+</div>
+<!-- Q11 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">11</div>
+<div class="q-title">"Si el equipo no cumple, el problema siempre está en las personas, no en el sistema."</div>
+</div>
+<div class="yn-row">
+<label class="yn-opt"><input name="q11" type="radio"/> Verdadero</label>
+<label class="yn-opt"><input name="q11" type="radio"/> Falso</label>
+<label class="yn-opt"><input name="q11" type="radio"/> Depende del contexto</label>
+</div>
+<span class="resp-label" style="margin-top:12px">¿Por qué?</span>
+<textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+
+</div>
+<!-- Q12 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">12</div>
+<div class="q-title">"Intervenir en un conflicto entre áreas puede empeorar la situación. Mejor dejar que se resuelva solo."</div>
+</div>
+<div class="yn-row">
+<label class="yn-opt"><input name="q12" type="radio"/> Verdadero</label>
+<label class="yn-opt"><input name="q12" type="radio"/> Falso</label>
+<label class="yn-opt"><input name="q12" type="radio"/> Depende del contexto</label>
+</div>
+<span class="resp-label" style="margin-top:12px">¿Por qué?</span>
+<textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+
+
+</div>
+<!-- Q13 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">13</div>
+<div class="q-title">"Ser cercano con el equipo significa ser flexible con los plazos y los estándares."</div>
+</div>
+<div class="yn-row">
+<label class="yn-opt"><input name="q13" type="radio"/> Verdadero</label>
+<label class="yn-opt"><input name="q13" type="radio"/> Falso</label>
+<label class="yn-opt"><input name="q13" type="radio"/> Depende del contexto</label>
+</div>
+<span class="resp-label" style="margin-top:12px">¿Por qué?</span>
+<textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+
+</div>
+<!-- Q14 -->
+<div class="q">
+<div class="q-header">
+<div class="q-num">14</div>
+<div class="q-title">"La coordinación entre áreas es responsabilidad de cada área, no del líder que las supervisa."</div>
+</div>
+<div class="yn-row">
+<label class="yn-opt"><input name="q14" type="radio"/> Verdadero</label>
+<label class="yn-opt"><input name="q14" type="radio"/> Falso</label>
+<label class="yn-opt"><input name="q14" type="radio"/> Depende del contexto</label>
+</div>
+<span class="resp-label" style="margin-top:12px">¿Por qué?</span>
+<textarea class="resp-area" placeholder="Escriba su argumento..."></textarea>
+
+</div>
+</div><!-- /block Parte D -->
+<!-- ══ PARTE E — Compromisos de Mejora ══ -->
+<div class="block">
+<div class="part-header">
+<div class="part-num">E</div>
+<div class="part-header-text">
+<h2>Compromisos de Mejora Personal</h2>
+<p>Con base en sus respuestas anteriores, defina al menos 2 compromisos concretos que pondrá en práctica desde mañana.</p>
+</div>
+<div class="part-value">Aplicación inmediata</div>
+</div>
+
+<div class="commit-grid">
+<div class="commit-box">
+<label>Compromiso 1 · ¿Qué voy a hacer diferente?</label>
+<textarea class="commit-input" placeholder="Describa una práctica concreta que implementará esta semana..."></textarea>
+</div>
+<div class="commit-box">
+<label>Compromiso 1 · ¿Cuándo y cómo lo mediré?</label>
+<textarea class="commit-input" placeholder="Fecha, situación o turno en que lo aplicará..."></textarea>
+</div>
+<div class="commit-box">
+<label>Compromiso 2 · ¿Qué voy a hacer diferente?</label>
+<textarea class="commit-input" placeholder="Segunda práctica concreta a implementar..."></textarea>
+</div>
+<div class="commit-box">
+<label>Compromiso 2 · ¿Cuándo y cómo lo mediré?</label>
+<textarea class="commit-input" placeholder="Fecha, situación o turno en que lo aplicará..."></textarea>
+</div>
+</div>
+<div style="margin-top:20px">
+<span class="resp-label">Mi principal fortaleza de liderazgo identificada en este diagnóstico:</span>
+<textarea class="resp-area" placeholder="Lo que mejor hago como líder y quiero seguir desarrollando..."></textarea>
+</div>
+<div style="margin-top:14px">
+<span class="resp-label">Mi principal área de mejora identificada:</span>
+<textarea class="resp-area" placeholder="La competencia o práctica que más quiero fortalecer con acompañamiento EO360..."></textarea>
+</div>
+
+</div>
+
+<div class="block" id="printSummaryBlock">
+  <div class="block-label"><span class="dot-label"></span>Resumen para impresión de resultados</div>
+  <div class="print-summary-grid">
+    <div class="print-summary-box"><small>Participante</small><strong id="psNombre">—</strong></div>
+    <div class="print-summary-box"><small>Cargo</small><strong id="psCargo">—</strong></div>
+    <div class="print-summary-box"><small>Área / equipo</small><strong id="psArea">—</strong></div>
+    <div class="print-summary-box"><small>Fecha</small><strong id="psFecha">—</strong></div>
+    <div class="print-summary-box"><small>Parte A</small><strong id="psScoreA">0 / 5</strong></div>
+    <div class="print-summary-box"><small>Parte B</small><strong id="psScoreB">0 / 40</strong></div>
+    <div class="print-summary-box"><small>Parte D</small><strong id="psScoreD">0 / 5</strong></div>
+    <div class="print-summary-box"><small>Total</small><strong id="psScoreTotal">0 / 50</strong></div>
+    <div class="print-summary-box full"><small>Interpretación</small><strong id="psInterp">Completa las respuestas para ver tu resultado.</strong></div>
+  </div>
+  <p class="print-note">Para generar un PDF limpio, ingrese al modo evaluador con clave, revise los resultados y presione Imprimir resultados.</p>
+</div>
+
+<!-- ══ BLOQUE FEEDBACK DEL PARTICIPANTE ══ -->
+<div class="block">
+<div class="block-label"><span class="dot-label"></span>Feedback del participante sobre el programa</div>
+<div class="q">
+<div class="q-header"><div class="q-num" style="background:var(--navy-20);color:var(--navy)">F1</div>
+<div class="q-title">¿Qué parte del programa le resultó más útil para su trabajo diario?</div>
+</div>
+<textarea class="resp-area" placeholder="Módulo, tema, ejercicio o discusión que más le aportó..."></textarea>
+</div>
+<div class="q">
+<div class="q-header"><div class="q-num" style="background:var(--navy-20);color:var(--navy)">F2</div>
+<div class="q-title">¿Qué tema le gustaría profundizar más en futuras sesiones?</div>
+</div>
+<textarea class="resp-area" placeholder="Tema o situación específica de su trabajo que no fue abordada o quedó pendiente..."></textarea>
+</div>
+<div class="q">
+<div class="q-header"><div class="q-num" style="background:var(--navy-20);color:var(--navy)">F3</div>
+<div class="q-title">¿Qué recomendaría para mejorar la dinámica del programa?</div>
+</div>
+<textarea class="resp-area" placeholder="Sugerencias sobre formato, duración, ejemplos, ejercicios..."></textarea>
+</div>
+<div class="q" style="border-bottom:none;padding-bottom:0">
+<div class="q-header"><div class="q-num" style="background:var(--navy-20);color:var(--navy)">F4</div>
+<div class="q-title">¿Hay otros temas de liderazgo o gestión operativa en los que le gustaría formarse?</div>
+</div>
+<textarea class="resp-area" placeholder="Otros programas, habilidades o situaciones de su operación que quiera desarrollar..."></textarea>
+</div>
+</div>
+</div><!-- /container -->
+</section>
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+<div class="container">
+<p><strong>EO360 · Eficiencia Operativa 360</strong> · Diagnóstico de Liderazgo Aplicado en Entornos Corporativos</p>
+<p>Geovanny Javier Farías Riveras  ·  eficienciaoperativa360.com  ·  0979 001 810  ·  Guayaquil, Ecuador</p>
+</div>
+</footer>
+<!-- ══ PANEL DE PUNTAJE FLOTANTE ══ -->
+<div class="score-panel" id="scorePanel">
+<div class="score-panel-header" onclick="togglePanel()">
+<h4>🎯 Puntaje en tiempo real</h4>
+<span class="score-panel-toggle" id="panelToggle">▲ ocultar</span>
+</div>
+<div class="score-panel-body" id="panelBody">
+<div class="score-row">
+<span class="score-row-label">Parte A · Situaciones</span>
+<span class="score-row-val" id="scoreA">0 / 5</span>
+</div>
+<div class="score-row">
+<span class="score-row-label">Parte B · Autoevaluación</span>
+<span class="score-row-val" id="scoreB">0 / 40</span>
+</div>
+<div class="score-row">
+<span class="score-row-label">Parte D · V/F Razonado</span>
+<span class="score-row-val" id="scoreD">0 / 5</span>
+</div>
+<div class="score-total">
+<span class="score-total-label">Total</span>
+<span class="score-total-val" id="scoreTotal">0 / 50</span>
+</div>
+<div class="score-bar"><div class="score-bar-fill" id="scoreBar"></div></div>
+<div class="score-interp" id="scoreInterp">Completa las respuestas para ver tu resultado.</div>
+</div>
+</div>
+<script>
+
+const correctA = { q1:'B', q2:'B', q3:'C', q4:'C', q5:'C' };
+const correctD = { q10:'Falso', q11:'Falso', q12:'Falso', q13:'Falso', q14:'Falso' };
+let scoresA = Object.fromEntries(Object.keys(correctA).map(k => [k, 0]));
+let scoresD = Object.fromEntries(Object.keys(correctD).map(k => [k, 0]));
+let scoresB = [0,0,0,0,0,0,0,0,0,0];
+const EVALUATOR_PASSWORD = 'EO360';
+
+function getSelectedLetter(name){
+  const checked = document.querySelector(`input[name="${name}"]:checked`);
+  if(!checked) return null;
+  const opt = checked.closest('.opt');
+  return opt ? opt.querySelector('.opt-letter')?.textContent?.trim() : null;
+}
+function getSelectedYN(name){
+  const checked = document.querySelector(`input[name="${name}"]:checked`);
+  if(!checked) return null;
+  const yn = checked.closest('.yn-opt');
+  return yn ? yn.textContent.trim() : null;
+}
+function clearFeedbackClasses(){
+  document.querySelectorAll('.opt').forEach(o => {
+    o.classList.remove('selected-correct','selected-wrong','reveal-correct','selected-participant');
+  });
+  document.querySelectorAll('.yn-opt').forEach(o => {
+    o.classList.remove('selected-correct','selected-wrong','reveal-correct','selected-participant');
+  });
+  document.querySelectorAll('.q-header').forEach(h => {
+    h.classList.remove('q-answered','q-answered-wrong');
+  });
+}
+function markParticipantSelections(){
+  clearFeedbackClasses();
+  document.querySelectorAll('.opts').forEach(group => {
+    const checked = group.querySelector('input[type=radio]:checked');
+    if(checked){
+      checked.closest('.opt')?.classList.add('selected-participant');
+      checked.closest('.q')?.querySelector('.q-header')?.classList.add('q-answered');
+    }
+  });
+  document.querySelectorAll('.yn-row').forEach(group => {
+    const checked = group.querySelector('input[type=radio]:checked');
+    if(checked){
+      checked.closest('.yn-opt')?.classList.add('selected-participant');
+      checked.closest('.q')?.querySelector('.q-header')?.classList.add('q-answered');
+    }
+  });
+}
+function calculateScoresOnly(){
+  Object.keys(scoresA).forEach(name => {
+    scoresA[name] = getSelectedLetter(name) === correctA[name] ? 1 : 0;
+  });
+  Object.keys(scoresD).forEach(name => {
+    scoresD[name] = getSelectedYN(name) === correctD[name] ? 1 : 0;
+  });
+  scoresB = [];
+  document.querySelectorAll('.selfcheck-row:not(:first-child)').forEach(row => {
+    const active = row.querySelector('.sc-btn.active');
+    scoresB.push(active ? Number(active.textContent.trim()) : 0);
+  });
+}
+function applyEvaluatorFeedback(){
+  clearFeedbackClasses();
+
+  Object.keys(correctA).forEach(name => {
+    const group = document.querySelector(`input[name="${name}"]`)?.closest('.opts');
+    if(!group) return;
+    const selected = getSelectedLetter(name);
+    group.querySelectorAll('.opt').forEach(o => {
+      const letter = o.querySelector('.opt-letter')?.textContent?.trim();
+      if(selected && letter === selected){
+        o.classList.add(letter === correctA[name] ? 'selected-correct' : 'selected-wrong');
+      }
+      if(selected && letter === correctA[name] && letter !== selected){
+        o.classList.add('reveal-correct');
+      }
+    });
+    const header = group.closest('.q')?.querySelector('.q-header');
+    if(header && selected){
+      header.classList.add(selected === correctA[name] ? 'q-answered' : 'q-answered-wrong');
+    }
+  });
+
+  Object.keys(correctD).forEach(name => {
+    const group = document.querySelector(`input[name="${name}"]`)?.closest('.yn-row');
+    if(!group) return;
+    const selected = getSelectedYN(name);
+    group.querySelectorAll('.yn-opt').forEach(o => {
+      const val = o.textContent.trim();
+      if(selected && val === selected){
+        o.classList.add(val === correctD[name] ? 'selected-correct' : 'selected-wrong');
+      }
+      if(selected && val === correctD[name] && val !== selected){
+        o.classList.add('reveal-correct');
+      }
+    });
+    const header = group.closest('.q')?.querySelector('.q-header');
+    if(header && selected){
+      header.classList.add(selected === correctD[name] ? 'q-answered' : 'q-answered-wrong');
+    }
+  });
+}
+function updateScores(){
+  calculateScoresOnly();
+  const totalA = Object.values(scoresA).reduce((a,b)=>a+b, 0);
+  const totalB = scoresB.reduce((a,b)=>a+b, 0);
+  const totalD = Object.values(scoresD).reduce((a,b)=>a+b, 0);
+  const total = totalA + totalB + totalD;
+  const maxTotal = 50;
+
+  const set = (id, value) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = value;
+  };
+  set('scoreA', totalA + ' / 5');
+  set('scoreB', totalB + ' / 40');
+  set('scoreD', totalD + ' / 5');
+  set('scoreTotal', total + ' / ' + maxTotal);
+
+  const bar = document.getElementById('scoreBar');
+  if(bar) bar.style.width = Math.round((total / maxTotal) * 100) + '%';
+
+  const interp = document.getElementById('scoreInterp');
+  if(interp){
+    if(total === 0){
+      interp.textContent = 'Completa las respuestas para ver tu resultado.';
+    }else if(total >= 45){
+      interp.innerHTML = '🏆 <strong>Nivel alto</strong><br>Dominio sólido de las competencias evaluadas.';
+    }else if(total >= 35){
+      interp.innerHTML = '✅ <strong>Buen dominio</strong><br>Hay prácticas clave por consolidar con regularidad.';
+    }else if(total >= 22){
+      interp.innerHTML = '📈 <strong>Nivel en desarrollo</strong><br>Priorizar las competencias con puntaje más bajo.';
+    }else{
+      interp.innerHTML = '🔄 <strong>Requiere acompañamiento</strong><br>Plan de desarrollo individual recomendado.';
+    }
+  }
+
+  document.querySelectorAll('.result-field').forEach(el => {
+    el.textContent = totalB + ' / 40';
+  });
+
+  if(document.body.classList.contains('evaluator-mode')){
+    applyEvaluatorFeedback();
+  }
+
+  if(typeof updatePrintSummary === 'function'){
+    updatePrintSummary();
+  }
+}
+function saveEvaluation(){
+  calculateScoresOnly();
+  markParticipantSelections();
+  const saved = document.getElementById('eo360Saved');
+  if(saved) saved.classList.add('show');
+  const label = document.getElementById('eo360ModeLabel');
+  if(label) label.innerHTML = '<span></span>EVALUACIÓN GUARDADA · ESPERANDO EVALUADOR';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function evaluatorLogin(){
+  const pass = prompt('Ingrese clave de evaluador:');
+  if(pass !== EVALUATOR_PASSWORD){
+    alert('Clave incorrecta.');
+    return;
+  }
+  document.body.classList.add('evaluator-mode');
+  const label = document.getElementById('eo360ModeLabel');
+  if(label) label.innerHTML = '<span></span>MODO EVALUADOR ACTIVO';
+  const panel = document.getElementById('scorePanel');
+  if(panel) panel.classList.remove('collapsed');
+  updateScores();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function returnToParticipantMode(){
+  document.body.classList.remove('evaluator-mode');
+  const label = document.getElementById('eo360ModeLabel');
+  if(label) label.innerHTML = '<span></span>MODO EVALUADO ACTIVO';
+  markParticipantSelections();
+}
+function printResults(){
+  if(!document.body.classList.contains('evaluator-mode')){
+    alert('Primero debe ingresar al modo evaluador con la clave.');
+    evaluatorLogin();
+    if(!document.body.classList.contains('evaluator-mode')) return;
+  }
+  updateScores();
+  eo360PreparePrint();
+  setTimeout(()=>{ window.print(); }, 80);
+}
+function togglePanel(){
+  const panel = document.getElementById('scorePanel');
+  const toggle = document.getElementById('panelToggle');
+  if(!panel || !toggle) return;
+  panel.classList.toggle('collapsed');
+  toggle.textContent = panel.classList.contains('collapsed') ? '▼ ver' : '▲ ocultar';
+}
+
+document.querySelectorAll('.opts .opt').forEach(opt => {
+  opt.addEventListener('click', function(){
+    const input = this.querySelector('input[type=radio]');
+    if(!input) return;
+    input.checked = true;
+    if(document.body.classList.contains('evaluator-mode')){
+      updateScores();
+    }else{
+      const group = this.closest('.opts');
+      group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected-participant'));
+      this.classList.add('selected-participant');
+      this.closest('.q')?.querySelector('.q-header')?.classList.add('q-answered');
+    }
+  });
+});
+document.querySelectorAll('.yn-opt').forEach(opt => {
+  opt.addEventListener('click', function(){
+    const input = this.querySelector('input[type=radio]');
+    if(!input) return;
+    input.checked = true;
+    if(document.body.classList.contains('evaluator-mode')){
+      updateScores();
+    }else{
+      const group = this.closest('.yn-row');
+      group.querySelectorAll('.yn-opt').forEach(o => o.classList.remove('selected-participant'));
+      this.classList.add('selected-participant');
+      this.closest('.q')?.querySelector('.q-header')?.classList.add('q-answered');
+    }
+  });
+});
+document.querySelectorAll('.selfcheck-row:not(:first-child)').forEach(row => {
+  const btns = row.querySelectorAll('.sc-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', function(){
+      btns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      if(document.body.classList.contains('evaluator-mode')){
+        updateScores();
+      }
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  markParticipantSelections();
+});
+
+
+// ── EO360 PRINT FIX V2 ──
+function eo360PreparePrint(){
+  document.body.classList.add('eo360-printing');
+  const panel = document.getElementById('scorePanel');
+  if(panel){
+    panel.dataset.prevStyle = panel.getAttribute('style') || '';
+    panel.setAttribute('style','display:none!important;visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;position:absolute!important;left:-99999px!important;top:-99999px!important;');
+  }
+  document.querySelectorAll('.eo360-mode-bar,.eo360-bottom-bar,.eo360-callout,.eo360-saved').forEach(el=>{
+    el.dataset.prevStyle = el.getAttribute('style') || '';
+    el.setAttribute('style','display:none!important;visibility:hidden!important;opacity:0!important;height:0!important;max-height:0!important;overflow:hidden!important;position:absolute!important;left:-99999px!important;top:-99999px!important;');
+  });
+}
+function eo360AfterPrint(){
+  const panel = document.getElementById('scorePanel');
+  if(panel && panel.dataset.prevStyle !== undefined){
+    panel.setAttribute('style', panel.dataset.prevStyle);
+  }
+  document.querySelectorAll('.eo360-mode-bar,.eo360-bottom-bar,.eo360-callout,.eo360-saved').forEach(el=>{
+    if(el.dataset.prevStyle !== undefined){
+      el.setAttribute('style', el.dataset.prevStyle);
+    }
+  });
+  document.body.classList.remove('eo360-printing');
+}
+window.addEventListener('beforeprint', eo360PreparePrint);
+window.addEventListener('afterprint', eo360AfterPrint);
+
+</script>
+
+<script>
+/* =========================================================
+   EO360 · MOTOR DEFINITIVO DE IMPRESIÓN A4
+   Genera un documento limpio aparte, sin panel flotante ni barras.
+   ========================================================= */
+function eo360GetPlainText(el){
+  return el ? (el.textContent || '').replace(/\s+/g,' ').trim() : '';
+}
+
+function eo360CloneCleanForPrint(){
+  // Actualizar cálculos antes de clonar
+  if(typeof updateScores === 'function'){
+    updateScores();
+  }
+
+  // Sincronizar valores de inputs y textareas para que viajen al documento imprimible
+  document.querySelectorAll('input').forEach(input => {
+    if(input.type === 'radio' || input.type === 'checkbox'){
+      if(input.checked){ input.setAttribute('checked','checked'); }
+      else{ input.removeAttribute('checked'); }
+    } else {
+      input.setAttribute('value', input.value || '');
+    }
+  });
+
+  document.querySelectorAll('textarea').forEach(t => {
+    t.textContent = t.value || t.getAttribute('placeholder') || '';
+  });
+
+  const clone = document.body.cloneNode(true);
+
+  // Eliminar todo lo que no debe imprimirse
+  clone.querySelectorAll(`
+    .eo360-mode-bar,
+    .eo360-bottom-bar,
+    .mode-bar,
+    .score-panel,
+    #scorePanel,
+    .eo360-callout,
+    .eo360-saved,
+    .participant-only,
+    .evaluator-only,
+    button,
+    script
+  `).forEach(el => el.remove());
+
+  // Convertir textareas a cajas imprimibles más estables
+  clone.querySelectorAll('textarea').forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'print-textbox';
+    const value = (t.value || t.textContent || t.getAttribute('placeholder') || '').trim();
+    div.textContent = value || ' ';
+    t.replaceWith(div);
+  });
+
+  // Convertir inputs de datos a cajas imprimibles
+  clone.querySelectorAll('input.field-input').forEach(inp => {
+    const div = document.createElement('div');
+    div.className = 'print-inputbox';
+    div.textContent = inp.value || inp.getAttribute('placeholder') || ' ';
+    inp.replaceWith(div);
+  });
+
+  // Quitar radios invisibles, conservar texto de opciones y selección visual
+  clone.querySelectorAll('input[type="radio"]').forEach(inp => inp.remove());
+
+
+  // Forzar que el resumen de resultados quede al final, antes del footer.
+  const summaryBlock = clone.querySelector('#printSummaryBlock');
+  const footerBlock = clone.querySelector('.footer');
+  if(summaryBlock && footerBlock && footerBlock.parentNode){
+    footerBlock.parentNode.insertBefore(summaryBlock, footerBlock);
+  }
+
+  // Eliminar notas operativas internas que no deben aparecer en el PDF final.
+  clone.querySelectorAll('.print-note').forEach(el => el.remove());
+  clone.querySelectorAll('#printSummaryBlock p').forEach(p => {
+    const txt = (p.textContent || '').toLowerCase();
+    if(txt.includes('para generar un pdf limpio') || txt.includes('ingrese al modo evaluador')){
+      p.remove();
+    }
+  });
+
+  return clone.innerHTML;
+}
+
+function eo360BuildPrintHtml(){
+  const totalA = Object.values(scoresA || {}).reduce((a,b)=>a+b, 0);
+  const totalB = (scoresB || []).reduce((a,b)=>a+b, 0);
+  const totalD = Object.values(scoresD || {}).reduce((a,b)=>a+b, 0);
+  const total = totalA + totalB + totalD;
+  const interp = eo360GetPlainText(document.getElementById('scoreInterp')) || 'Resultado pendiente de interpretación.';
+
+  const contenido = eo360CloneCleanForPrint();
+
+  const printCss = `
+    @page { size: A4; margin: 16mm 14mm; }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #1A1F2E;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 11.5px;
+      line-height: 1.38;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      width: 100%;
+    }
+
+    .container {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .hero {
+      padding: 0 0 10px 0 !important;
+      margin: 0 0 10px 0 !important;
+      background: #fff !important;
+      border-bottom: 1px solid #E8ECF0;
+      page-break-after: avoid;
+    }
+
+    .hero::after { display: none !important; }
+
+    .section {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    h1 {
+      font-size: 22px !important;
+      line-height: 1.15 !important;
+      margin: 0 0 6px 0 !important;
+      color: #1F3A5F !important;
+      letter-spacing: -0.01em !important;
+    }
+
+    h2 {
+      font-size: 16px !important;
+      line-height: 1.2 !important;
+      margin: 0 0 5px 0 !important;
+      color: #1F3A5F !important;
+    }
+
+    h3 {
+      font-size: 13px !important;
+      margin: 0 0 4px 0 !important;
+      color: #1F3A5F !important;
+    }
+
+    .sub {
+      font-size: 10.8px !important;
+      line-height: 1.45 !important;
+      margin: 0 0 8px 0 !important;
+      color: #374151 !important;
+      max-width: none !important;
+    }
+
+    .eyebrow {
+      padding: 4px 9px !important;
+      margin-bottom: 7px !important;
+      font-size: 8.5px !important;
+      border: 1px solid #DDE7F0 !important;
+      background: #F0F4F9 !important;
+      color: #1F3A5F !important;
+      border-radius: 999px !important;
+      display: inline-flex !important;
+    }
+
+    .meta {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 7px !important;
+      margin-top: 8px !important;
+    }
+
+    .meta-box {
+      padding: 7px 8px !important;
+      border: 1px solid #E8ECF0 !important;
+      border-radius: 9px !important;
+      box-shadow: none !important;
+      background: #fff !important;
+      min-height: auto !important;
+    }
+
+    .meta-box small {
+      font-size: 7.5px !important;
+      margin-bottom: 3px !important;
+      letter-spacing: .08em !important;
+      color: #1F3A5F !important;
+      display: block !important;
+    }
+
+    .meta-box strong {
+      font-size: 10px !important;
+      color: #1F3A5F !important;
+      display: block !important;
+      line-height: 1.2 !important;
+    }
+
+    .block {
+      border: 1px solid #D9E1EA !important;
+      border-radius: 10px !important;
+      padding: 12px !important;
+      margin: 0 0 10px 0 !important;
+      box-shadow: none !important;
+      background: #fff !important;
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+
+    .block-label {
+      font-size: 8px !important;
+      padding: 4px 8px !important;
+      margin-bottom: 8px !important;
+      border-radius: 999px !important;
+      background: #F0F4F9 !important;
+      color: #1F3A5F !important;
+      display: inline-flex !important;
+      letter-spacing: .08em !important;
+    }
+
+    .fields-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 8px !important;
+    }
+
+    .field-group label,
+    .resp-label,
+    .commit-box label {
+      font-size: 7.8px !important;
+      letter-spacing: .08em !important;
+      margin-bottom: 4px !important;
+      color: #1F3A5F !important;
+      display: block !important;
+    }
+
+    .print-inputbox {
+      min-height: 24px;
+      border: 1px solid #CBD5E1;
+      border-radius: 7px;
+      padding: 6px 8px;
+      color: #374151;
+      background: #fff;
+    }
+
+    .instructions {
+      padding: 9px 12px !important;
+      border-radius: 0 9px 9px 0 !important;
+      border-left: 3px solid #D4AF37 !important;
+      background: #F0F4F9 !important;
+      font-size: 10px !important;
+      line-height: 1.38 !important;
+    }
+
+    .instructions p,
+    .instructions li {
+      font-size: 10px !important;
+      line-height: 1.38 !important;
+      margin-bottom: 3px !important;
+    }
+
+    .method-badge {
+      padding: 5px 10px !important;
+      margin: 8px 0 0 0 !important;
+      font-size: 8.5px !important;
+      border-radius: 999px !important;
+      background: #1F3A5F !important;
+      color: #fff !important;
+      display: inline-flex !important;
+    }
+
+    .part-header {
+      display: flex !important;
+      align-items: center !important;
+      gap: 9px !important;
+      margin-bottom: 10px !important;
+      padding-bottom: 8px !important;
+      border-bottom: 1px solid #E8ECF0 !important;
+      break-inside: avoid;
+    }
+
+    .part-num {
+      width: 28px !important;
+      height: 28px !important;
+      font-size: 11px !important;
+      flex: 0 0 28px !important;
+      background: #1F3A5F !important;
+      color: #fff !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .part-header-text p {
+      font-size: 9.5px !important;
+      line-height: 1.3 !important;
+      margin: 0 !important;
+      color: #6B7280 !important;
+    }
+
+    .part-value {
+      margin-left: auto !important;
+      font-size: 8.5px !important;
+      padding: 4px 8px !important;
+      border-radius: 999px !important;
+      white-space: nowrap !important;
+      background: #F0F4F9 !important;
+      color: #1F3A5F !important;
+      border: 1px solid #DDE7F0 !important;
+    }
+
+    .q {
+      padding: 9px 0 !important;
+      border-bottom: 1px solid rgba(31,58,95,.08) !important;
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+
+    .q-header {
+      display: flex !important;
+      gap: 8px !important;
+      align-items: flex-start !important;
+      margin-bottom: 7px !important;
+    }
+
+    .q-num {
+      width: 22px !important;
+      height: 22px !important;
+      font-size: 9px !important;
+      flex: 0 0 22px !important;
+      border-radius: 50% !important;
+      background: #D4AF37 !important;
+      color: #172E4D !important;
+    }
+
+    .q-title {
+      font-size: 10.6px !important;
+      line-height: 1.35 !important;
+      color: #111827 !important;
+    }
+
+    .scenario {
+      padding: 8px 10px !important;
+      margin: 6px 0 8px 0 !important;
+      font-size: 9.5px !important;
+      line-height: 1.35 !important;
+      border-radius: 8px !important;
+      background: #F0F4F9 !important;
+      border: 1px solid #DDE7F0 !important;
+      break-inside: avoid;
+    }
+
+    .opts {
+      display: grid !important;
+      gap: 4px !important;
+      margin-top: 6px !important;
+    }
+
+    .opt {
+      padding: 6px 9px !important;
+      border: 1px solid #E8ECF0 !important;
+      border-radius: 8px !important;
+      font-size: 10px !important;
+      line-height: 1.28 !important;
+      break-inside: avoid;
+      display: flex !important;
+      gap: 7px !important;
+      align-items: flex-start !important;
+    }
+
+    .opt-letter {
+      font-size: 8.5px !important;
+      min-width: 14px !important;
+      color: #1F3A5F !important;
+      font-weight: 700 !important;
+    }
+
+    .yn-row {
+      display: flex !important;
+      gap: 7px !important;
+      flex-wrap: wrap !important;
+      margin-top: 6px !important;
+    }
+
+    .yn-opt {
+      padding: 5px 10px !important;
+      font-size: 9.5px !important;
+      border: 1px solid #E8ECF0 !important;
+      border-radius: 999px !important;
+    }
+
+    .selfcheck {
+      display: grid !important;
+      gap: 5px !important;
+    }
+
+    .selfcheck-row {
+      display: grid !important;
+      grid-template-columns: 1fr auto !important;
+      gap: 10px !important;
+      padding: 7px 9px !important;
+      border: 1px solid #E8ECF0 !important;
+      border-radius: 8px !important;
+      background: #F7F9FC !important;
+      break-inside: avoid !important;
+    }
+
+    .selfcheck-text {
+      font-size: 9.5px !important;
+      line-height: 1.25 !important;
+      color: #374151 !important;
+    }
+
+    .selfcheck-scale {
+      display: flex !important;
+      gap: 5px !important;
+      white-space: nowrap !important;
+    }
+
+    .sc-btn {
+      width: 20px !important;
+      height: 20px !important;
+      font-size: 8px !important;
+      border: 1px solid #DDE7F0 !important;
+      background: #fff !important;
+      color: #1F3A5F !important;
+      border-radius: 50% !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .sc-btn.active {
+      background: #1F3A5F !important;
+      color: #fff !important;
+      border-color: #1F3A5F !important;
+    }
+
+    .score-table {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 7px !important;
+      margin-top: 9px !important;
+    }
+
+    .score-box {
+      padding: 8px !important;
+      border: 1px solid #E8ECF0 !important;
+      border-radius: 8px !important;
+      box-shadow: none !important;
+      text-align: center !important;
+    }
+
+    .score-box .range {
+      font-size: 11px !important;
+      margin-bottom: 3px !important;
+      color: #1F3A5F !important;
+      display: block !important;
+      font-weight: 800 !important;
+    }
+
+    .score-box .interp {
+      font-size: 8.5px !important;
+      line-height: 1.25 !important;
+      color: #6B7280 !important;
+    }
+
+    .result-field,
+    .print-textbox {
+      width: 100% !important;
+      min-height: 62px !important;
+      border: 1px solid #CBD5E1 !important;
+      border-radius: 8px !important;
+      padding: 7px 9px !important;
+      background: #fff !important;
+      color: #374151 !important;
+      font-size: 10px !important;
+      line-height: 1.35 !important;
+      white-space: pre-wrap !important;
+      overflow: visible !important;
+      break-inside: avoid !important;
+    }
+
+    .resp-area.tall + .print-textbox,
+    .print-textbox.tall {
+      min-height: 82px !important;
+    }
+
+    .rank-list {
+      display: grid !important;
+      gap: 5px !important;
+    }
+
+    .rank-item {
+      padding: 6px 9px !important;
+      font-size: 10px !important;
+      border: 1px solid #E8ECF0 !important;
+      border-radius: 8px !important;
+      break-inside: avoid !important;
+    }
+
+    .rank-box {
+      width: 24px !important;
+      height: 24px !important;
+      font-size: 9px !important;
+      border-radius: 6px !important;
+    }
+
+    .commit-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 8px !important;
+      margin-top: 8px !important;
+    }
+
+    .commit-box {
+      padding: 9px !important;
+      border: 1px solid #E8ECF0 !important;
+      border-radius: 8px !important;
+      break-inside: avoid !important;
+    }
+
+    .footer {
+      padding: 10px 0 0 0 !important;
+      border-top: 1px solid #E8ECF0 !important;
+      text-align: center !important;
+    }
+
+    .footer p {
+      font-size: 8.8px !important;
+      margin: 2px 0 !important;
+      color: #6B7280 !important;
+    }
+
+
+    #printSummaryBlock {
+      margin-top: 10px !important;
+      page-break-before: auto !important;
+      break-before: auto !important;
+    }
+    #printSummaryBlock .print-note {
+      display: none !important;
+    }
+
+
+    .selected-correct,
+    .reveal-correct {
+      background: #ECFDF5 !important;
+      border-color: #0F766E !important;
+    }
+
+    .selected-wrong {
+      background: #FEF2F2 !important;
+      border-color: #B91C1C !important;
+    }
+  `;
+
+  return `
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Resultados EO360</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>${printCss}</style>
+</head>
+<body>${contenido}</body>
+</html>`;
+}
+
+function printResults(){
+  if(!document.body.classList.contains('evaluator-mode')){
+    alert('Primero debe ingresar al modo evaluador con la clave.');
+    if(typeof evaluatorLogin === 'function'){ evaluatorLogin(); }
+    if(!document.body.classList.contains('evaluator-mode')) return;
+  }
+
+  if(typeof updateScores === 'function'){ updateScores(); }
+
+  const printWindow = window.open('', '_blank');
+  if(!printWindow){
+    alert('El navegador bloqueó la ventana de impresión. Permita ventanas emergentes para este archivo.');
+    return;
+  }
+
+  printWindow.document.open();
+  printWindow.document.write(eo360BuildPrintHtml());
+  printWindow.document.close();
+
+  printWindow.onload = function(){
+    setTimeout(function(){
+      printWindow.focus();
+      printWindow.print();
+    }, 250);
+  };
+}
+</script>
+
+</body>
+</html>
