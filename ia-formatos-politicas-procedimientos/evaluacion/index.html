@@ -103,7 +103,7 @@ h3{font-size:18px;color:var(--navy);margin-bottom:8px;line-height:1.25}
 .yn-opt.selected-wrong{border-color:#B91C1C!important;background:#FEF2F2!important;color:#B91C1C!important}
 .yn-opt.reveal-correct{border-color:var(--ok)!important;background:var(--ok-bg)!important;color:var(--ok)!important;font-weight:700}
 .opt.selected-participant,.yn-opt.selected-participant{border-color:var(--navy)!important;background:var(--navy-10)!important;color:var(--navy)!important;font-weight:700}
-.score-panel{position:fixed;bottom:24px;right:24px;z-index:200;background:var(--navy);color:#fff;border-radius:20px;padding:0;box-shadow:0 20px 60px rgba(31,58,95,.35);min-width:290px;overflow:hidden;transition:all .3s ease}
+.score-panel{position:fixed;bottom:24px;left:24px;z-index:200;background:var(--navy);color:#fff;border-radius:20px;padding:0;box-shadow:0 20px 60px rgba(31,58,95,.35);min-width:290px;overflow:hidden;transition:all .3s ease}
 .score-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;border-bottom:1px solid rgba(255,255,255,.1);cursor:pointer}
 .score-panel-header h4{font:800 11px 'Montserrat',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);margin:0}
 .score-panel-toggle{font-size:11px;color:rgba(255,255,255,.5);padding:2px 8px;background:rgba(255,255,255,.08);border-radius:999px;cursor:pointer}
@@ -214,9 +214,10 @@ body:not(.evaluator-mode) #printSummaryBlock{display:none!important}
   </div>
 </div>
 <div class="eo360-bottom-bar">
-  <button class="eo360-btn gold participant-only" type="button" onclick="saveEvaluation()">💾 Guardar evaluación</button>
-  <button class="eo360-btn light" type="button" onclick="evaluatorLogin()">🔐 Evaluador</button>
-  <button class="eo360-btn evaluator-only" type="button" onclick="printResults()">🖨️ Imprimir resultados</button>
+  <button class="eo360-btn gold participant-only" type="button" onclick="saveEvaluation()">&#128190; Guardar</button>
+  <button class="eo360-btn light participant-only" type="button" onclick="evaluatorLogin()">&#128272; Evaluador</button>
+  <button class="eo360-btn gold evaluator-only" type="button" onclick="printResults()">&#128438; Imprimir reporte PDF</button>
+  <button class="eo360-btn light evaluator-only" type="button" onclick="returnToParticipantMode()">&#128100; Volver</button>
 </div>
 
 <section class="hero">
@@ -501,30 +502,331 @@ function clearFeedbackClasses(){document.querySelectorAll('.opt').forEach(o=>o.c
 function markParticipantSelections(){clearFeedbackClasses();document.querySelectorAll('.opts').forEach(group=>{const checked=group.querySelector('input[type=radio]:checked');if(checked)checked.closest('.opt')?.classList.add('selected-participant');});document.querySelectorAll('.yn-row').forEach(group=>{const checked=group.querySelector('input[type=radio]:checked');if(checked)checked.closest('.yn-opt')?.classList.add('selected-participant');});}
 function calculateScoresOnly(){Object.keys(scoresA).forEach(name=>{scoresA[name]=getSelectedLetter(name)===correctA[name]?1:0;});Object.keys(scoresD).forEach(name=>{scoresD[name]=getSelectedYN(name)===correctD[name]?1:0;});scoresB=[];document.querySelectorAll('.selfcheck-row:not(:first-child)').forEach(row=>{const active=row.querySelector('.sc-btn.active');scoresB.push(active?Number(active.textContent.trim()):0);});}
 function applyEvaluatorFeedback(){clearFeedbackClasses();Object.keys(correctA).forEach(name=>{const group=document.querySelector(`input[name="${name}"]`)?.closest('.opts');if(!group)return;const selected=getSelectedLetter(name);group.querySelectorAll('.opt').forEach(o=>{const letter=o.querySelector('.opt-letter')?.textContent?.trim();if(selected&&letter===selected)o.classList.add(letter===correctA[name]?'selected-correct':'selected-wrong');if(selected&&letter===correctA[name]&&letter!==selected)o.classList.add('reveal-correct');});});Object.keys(correctD).forEach(name=>{const group=document.querySelector(`input[name="${name}"]`)?.closest('.yn-row');if(!group)return;const selected=getSelectedYN(name);group.querySelectorAll('.yn-opt').forEach(o=>{const val=o.textContent.trim();if(selected&&val===selected)o.classList.add(val===correctD[name]?'selected-correct':'selected-wrong');if(selected&&val===correctD[name]&&val!==selected)o.classList.add('reveal-correct');});});}
-function updatePrintSummary(){const val=id=>document.getElementById(id)?.value || '—';document.getElementById('psNombre').textContent=val('nombre');document.getElementById('psCargo').textContent=val('cargo');document.getElementById('psArea').textContent=val('area');document.getElementById('psFecha').textContent=val('fecha');document.getElementById('psScoreA').textContent=document.getElementById('scoreA')?.textContent||'0 / 5';document.getElementById('psScoreB').textContent=document.getElementById('scoreB')?.textContent||'0 / 40';document.getElementById('psScoreD').textContent=document.getElementById('scoreD')?.textContent||'0 / 5';document.getElementById('psScoreTotal').textContent=document.getElementById('scoreTotal')?.textContent||'0 / 50';document.getElementById('psInterp').innerText=document.getElementById('scoreInterp')?.innerText||'—';}
-function updateScores(){calculateScoresOnly();const totalA=Object.values(scoresA).reduce((a,b)=>a+b,0);const totalB=scoresB.reduce((a,b)=>a+b,0);const totalD=Object.values(scoresD).reduce((a,b)=>a+b,0);const total=totalA+totalB+totalD;const maxTotal=50;document.getElementById('scoreA').textContent=totalA+' / 5';document.getElementById('scoreB').textContent=totalB+' / 40';document.getElementById('scoreD').textContent=totalD+' / 5';document.getElementById('scoreTotal').textContent=total+' / '+maxTotal;const bar=document.getElementById('scoreBar');if(bar)bar.style.width=Math.round((total/maxTotal)*100)+'%';const interp=document.getElementById('scoreInterp');if(interp){if(total===0)interp.textContent='Complete las respuestas para ver el resultado.';else if(total>=45)interp.innerHTML='🏆 <strong>Nivel alto</strong><br>Dominio sólido del criterio documental y uso de IA.';else if(total>=35)interp.innerHTML='✅ <strong>Buen dominio</strong><br>Debe consolidar trazabilidad, plantillas y KPIs.';else if(total>=22)interp.innerHTML='📈 <strong>Nivel en desarrollo</strong><br>Priorizar gobierno documental y criterios de validación.';else interp.innerHTML='🔄 <strong>Requiere acompañamiento</strong><br>Riesgo de usar IA sin suficiente control documental.';}document.querySelectorAll('.result-field').forEach(el=>{el.textContent=totalB+' / 40';});if(document.body.classList.contains('evaluator-mode'))applyEvaluatorFeedback();updatePrintSummary();}
-function saveEvaluation(){calculateScoresOnly();markParticipantSelections();document.getElementById('eo360Saved')?.classList.add('show');const label=document.getElementById('eo360ModeLabel');if(label)label.innerHTML='<span></span>EVALUACIÓN GUARDADA · ESPERANDO EVALUADOR';window.scrollTo({top:0,behavior:'smooth'});}
-function evaluatorLogin(){const pass=prompt('Ingrese clave de evaluador:');if(pass!==EVALUATOR_PASSWORD){alert('Clave incorrecta.');return;}document.body.classList.add('evaluator-mode');const label=document.getElementById('eo360ModeLabel');if(label)label.innerHTML='<span></span>MODO EVALUADOR ACTIVO';document.getElementById('scorePanel')?.classList.remove('collapsed');updateScores();window.scrollTo({top:0,behavior:'smooth'});}
+function updatePrintSummary(){const val=id=>document.getElementById(id)?.value || '--';document.getElementById('psNombre').textContent=val('nombre');document.getElementById('psCargo').textContent=val('cargo');document.getElementById('psArea').textContent=val('area');document.getElementById('psFecha').textContent=val('fecha');document.getElementById('psScoreA').textContent=document.getElementById('scoreA')?.textContent||'0 / 5';document.getElementById('psScoreB').textContent=document.getElementById('scoreB')?.textContent||'0 / 40';document.getElementById('psScoreD').textContent=document.getElementById('scoreD')?.textContent||'0 / 5';document.getElementById('psScoreTotal').textContent=document.getElementById('scoreTotal')?.textContent||'0 / 50';document.getElementById('psInterp').innerText=document.getElementById('scoreInterp')?.innerText||'--';}
+function updateScores(){calculateScoresOnly();const totalA=Object.values(scoresA).reduce((a,b)=>a+b,0);const totalB=scoresB.reduce((a,b)=>a+b,0);const totalD=Object.values(scoresD).reduce((a,b)=>a+b,0);const total=totalA+totalB+totalD;const maxTotal=50;document.getElementById('scoreA').textContent=totalA+' / 5';document.getElementById('scoreB').textContent=totalB+' / 40';document.getElementById('scoreD').textContent=totalD+' / 5';document.getElementById('scoreTotal').textContent=total+' / '+maxTotal;const bar=document.getElementById('scoreBar');if(bar)bar.style.width=Math.round((total/maxTotal)*100)+'%';const interp=document.getElementById('scoreInterp');if(interp){if(total===0)interp.textContent='Complete las respuestas para ver el resultado.';else if(total>=45)interp.innerHTML='&#x1F3C6; <strong>Nivel alto</strong><br>Dominio s&#xF3;lido del criterio documental y uso de IA.';else if(total>=35)interp.innerHTML='&#x2705; <strong>Buen dominio</strong><br>Debe consolidar trazabilidad, plantillas y KPIs.';else if(total>=22)interp.innerHTML='\u1F4C8 <strong>Nivel en desarrollo</strong><br>Priorizar gobierno documental y criterios de validaci&#xF3;n.';else interp.innerHTML='\u1F504 <strong>Requiere acompa&#xF1;amiento</strong><br>Riesgo de usar IA sin suficiente control documental.';}document.querySelectorAll('.result-field').forEach(el=>{el.textContent=totalB+' / 40';});if(document.body.classList.contains('evaluator-mode'))applyEvaluatorFeedback();updatePrintSummary();}
+function saveEvaluation(){calculateScoresOnly();markParticipantSelections();document.getElementById('eo360Saved')?.classList.add('show');const label=document.getElementById('eo360ModeLabel');if(label)label.innerHTML='<span></span>EVALUACI&#xD3;N GUARDADA &middot; ESPERANDO EVALUADOR';window.scrollTo({top:0,behavior:'smooth'});}
+
 function returnToParticipantMode(){document.body.classList.remove('evaluator-mode');const label=document.getElementById('eo360ModeLabel');if(label)label.innerHTML='<span></span>MODO EVALUADO ACTIVO';markParticipantSelections();}
-function togglePanel(){const panel=document.getElementById('scorePanel');const toggle=document.getElementById('panelToggle');if(!panel||!toggle)return;panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'▼ ver':'▲ ocultar';}
+function togglePanel(){const panel=document.getElementById('scorePanel');const toggle=document.getElementById('panelToggle');if(!panel||!toggle)return;panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'&#x25BC; ver':'&#x25B2; ocultar';}
 document.querySelectorAll('.opts .opt').forEach(opt=>{opt.addEventListener('click',function(){const input=this.querySelector('input[type=radio]');if(!input)return;input.checked=true;if(document.body.classList.contains('evaluator-mode'))updateScores();else{const group=this.closest('.opts');group.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected-participant'));this.classList.add('selected-participant');}});});
 document.querySelectorAll('.yn-opt').forEach(opt=>{opt.addEventListener('click',function(){const input=this.querySelector('input[type=radio]');if(!input)return;input.checked=true;if(document.body.classList.contains('evaluator-mode'))updateScores();else{const group=this.closest('.yn-row');group.querySelectorAll('.yn-opt').forEach(o=>o.classList.remove('selected-participant'));this.classList.add('selected-participant');}});});
 document.querySelectorAll('.selfcheck-row:not(:first-child)').forEach(row=>{const btns=row.querySelectorAll('.sc-btn');btns.forEach(btn=>{btn.addEventListener('click',function(){btns.forEach(b=>b.classList.remove('active'));this.classList.add('active');if(document.body.classList.contains('evaluator-mode'))updateScores();});});});
 
-function syncValuesForPrint(){document.querySelectorAll('input').forEach(input=>{if(input.type==='radio'||input.type==='checkbox'){if(input.checked)input.setAttribute('checked','checked');else input.removeAttribute('checked');}else{input.setAttribute('value',input.value||'');}});document.querySelectorAll('textarea').forEach(t=>{t.textContent=t.value||t.getAttribute('placeholder')||'';});}
-function buildPrintHtml(){
-  updateScores();syncValuesForPrint();
-  const clone=document.body.cloneNode(true);
-  clone.querySelectorAll('.eo360-mode-bar,.eo360-bottom-bar,.score-panel,#scorePanel,.eo360-callout,.eo360-saved,.participant-only,.evaluator-only,button,script').forEach(el=>el.remove());
-  clone.querySelectorAll('textarea').forEach(t=>{const div=document.createElement('div');div.className='print-textbox';div.textContent=(t.value||t.textContent||' ').trim()||' ';t.replaceWith(div);});
-  clone.querySelectorAll('input.field-input').forEach(inp=>{const div=document.createElement('div');div.className='print-inputbox';div.textContent=inp.value||inp.getAttribute('placeholder')||' ';inp.replaceWith(div);});
-  clone.querySelectorAll('input[type="radio"]').forEach(inp=>inp.remove());
-  const summary=clone.querySelector('#printSummaryBlock');const footer=clone.querySelector('.footer');if(summary&&footer&&footer.parentNode)footer.parentNode.insertBefore(summary,footer);
-  const css=`@page{size:A4;margin:16mm 14mm}*{box-sizing:border-box}body{font-family:'Open Sans',Arial,sans-serif;color:#1A1F2E;font-size:11.5px;line-height:1.38}.container{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}.hero{padding:0 0 10px 0!important;margin:0 0 10px 0!important;background:#fff!important;border-bottom:1px solid #E8ECF0}.hero::after{display:none!important}h1{font-size:22px!important;line-height:1.15!important;margin:0 0 6px;color:#1F3A5F!important}h2{font-size:16px!important;color:#1F3A5F!important;margin:0 0 5px}.sub{font-size:10.8px!important;line-height:1.45!important;color:#374151!important}.block{border:1px solid #D9E1EA!important;border-radius:10px!important;padding:12px!important;margin:0 0 10px!important;box-shadow:none!important;break-inside:avoid-page}.meta,.print-summary-grid{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:7px!important}.meta-box,.print-summary-box{padding:7px 8px!important;border:1px solid #E8ECF0!important;border-radius:9px!important}.fields-grid,.commit-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}.part-header{display:flex!important;gap:9px!important;border-bottom:1px solid #E8ECF0!important;margin-bottom:10px!important;padding-bottom:8px!important}.part-num,.q-num{background:#1F3A5F!important;color:#fff!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important}.part-num{width:28px!important;height:28px!important;flex:0 0 28px!important}.q-num{width:22px!important;height:22px!important;flex:0 0 22px!important;background:#D4AF37!important;color:#172E4D!important}.q{padding:9px 0!important;border-bottom:1px solid rgba(31,58,95,.08)!important;break-inside:avoid-page}.q-header{display:flex!important;gap:8px!important}.q-title,.opt,.yn-opt,.selfcheck-text{font-size:10px!important;line-height:1.3!important}.scenario,.instructions{background:#F0F4F9!important;border:1px solid #DDE7F0!important;padding:8px 10px!important;border-radius:8px!important}.opt{display:flex!important;gap:7px!important;border:1px solid #E8ECF0!important;border-radius:8px!important;padding:6px 9px!important}.selected-correct,.reveal-correct{background:#ECFDF5!important;border-color:#0F766E!important}.selected-wrong{background:#FEF2F2!important;border-color:#B91C1C!important}.selfcheck-row{display:grid!important;grid-template-columns:1fr auto!important;gap:10px!important;padding:7px 9px!important;border:1px solid #E8ECF0!important;border-radius:8px!important;background:#F7F9FC!important}.selfcheck-scale{display:flex!important;gap:5px!important}.sc-btn{width:20px!important;height:20px!important;border-radius:50%!important;border:1px solid #DDE7F0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}.sc-btn.active{background:#1F3A5F!important;color:#fff!important}.print-textbox,.print-inputbox,.result-field{width:100%!important;min-height:62px!important;border:1px solid #CBD5E1!important;border-radius:8px!important;padding:7px 9px!important;white-space:pre-wrap!important}.footer{padding:10px 0 0!important;border-top:1px solid #E8ECF0!important;text-align:center}.footer p{font-size:8.8px!important;color:#6B7280!important}`;
-  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Resultados EO360</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"><style>${css}</style></head><body>${clone.innerHTML}</body></html>`;
-}
-function printResults(){if(!document.body.classList.contains('evaluator-mode')){alert('Primero debe ingresar al modo evaluador con la clave.');evaluatorLogin();if(!document.body.classList.contains('evaluator-mode'))return;}updateScores();const w=window.open('','_blank');if(!w){alert('El navegador bloqueó la ventana de impresión. Permita ventanas emergentes.');return;}w.document.open();w.document.write(buildPrintHtml());w.document.close();w.onload=function(){setTimeout(()=>{w.focus();w.print();},250);};}
+
+
+
 document.addEventListener('DOMContentLoaded',()=>{markParticipantSelections();updatePrintSummary();});
+
+
+/* EO360 v4 */
+function eoLevel(p){
+  if(p>=88)return{lbl:'Excelente dominio',col:'#0F766E',bg:'#ECFDF5',bdr:'#A7F3D0',desc:'Nivel avanzado. Aplica con consistencia y puede orientar a otros.'};
+  if(p>=72)return{lbl:'Buen dominio',col:'#1D4ED8',bg:'#EFF6FF',bdr:'#BFDBFE',desc:'Dominio solido con oportunidades de consolidacion en casos complejos.'};
+  if(p>=50)return{lbl:'Dominio basico',col:'#D97706',bg:'#FFFBEB',bdr:'#FDE68A',desc:'Comprension en desarrollo. Requiere practica y acompanamiento guiado.'};
+  return{lbl:'Requiere acompanamiento',col:'#B91C1C',bg:'#FEF2F2',bdr:'#FECACA',desc:'Plan de desarrollo individual recomendado. Priorizar modulos base.'};
+}
+function eoCell(doc,s,m,col){
+  var d=doc.createElement('div');
+  d.style.cssText='padding:11px 9px;background:#fff;border-right:1px solid #E8ECF0;border-top:1px solid #E8ECF0;text-align:center';
+  d.innerHTML='<div style="font-family:Arial,sans-serif;font-size:18px;font-weight:800;color:'+col+';line-height:1">'+s+'</div>'
+    +'<div style="font-size:8px;color:#9CA3AF;margin-top:1px">/ '+m+'</div>'
+    +'<div style="font-family:Arial,sans-serif;font-size:9px;font-weight:700;color:'+col+';margin-top:2px">'+Math.round(s/m*100)+'%</div>';
+  return d;
+}
+function eoBar(doc,lbl,s,m,col){
+  var p=Math.round(s/m*100);
+  var d=doc.createElement('div');
+  d.style.marginBottom='11px';
+  d.innerHTML='<div style="display:flex;justify-content:space-between;margin-bottom:3px">'
+    +'<span style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;color:#374151">'+lbl+'</span>'
+    +'<span style="font-family:Arial,sans-serif;font-size:10px;font-weight:800;color:#1F3A5F">'+s+'/'+m+'</span></div>'
+    +'<div style="height:7px;background:#E8ECF0;border-radius:999px;overflow:hidden">'
+    +'<div style="height:100%;width:'+p+'%;background:'+col+';border-radius:999px"></div></div>'
+    +'<div style="font-size:9px;color:#9CA3AF;margin-top:1px">'+p+'%</div>';
+  return d;
+}
+function eoPartCard(doc,lbl,val){
+  var d=doc.createElement('div');
+  d.style.cssText='background:#fff;border:1px solid #E8ECF0;border-radius:10px;padding:9px 12px';
+  d.innerHTML='<div style="font-family:Arial,sans-serif;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1F3A5F;opacity:.6;margin-bottom:3px">'+lbl+'</div>'
+    +'<div style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;color:#1F3A5F">'+val+'</div>';
+  return d;
+}
+function eoResponses(doc){
+  var frag=doc.createDocumentFragment();
+  var items=[],seen={};
+  document.querySelectorAll('textarea').forEach(function(ta){
+    var v=(ta.value||'').trim();
+    if(!v||v.length<3||seen[v])return;
+    seen[v]=1;
+    var cb=ta.closest('.commit-box');
+    var qe=ta.closest('.q');
+    var lbl=cb&&cb.querySelector('label')?cb.querySelector('label').innerText.trim()
+      :(qe&&qe.querySelector('.q-title')?qe.querySelector('.q-title').innerText.trim().slice(0,120)
+      :(ta.getAttribute('placeholder')||'').slice(0,80));
+    items.push({lbl:lbl,v:v,c:ta.classList.contains('commit-input')});
+  });
+  var opens=items.filter(function(r){return !r.c;});
+  var commits=items.filter(function(r){return r.c;});
+  if(opens.length){
+    var hdr=doc.createElement('div');
+    hdr.style.cssText='break-before:page;page-break-before:always';
+    hdr.innerHTML='<div style="background:linear-gradient(135deg,#1F3A5F,#274872);padding:13px 18px;border-radius:10px 10px 0 0;margin-bottom:0">'
+      +'<div style="font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:3px">Respuestas abiertas</div>'
+      +'<div style="font-family:Arial,sans-serif;font-size:15px;font-weight:800;color:#fff">Reflexiones y analisis escritos</div></div>';
+    frag.appendChild(hdr);
+    opens.forEach(function(r,i){
+      var row=doc.createElement('div');
+      row.style.cssText='border:1px solid #E8ECF0;border-top:none;padding:12px 16px;background:'+(i%2===0?'#F7F9FC':'#fff')+';break-inside:avoid';
+      row.innerHTML='<div style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;color:#1F3A5F;margin-bottom:5px;line-height:1.4">'+r.lbl+'</div>'
+        +'<div style="font-size:11.5px;color:#374151;line-height:1.65;padding:8px 12px;border:1px solid #DDE7F0;border-left:3px solid #D4AF37;border-radius:0 7px 7px 0">'+r.v+'</div>';
+      frag.appendChild(row);
+    });
+  }
+  if(commits.length){
+    var chdr=doc.createElement('div');
+    chdr.style.cssText='margin-top:14px';
+    chdr.innerHTML='<div style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0F766E;margin-bottom:8px">Compromisos de aplicacion</div>';
+    commits.forEach(function(r){
+      var row=doc.createElement('div');
+      row.style.cssText='display:flex;gap:10px;padding:9px 13px;border:1px solid #A7F3D0;border-radius:9px;background:#ECFDF5;margin-bottom:7px;break-inside:avoid';
+      row.innerHTML='<div style="font-family:Arial,sans-serif;font-size:9.5px;font-weight:700;color:#166534;margin-bottom:3px">'+r.lbl+'</div>'
+        +'<div style="font-size:11.5px;color:#064E3B;line-height:1.5">'+r.v+'</div>';
+      chdr.appendChild(row);
+    });
+    frag.appendChild(chdr);
+  }
+  return frag;
+}
+function printResults(){
+  var tA=Object.values(scoresA||{}).reduce(function(a,b){return a+b;},0);
+  var tB=(scoresB||[]).reduce(function(a,b){return a+b;},0);
+  var tD=Object.values(scoresD||{}).reduce(function(a,b){return a+b;},0);
+  var total=tA+tB+tD;
+  var maxT=50;
+  var pct=Math.round(total/maxT*100);
+  var lv=eoLevel(pct);
+  var nombre=(document.getElementById('inp-nombre')&&document.getElementById('inp-nombre').value)||(document.getElementById('nombre')&&document.getElementById('nombre').value)||'---';
+  var cargo=(document.getElementById('inp-cargo')&&document.getElementById('inp-cargo').value)||(document.getElementById('cargo')&&document.getElementById('cargo').value)||'---';
+  var area=(document.getElementById('inp-area')&&document.getElementById('inp-area').value)||(document.getElementById('area')&&document.getElementById('area').value)||'---';
+  var fecha=(document.getElementById('inp-fecha')&&document.getElementById('inp-fecha').value)||(document.getElementById('fecha')&&document.getElementById('fecha').value)||new Date().toLocaleDateString('es-EC');
+  var interp=(document.getElementById('scoreInterp')&&document.getElementById('scoreInterp').textContent.trim())||lv.lbl;
+
+  /* Open report window and build DOM directly - no string escaping needed */
+  var win=window.open('','_blank','width=920,height=720');
+  if(!win){alert('Permita ventanas emergentes para generar el reporte.');return;}
+
+  /* Copy the template HTML into new window */
+  var tplHtml=document.getElementById('eoReportTpl').innerHTML;
+  win.document.open();
+  win.document.write(tplHtml);
+  win.document.close();
+
+  /* Now manipulate DOM of the new window directly */
+  var d=win.document;
+
+  /* Participant cards */
+  var grid=d.getElementById('rptPartGrid');
+  if(grid){
+    [['Participante',nombre],['Cargo',cargo],['Area',area],['Fecha',fecha]].forEach(function(x){
+      grid.appendChild(eoPartCard(d,x[0],x[1]));
+    });
+  }
+
+  /* Donut SVG */
+  var R=54,CX=70,CY=70,SW=12,circ=2*Math.PI*R,dash=pct/100*circ,gap=circ-dash;
+  var svgNS='http://www.w3.org/2000/svg';
+  var svg=d.createElementNS(svgNS,'svg');
+  svg.setAttribute('width','140');svg.setAttribute('height','140');svg.setAttribute('viewBox','0 0 140 140');
+  var bg=d.createElementNS(svgNS,'circle');
+  bg.setAttribute('cx',CX);bg.setAttribute('cy',CY);bg.setAttribute('r',R);bg.setAttribute('fill','none');bg.setAttribute('stroke','#E8ECF0');bg.setAttribute('stroke-width',SW);
+  svg.appendChild(bg);
+  var arc=d.createElementNS(svgNS,'circle');
+  arc.setAttribute('cx',CX);arc.setAttribute('cy',CY);arc.setAttribute('r',R);arc.setAttribute('fill','none');arc.setAttribute('stroke',lv.col);arc.setAttribute('stroke-width',SW);
+  arc.setAttribute('stroke-dasharray',dash.toFixed(1)+' '+gap.toFixed(1));arc.setAttribute('stroke-dashoffset',(circ*.25).toFixed(1));arc.setAttribute('stroke-linecap','round');
+  svg.appendChild(arc);
+  var t1=d.createElementNS(svgNS,'text');
+  t1.setAttribute('x',CX);t1.setAttribute('y',CY-9);t1.setAttribute('text-anchor','middle');t1.setAttribute('font-family','Arial');t1.setAttribute('font-weight','800');t1.setAttribute('font-size','22');t1.setAttribute('fill','#1F3A5F');t1.textContent=pct+'%';
+  svg.appendChild(t1);
+  var t2=d.createElementNS(svgNS,'text');
+  t2.setAttribute('x',CX);t2.setAttribute('y',CY+10);t2.setAttribute('text-anchor','middle');t2.setAttribute('font-family','Arial');t2.setAttribute('font-size','10');t2.setAttribute('fill','#6B7280');t2.textContent=total+' / '+maxT;
+  svg.appendChild(t2);
+  var donutEl=d.getElementById('rptDonut');
+  if(donutEl)donutEl.appendChild(svg);
+
+  /* Badge */
+  var badge=d.getElementById('rptBadge');
+  if(badge){
+    badge.style.background=lv.bg;badge.style.border='1px solid '+lv.bdr;
+    badge.innerHTML='<span style="font-family:Arial,sans-serif;font-size:12px;font-weight:800;color:'+lv.col+'">'+lv.lbl+'</span>';
+  }
+
+  /* Interp + desc */
+  var interpEl=d.getElementById('rptInterp');if(interpEl)interpEl.textContent=interp;
+  var descEl=d.getElementById('rptDesc');
+  if(descEl){descEl.textContent=lv.desc;descEl.style.background=lv.bg;descEl.style.borderLeft='3px solid '+lv.col;}
+
+  /* Bars */
+  var barsEl=d.getElementById('rptBars');
+  if(barsEl){
+    barsEl.appendChild(eoBar(d,'Parte A',tA,5,'#1D4ED8'));
+    barsEl.appendChild(eoBar(d,'Parte B',tB,40,'#0F766E'));
+    barsEl.appendChild(eoBar(d,'Parte D',tD,5,'#7C3AED'));
+    barsEl.appendChild(eoBar(d,'Total',total,maxT,lv.col));
+  }
+
+  /* Score cells */
+  var cellsEl=d.getElementById('rptCells');
+  if(cellsEl){
+    cellsEl.appendChild(eoCell(d,tA,5,'#1D4ED8'));
+    cellsEl.appendChild(eoCell(d,tB,40,'#0F766E'));
+    cellsEl.appendChild(eoCell(d,tD,5,'#7C3AED'));
+    cellsEl.appendChild(eoCell(d,total,maxT,lv.col));
+  }
+
+  /* Recommendation */
+  var recEl=d.getElementById('rptRec');
+  if(recEl){
+    recEl.style.background=lv.bg;recEl.style.border='1px solid '+lv.bdr;recEl.style.borderLeft='3px solid '+lv.col;
+    recEl.innerHTML='<div style="font-family:Arial,sans-serif;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:'+lv.col+';margin-bottom:3px">Recomendacion</div>'
+      +'<div style="font-size:11px;color:#374151;line-height:1.5">'+lv.desc+'</div>';
+  }
+
+  /* Fecha */
+  var fechaEl=d.getElementById('rptFecha');if(fechaEl)fechaEl.textContent='Emitido: '+fecha;
+
+  /* Responses */
+  var respEl=d.getElementById('rptResponses');
+  if(respEl)respEl.appendChild(eoResponses(d));
+
+  /* Print */
+  win.onload=function(){};
+  setTimeout(function(){win.focus();win.print();},900);
+}
+function evaluatorLogin(){
+  document.getElementById('eoModal').style.display='flex';
+  setTimeout(function(){var i=document.getElementById('eoModalPwd');if(i)i.focus();},80);
+}
+function eoModalOK(){
+  var inp=document.getElementById('eoModalPwd');
+  if(inp&&inp.value.trim()===EVALUATOR_PASSWORD){
+    document.getElementById('eoModal').style.display='none';
+    inp.value='';
+    document.getElementById('eoModalErr').style.display='none';
+    document.body.classList.add('evaluator-mode');
+    var lbl=document.getElementById('eo360ModeLabel');
+    if(lbl)lbl.innerHTML='<span></span>MODO EVALUADOR ACTIVO';
+    if(typeof applyEvaluatorFeedback==='function')applyEvaluatorFeedback();
+    if(typeof updateScores==='function')updateScores();
+    window.scrollTo({top:0,behavior:'smooth'});
+  } else {
+    document.getElementById('eoModalErr').style.display='block';
+    if(inp){inp.value='';inp.focus();}
+  }
+}
+function eoModalCancel(){
+  document.getElementById('eoModal').style.display='none';
+  var i=document.getElementById('eoModalPwd');if(i)i.value='';
+  document.getElementById('eoModalErr').style.display='none';
+}
+
 </script>
+
+<div id="eoModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(23,46,77,.78);backdrop-filter:blur(6px);align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:20px;max-width:400px;width:92%;overflow:hidden;box-shadow:0 32px 80px rgba(23,46,77,.4)">
+    <div style="background:linear-gradient(135deg,#1F3A5F,#274872);padding:20px 22px 16px">
+      <div style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px">EO360 &middot; Acceso restringido</div>
+      <div style="font-family:Arial,sans-serif;font-size:17px;font-weight:700;color:#fff">Modo Evaluador</div>
+      <div style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.65);margin-top:4px">Ingrese la clave para activar el modo evaluador.</div>
+    </div>
+    <div style="padding:20px 22px">
+      <div id="eoModalErr" style="display:none;background:#FEF2F2;border-left:3px solid #B91C1C;border-radius:0 8px 8px 0;padding:9px 13px;font-family:Arial,sans-serif;font-size:13px;color:#7F1D1D;margin-bottom:12px">Clave incorrecta.</div>
+      <div style="font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1F3A5F;opacity:.7;margin-bottom:6px">Clave de evaluador</div>
+      <input id="eoModalPwd" type="password" placeholder="Ingrese la clave..."
+        style="width:100%;padding:11px 14px;border:1.5px solid #E8ECF0;border-radius:10px;font-family:Arial,sans-serif;font-size:14px;outline:none;box-sizing:border-box"/>
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button onclick="eoModalOK()" style="flex:1;background:#1F3A5F;color:#fff;border:none;border-radius:10px;padding:11px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;cursor:pointer">Ingresar</button>
+        <button onclick="eoModalCancel()" style="background:#F7F9FC;color:#6B7280;border:1px solid #E8ECF0;border-radius:10px;padding:11px 16px;font-family:Arial,sans-serif;font-size:13px;cursor:pointer">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="eoReportTpl" style="display:none">
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"/>
+<title>Reporte EO360</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+@page{{size:A4;margin:14mm}}
+*{{box-sizing:border-box;margin:0;padding:0}}
+body{{font-family:"Open Sans",Arial,sans-serif;font-size:11.5px;line-height:1.5;background:#fff;color:#1A1F2E;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body>
+<div style="background:linear-gradient(135deg,#1F3A5F,#274872);padding:18px 22px 14px;border-bottom:3px solid #D4AF37">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.3);border-radius:999px;padding:4px 12px;margin-bottom:8px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#D4AF37;display:inline-block"></span>
+        <span style="font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#D4AF37">Modulo 3 &middot; EO360 &middot; Reporte de Evaluacion</span>
+      </div>
+      <div style="font-family:Arial,sans-serif;font-size:19px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:4px">Evaluación Diagnóstica de IA aplicada a formatos, políticas </div>
+      <div style="font-size:11px;color:rgba(255,255,255,.6)">Diagnostico individual de comprension y aplicacion practica</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0">
+      <div style="font-family:Arial,sans-serif;font-size:22px;font-weight:800;color:#fff">E<span style="opacity:.4">O</span>360</div>
+      <div style="font-size:8px;color:rgba(255,255,255,.4);letter-spacing:.18em;text-transform:uppercase">Eficiencia Operativa</div>
+    </div>
+  </div>
+</div>
+<div id="rptPart" style="background:#F7F9FC;border-bottom:1px solid #E8ECF0;padding:11px 22px">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px" id="rptPartGrid"></div>
+</div>
+<div style="padding:16px 22px;display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:start;border-bottom:1px solid #E8ECF0">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+    <div id="rptDonut"></div>
+    <div style="font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9CA3AF;text-align:center">Resultado global</div>
+  </div>
+  <div>
+    <div id="rptBadge" style="display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 16px;margin-bottom:10px"></div>
+    <div id="rptInterp" style="font-size:12.5px;color:#374151;line-height:1.65;margin-bottom:12px"></div>
+    <div id="rptDesc" style="font-size:11px;color:#374151;line-height:1.6;padding:10px 14px;border-radius:0 8px 8px 0"></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px">
+      <div style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:8px;padding:6px 8px"><div style="font-family:Arial,sans-serif;font-size:9px;font-weight:800;color:#0F766E">88-100%</div><div style="font-size:9.5px;color:#374151;margin-top:1px">Excelente</div></div>
+      <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:6px 8px"><div style="font-family:Arial,sans-serif;font-size:9px;font-weight:800;color:#1D4ED8">72-87%</div><div style="font-size:9.5px;color:#374151;margin-top:1px">Buen dominio</div></div>
+      <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:6px 8px"><div style="font-family:Arial,sans-serif;font-size:9px;font-weight:800;color:#D97706">50-71%</div><div style="font-size:9.5px;color:#374151;margin-top:1px">Basico</div></div>
+      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:6px 8px"><div style="font-family:Arial,sans-serif;font-size:9px;font-weight:800;color:#B91C1C">0-49%</div><div style="font-size:9.5px;color:#374151;margin-top:1px">Requiere apoyo</div></div>
+    </div>
+  </div>
+</div>
+<div style="padding:16px 22px;border-bottom:1px solid #E8ECF0;display:grid;grid-template-columns:1fr 1fr;gap:22px">
+  <div>
+    <div style="font-family:Arial,sans-serif;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#1F3A5F;opacity:.65;margin-bottom:10px">Desglose por seccion</div>
+    <div id="rptBars"></div>
+  </div>
+  <div>
+    <div style="font-family:Arial,sans-serif;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#1F3A5F;opacity:.65;margin-bottom:10px">Tabla de resultados</div>
+    <div style="border:1px solid #E8ECF0;border-radius:10px;overflow:hidden">
+      <div style="background:#1F3A5F;display:grid;grid-template-columns:repeat(4,1fr)">
+        <div style="padding:8px 9px;font-family:Arial,sans-serif;font-size:8.5px;font-weight:700;color:rgba(255,255,255,.7);border-right:1px solid rgba(255,255,255,.1)">Parte A</div>
+        <div style="padding:8px 9px;font-family:Arial,sans-serif;font-size:8.5px;font-weight:700;color:rgba(255,255,255,.7);border-right:1px solid rgba(255,255,255,.1)">Parte B</div>
+        <div style="padding:8px 9px;font-family:Arial,sans-serif;font-size:8.5px;font-weight:700;color:rgba(255,255,255,.7);border-right:1px solid rgba(255,255,255,.1)">Parte D</div>
+        <div style="padding:8px 9px;font-family:Arial,sans-serif;font-size:8.5px;font-weight:700;color:rgba(255,255,255,.7)">Total</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr)" id="rptCells"></div>
+    </div>
+    <div id="rptRec" style="margin-top:10px;border-radius:0 9px 9px 0;padding:9px 13px"></div>
+  </div>
+</div>
+<div style="padding:10px 22px;background:#F7F9FC;border-bottom:1px solid #E8ECF0">
+  <div style="font-size:9.5px;color:#6B7280;line-height:1.55"><strong style="color:#1F3A5F">Confidencialidad:</strong> uso exclusivo de RRHH o responsable autorizado. EO360 &middot; Geovanny Javier Farias Riveras.</div>
+</div>
+<div style="padding:9px 22px;display:flex;justify-content:space-between">
+  <span style="font-size:9px;color:#9CA3AF">EO360 &middot; eficienciaoperativa360.com &middot; 0979 001 810</span>
+  <span id="rptFecha" style="font-size:9px;color:#9CA3AF"></span>
+</div>
+<div id="rptResponses"></div>
+</body></html>
+</div>
+
 </body>
 </html>
