@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Liderazgo Aplicado en Entornos Corporativos | EO360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3A5F; --navy-dark:#172E4D; --navy-10:#F0F4F9; --navy-20:#DDE7F0;
+  --gold:#D4AF37; --gold-2:#B88A1B;
+  --white:#FFF; --text:#1A1F2E; --text-2:#374151;
+  --gray:#6B7280; --lt:#F7F9FC; --border:#E8ECF0;
+  --ok:#0F766E; --ok-2:#166534; --bad:#B91C1C;
+  --shadow:0 18px 45px rgba(31,58,95,.10);
+  --max:1220px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Open Sans',sans-serif;color:var(--text);background:#fff;line-height:1.65}
+.container{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ── TOPBAR ── */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px}
+.brand{display:flex;align-items:center;gap:14px;font-family:'Montserrat',sans-serif;text-decoration:none}
+.brand-mark{font-size:26px;font-weight:800;color:var(--navy);letter-spacing:-.04em}
+.brand-mark span{opacity:.35}
+.brand-copy strong{display:block;font-size:13px;color:var(--navy)}
+.brand-copy span{display:block;font-size:11px;color:var(--gray)}
+
+/* Module tabs as topbar nav */
+.tab-nav{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-btn{font-size:12px;font-weight:700;font-family:'Montserrat',sans-serif;color:var(--navy);padding:8px 14px;border-radius:999px;background:var(--navy-10);border:1px solid rgba(31,58,95,.08);text-decoration:none;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;letter-spacing:.02em}
+.tab-btn:hover{background:var(--navy-20)}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ── HERO ── */
+.hero{padding:56px 0 32px;background:linear-gradient(180deg,#fff 0%,var(--lt) 100%);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-40px;width:320px;height:320px;background:radial-gradient(circle,rgba(212,175,55,.18) 0%,rgba(212,175,55,.04) 40%,rgba(212,175,55,0) 75%);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(31,58,95,.06);border:1px solid rgba(31,58,95,.08);font:800 11px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-2));flex-shrink:0}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;margin:0}
+h1{font-size:clamp(32px,4.5vw,52px);line-height:1.05;letter-spacing:-.03em;max-width:940px;margin-bottom:14px;color:var(--text)}
+h2{font-size:clamp(26px,3.5vw,40px);line-height:1.1;letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
+h3{font-size:20px;color:var(--navy);margin-bottom:10px;line-height:1.25}
+.hero-sub,.section-sub{max-width:880px;font-size:17px;color:var(--gray);line-height:1.8;margin-bottom:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start;margin-top:32px}
+
+/* ── CARDS ── */
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:0 8px 24px rgba(31,58,95,.06)}
+.card p{color:var(--text-2);font-size:14px;line-height:1.7;margin:0}
+.card ul,.card ol{color:var(--text-2);font-size:14px;line-height:1.75;padding-left:20px}
+.card li{margin-bottom:4px}
+.hero-card{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 12px 32px rgba(31,58,95,.07)}
+.hero-card-top{background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);color:#fff;padding:24px 24px 18px}
+.hero-card-top h3{color:#fff;font-size:22px;margin-bottom:8px}
+.hero-card-top p{font-size:14px;color:rgba(255,255,255,.82);margin:0}
+.hero-card-body{padding:22px}
+
+/* ── KPI GRID ── */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.kpi{background:#fff;border:1px solid rgba(31,58,95,.08);border-radius:16px;padding:16px;min-width:0}
+.kpi .klabel{display:block;font-size:12px;color:var(--gray);margin-bottom:8px;font-family:'Montserrat',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.kpi .kvalue{display:block;font:800 28px 'Montserrat',sans-serif;color:var(--navy);line-height:1}
+.kpi .ktrend{display:block;font-size:12px;font-weight:700;margin-top:8px;color:var(--gray)}
+
+/* ── SECTIONS ── */
+.section{padding:72px 0}
+.section.alt{background:var(--lt)}
+.section-label{font:800 11px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.16em;text-transform:uppercase;opacity:.68;margin-bottom:10px;display:block}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.pill{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(31,58,95,.08);color:var(--navy);font-size:12px;font-weight:700;margin-bottom:12px;font-family:'Montserrat',sans-serif}
+
+/* ── ERCA BOXES ── */
+.erca-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px}
+.erca-box{background:#fff;border:1px solid var(--border);border-radius:18px;padding:22px;position:relative;overflow:hidden;box-shadow:0 8px 20px rgba(31,58,95,.05)}
+.erca-box::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-2))}
+.erca-box .step{display:inline-flex;width:38px;height:38px;border-radius:50%;align-items:center;justify-content:center;background:var(--navy);color:#fff;font:800 16px 'Montserrat',sans-serif;margin-bottom:12px}
+.erca-box h3{font-size:17px;margin-bottom:8px}
+.erca-box p{font-size:13px;color:var(--text-2);line-height:1.65;margin:0}
+
+/* ── TAB PANELS ── */
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── MODULE HEADER (inside each panel) ── */
+.mod-header{display:flex;align-items:flex-start;gap:18px;padding:28px 32px;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);border-radius:20px;margin-bottom:28px;position:relative;overflow:hidden}
+.mod-header::after{content:attr(data-num);position:absolute;right:24px;top:50%;transform:translateY(-50%);font:800 80px 'Montserrat',sans-serif;color:rgba(255,255,255,.05);pointer-events:none;line-height:1}
+.mod-icon{font-size:28px;width:54px;height:54px;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.28);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mod-header h2{color:#fff;font-size:19px;margin-bottom:6px}
+.mod-header p{font-size:13px;color:rgba(255,255,255,.72);margin:0;line-height:1.6}
+
+/* ── LESSON CARDS ── */
+.lessons{display:grid;gap:14px}
+.lcard{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(31,58,95,.05);transition:box-shadow .2s,border-color .2s}
+.lcard:hover{box-shadow:0 8px 28px rgba(31,58,95,.1);border-color:rgba(31,58,95,.18)}
+.lcard.open{border-color:var(--navy);box-shadow:0 10px 36px rgba(31,58,95,.12)}
+.lcard-toggle{width:100%;display:flex;align-items:center;gap:14px;padding:18px 22px;background:none;border:none;cursor:pointer;text-align:left;transition:background .15s}
+.lcard-toggle:hover{background:var(--navy-10)}
+.lcard.open .lcard-toggle{background:var(--navy-10)}
+.lcard-num{font:800 10px 'Montserrat',sans-serif;letter-spacing:1px;color:var(--navy);background:var(--navy-10);border:1px solid rgba(31,58,95,.15);padding:4px 11px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.lcard.open .lcard-num{background:var(--navy);color:#fff;border-color:var(--navy)}
+.lcard-title{font:700 14px 'Montserrat',sans-serif;color:var(--navy);flex:1;text-align:left;line-height:1.3}
+.lcard-arrow{width:28px;height:28px;background:var(--navy-10);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--navy);flex-shrink:0;transition:transform .25s,background .2s;font-family:'Montserrat',sans-serif;font-weight:800}
+.lcard.open .lcard-arrow{transform:rotate(180deg);background:var(--navy);color:#fff}
+
+/* ── LESSON BODY ── */
+.lcard-body{display:none;padding:6px 22px 28px;border-top:1px solid var(--border)}
+.lcard.open .lcard-body{display:block}
+
+/* ── BLOCK LABELS ── */
+.blk{margin-top:22px}
+.blk-label{display:inline-flex;align-items:center;gap:6px;font:800 10px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:999px;margin-bottom:11px}
+.lbl-e{background:rgba(31,58,95,.07);color:var(--navy);border:1px solid rgba(31,58,95,.1)}
+.lbl-r{background:rgba(212,175,55,.1);color:#7a5a08;border:1px solid rgba(212,175,55,.25)}
+.lbl-c{background:var(--navy);color:#fff;border:1px solid var(--navy)}
+.lbl-a{background:rgba(15,118,110,.08);color:var(--ok-2);border:1px solid rgba(15,118,110,.2)}
+
+/* Experiencia box */
+.exp-box{background:var(--navy-10);border:1px solid var(--navy-20);border-radius:14px;padding:18px 20px;font-size:14px;color:var(--text-2);line-height:1.7}
+.exp-box p+p{margin-top:8px}
+.exp-box ul{list-style:none;padding:0;margin:10px 0}
+.exp-box ul li{padding-left:16px;position:relative;margin-bottom:5px;font-size:13px}
+.exp-box ul li::before{content:'▸';position:absolute;left:0;color:var(--navy);font-size:11px;top:1px}
+.quote{font-style:italic;color:var(--navy-dark);background:#fff;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 15px;margin:11px 0;font-size:14px;line-height:1.65;box-shadow:0 2px 8px rgba(31,58,95,.05)}
+.quote-bad{border-left-color:var(--bad);color:#7f1d1d;background:#fff5f5}
+.quote-good{border-left-color:var(--ok);color:#064e3b;background:#ecfdf5}
+
+/* Context pills */
+.ctx-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.ctx{background:#fff;border:1px solid var(--border);border-radius:12px;border-top:3px solid var(--gold);padding:10px 14px;font-size:13px;color:var(--text-2);line-height:1.45;box-shadow:0 2px 8px rgba(31,58,95,.04)}
+.ctx strong{display:block;font:700 9px 'Montserrat',sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:var(--navy);margin-bottom:3px}
+
+/* Reflexión */
+.ref-box{background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.22);border-radius:14px;padding:16px 20px}
+.ref-q{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text);margin-bottom:7px;line-height:1.6}
+.ref-q:last-child{margin-bottom:0}
+.ref-q::before{content:"?";font:800 10px 'Montserrat',sans-serif;color:#fff;background:linear-gradient(180deg,var(--gold),var(--gold-2));width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+
+/* Concepto */
+.con-box{background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.con-icon{font-size:22px;width:44px;height:44px;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.28);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.con-txt{font-size:14px;color:rgba(255,255,255,.88);line-height:1.75;flex:1}
+.con-txt strong,.con-txt b{color:#fff;font-weight:700}
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c-bad{padding:11px 14px;font-size:13px;line-height:1.55;background:#fff5f5;border-radius:10px;border-left:3px solid var(--bad);color:#7f1d1d}
+.c-good{padding:11px 14px;font-size:13px;line-height:1.55;background:#ecfdf5;border-radius:10px;border-left:3px solid var(--ok);color:#064e3b}
+.c-lbl{font:800 9px 'Montserrat',sans-serif;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;opacity:.65}
+
+/* Aplicación */
+.apl-box{background:var(--lt);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.steps{list-style:none;padding:0;display:grid;gap:8px}
+.steps li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-2);line-height:1.6}
+.steps li strong{color:var(--navy)}
+.sn{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font:800 10px 'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.si{font-size:15px;flex-shrink:0;margin-top:1px;line-height:1.4}
+
+/* Pill row for formats */
+.pills-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.fpill{display:flex;align-items:baseline;gap:6px;background:#fff;border:1px solid rgba(31,58,95,.12);border-radius:999px;padding:7px 14px;font-size:13px;color:var(--text-2);box-shadow:0 2px 6px rgba(31,58,95,.04)}
+.fpill strong{font:700 9px 'Montserrat',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
+
+/* Key action highlight */
+.key-action{background:linear-gradient(135deg,rgba(31,58,95,.06) 0%,rgba(31,58,95,.03) 100%);border:1px solid rgba(31,58,95,.14);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:13px 16px;font-size:14px;color:var(--navy);font-weight:600;line-height:1.55;margin-top:12px}
+
+/* ── FOOTER ── */
+.footer{padding:36px 0 48px;background:#fff;border-top:1px solid var(--border);text-align:center}
+.footer p{font-size:13px;color:var(--gray);margin:4px 0}
+.footer strong{color:var(--navy)}
+.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.contact-box{background:var(--lt);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:left}
+.contact-box small{display:block;font:800 10px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.6;margin-bottom:6px}
+.contact-box strong{display:block;font-size:14px;color:var(--navy);font-family:'Montserrat',sans-serif}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1180px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1024px){.hero-grid,.grid-2,.grid-3,.grid-4,.erca-grid,.contact-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){
+  .topbar-inner{flex-wrap:wrap;padding:12px 0;gap:12px}
+  .hero{padding-top:36px}h1{font-size:32px}h2{font-size:26px}
+  .hero-grid,.grid-2,.grid-3,.grid-4,.erca-grid,.kpis,.contact-grid,.contrast{grid-template-columns:1fr}
+  .container{padding:0 16px}.section{padding:52px 0}
+  .mod-header{padding:20px 20px;flex-direction:column;gap:12px}
+  .tab-nav{gap:4px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ TOPBAR ══ -->
+<header class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">E<span>O</span>360</div>
+        <div class="brand-copy">
+          <strong>Liderazgo Aplicado</strong>
+          <span>en Entornos Corporativos</span>
+        </div>
+      </div>
+      <nav class="tab-nav">
+        <button class="tab-btn active" onclick="tab('inicio',this)">🏠 Inicio</button>
+    <button class="tab-btn" onclick="tab('m1',this)">1 · Fundamentos</button>
+        <button class="tab-btn" onclick="tab('m2',this)">2 · Comunicación</button>
+        <button class="tab-btn" onclick="tab('m3',this)">3 · Equipos</button>
+        <button class="tab-btn" onclick="tab('m4',this)">4 · Conflictos</button>
+        <button class="tab-btn" onclick="tab('m5',this)">5 · Resultados</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section class="section">
+  <div class="container">
+<div class="tab-panel active" id="inicio">
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow"><span class="dot"></span>Programa de Formación Corporativa · EO360</div>
+    <h1>Liderazgo Aplicado en Entornos Corporativos</h1>
+    <p class="hero-sub">Formación diseñada desde la realidad operativa — situaciones reales, conceptos concretos y aplicación inmediata en tu contexto de trabajo.</p>
+
+    <div class="hero-grid">
+      <div class="grid-2">
+        <div class="card">
+          <span class="pill">Aprenderás a</span>
+          <h3>Resultados de aprendizaje</h3>
+          <ul>
+            <li>Diferenciar el rol de jefe y el rol de líder en la práctica</li>
+            <li>Comunicar instrucciones claras que se ejecutan</li>
+            <li>Coordinar equipos mixtos hacia un objetivo común</li>
+            <li>Resolver conflictos entre áreas con método</li>
+            <li>Medir y hacer seguimiento sin generar fricción</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="pill">Dirigido a</span>
+          <h3>Perfil de participantes</h3>
+          <ul>
+            <li>Supervisores y jefes de área</li>
+            <li>Coordinadores operativos</li>
+            <li>Responsables de equipos mixtos</li>
+            <li>Líderes de bodega, campo y oficina</li>
+            <li>Mandos medios en proceso de desarrollo</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <h3>Lo que cambia con un liderazgo bien aplicado</h3>
+          <p>Impacto medible en equipos intervenidos con metodología EO360.</p>
+        </div>
+        <div class="hero-card-body">
+          <div class="kpis">
+            <div class="kpi"><span class="klabel">Módulos</span><span class="kvalue">5</span><span class="ktrend">Temas aplicados</span></div>
+            <div class="kpi"><span class="klabel">Lecciones</span><span class="kvalue">18</span><span class="ktrend">Casos reales</span></div>
+            <div class="kpi"><span class="klabel">Errores operativos</span><span class="kvalue">-40%</span><span class="ktrend" style="color:var(--ok)">↓ con liderazgo claro</span></div>
+            <div class="kpi"><span class="klabel">Rotación de personal</span><span class="kvalue">-40%</span><span class="ktrend" style="color:var(--ok)">↓ en 6 meses</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section alt">
+  <div class="container">
+    <span class="section-label">Ruta metodológica</span>
+    <h2>Cómo trabajamos cada lección con el modelo ERCA</h2>
+    <p class="section-sub">Cada lección sigue la misma estructura para que el aprendizaje sea concreto, reflexivo y aplicable desde el primer día.</p>
+    <div class="erca-grid">
+      <div class="erca-box">
+        <div class="step">E</div>
+        <h3>Experiencia</h3>
+        <p>Partimos de una situación real que el participante reconoce de su propio entorno operativo.</p>
+      </div>
+      <div class="erca-box">
+        <div class="step">R</div>
+        <h3>Reflexión</h3>
+        <p>Analizamos qué salió mal, por qué ocurre y qué pregunta debemos hacernos antes de actuar.</p>
+      </div>
+      <div class="erca-box">
+        <div class="step">C</div>
+        <h3>Conceptualización</h3>
+        <p>Aprendemos el principio de liderazgo que explica la situación y define la conducta correcta.</p>
+      </div>
+      <div class="erca-box">
+        <div class="step">A</div>
+        <h3>Aplicación</h3>
+        <p>Traducimos el concepto en pasos concretos, formatos y acciones aplicables en el siguiente turno.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+
+
+<!-- ═══════════ M1 ═══════════ -->
+<div class="tab-panel" id="m1">
+  <div class="mod-header" data-num="01">
+    <div class="mod-icon">🏛️</div>
+    <div>
+      <h2>Módulo 1 · Fundamentos del Liderazgo Aplicado</h2>
+      <p>La diferencia entre presionar y guiar · Adaptar el liderazgo al entorno · El impacto real en los resultados del equipo</p>
+    </div>
+  </div>
+  <div class="lessons">
+
+    <div class="lcard" id="L11">
+      <button class="lcard-toggle" onclick="tog('L11')">
+        <span class="lcard-num">1.1</span>
+        <span class="lcard-title">Diferencia entre jefe y líder</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Inicio de turno en bodega. El supervisor llega y dice:</p>
+            <div class="quote">"Hoy hay bastante carga. Nadie se me atrasa. El que se equivoque responde."</div>
+            <p>El equipo se mueve rápido. Nadie pregunta nada. A media mañana:</p>
+            <ul><li>Pedidos mal armados</li><li>Etiquetas cruzadas</li><li>Retrabajo</li></ul>
+            <p>Al cierre, el volumen salió — pero con errores y tensión.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box">
+            <div class="ref-q">¿Se cumplió o se "empujó" el trabajo?</div>
+            <div class="ref-q">¿Por qué nadie pidió aclaraciones antes de empezar?</div>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🧭</div>
+            <div class="con-txt">
+              <div class="contrast">
+                <div class="c-bad"><div class="c-lbl">❌ Jefe</div>Empuja con presión → ejecución con errores</div>
+                <div class="c-good"><div class="c-lbl">✅ Líder</div>Alinea y guía → ejecución con criterio</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="sn">1</span> Explicar el objetivo del día: <strong>qué y por qué</strong></li>
+            <li><span class="sn">2</span> Acordar prioridades con el equipo</li>
+            <li><span class="sn">3</span> Habilitar preguntas <strong>sin castigo</strong></li>
+            <li><span class="sn">4</span> Supervisar corrigiendo a tiempo, no solo presionando</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L12">
+      <button class="lcard-toggle" onclick="tog('L12')">
+        <span class="lcard-num">1.2</span>
+        <span class="lcard-title">Liderazgo en entornos mixtos (oficina – bodega – campo)</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>El jefe de área comunica a todos:</p>
+            <div class="quote">"Debemos optimizar la eficiencia del proceso de preparación."</div>
+            <div class="ctx-row">
+              <div class="ctx"><strong>Oficina</strong>Asienten. Nadie pregunta.</div>
+              <div class="ctx"><strong>Bodega</strong>"¿Más rápido o con menos gente?"</div>
+              <div class="ctx"><strong>Campo</strong>"¿Qué hay que cambiar?"</div>
+            </div>
+            <p>Resultado: Nada se ajusta. Cada área interpretó algo diferente.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box">
+            <div class="ref-q">¿El mensaje fue correcto o útil para quien lo recibió?</div>
+            <div class="ref-q">¿Todos lo entendieron de la misma forma?</div>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🌐</div>
+            <div class="con-txt">El liderazgo <strong>se adapta al entorno</strong>. Un solo lenguaje no sirve para todos los contextos operativos. El buen mensaje es el que el otro puede ejecutar.</div>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="si">📋</span><div><strong>Oficina:</strong> "Reducir tiempos de preparación en 15% sin aumentar errores"</div></li>
+            <li><span class="si">📦</span><div><strong>Bodega:</strong> "Armar pedidos en menos tiempo manteniendo checklist completo"</div></li>
+            <li><span class="si">🌾</span><div><strong>Campo:</strong> "Tener producto listo y verificado antes de las 10:00"</div></li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L13">
+      <button class="lcard-toggle" onclick="tog('L13')">
+        <span class="lcard-num">1.3</span>
+        <span class="lcard-title">Impacto del liderazgo en resultados</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Viernes de despacho. Retrasos. Reunión de emergencia:</p>
+            <div class="ctx-row">
+              <div class="ctx"><strong>Oficina</strong>"Bodega no cumple"</div>
+              <div class="ctx"><strong>Bodega</strong>"Campo no entrega"</div>
+              <div class="ctx"><strong>Campo</strong>"Nadie coordinó"</div>
+            </div>
+            <p>Se pierde el cliente.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box">
+            <div class="ref-q">¿Falló una persona o el sistema de coordinación?</div>
+            <div class="ref-q">¿Quién debía alinear a los tres equipos antes del viernes?</div>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🔗</div>
+            <div class="con-txt">Sin liderazgo que integre, <strong>cada área optimiza lo suyo y el resultado global falla</strong>. La coordinación entre áreas es responsabilidad del líder.</div>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="sn">1</span> Definir responsables por cada hito del proceso</li>
+            <li><span class="sn">2</span> Alinear la secuencia: <strong>campo → bodega → despacho</strong></li>
+            <li><span class="sn">3</span> Cierre diario de coordinación entre áreas (máx. 10 min)</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /lessons -->
+</div><!-- /m1 -->
+
+<!-- ═══════════ M2 ═══════════ -->
+<div class="tab-panel" id="m2">
+  <div class="mod-header" data-num="02">
+    <div class="mod-icon">💬</div>
+    <div>
+      <h2>Módulo 2 · Comunicación Efectiva</h2>
+      <p>Del mensaje al resultado · Instrucciones que se ejecutan · Autoridad sin perder cercanía · Feedback que corrige sin bloquear</p>
+    </div>
+  </div>
+  <div class="lessons">
+
+    <div class="lcard" id="L21">
+      <button class="lcard-toggle" onclick="tog('L21')"><span class="lcard-num">2.1</span><span class="lcard-title">Diferencias de comunicación por entorno</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Correo enviado desde oficina a todos:</p>
+            <div class="quote">"Optimizar flujo logístico para mejorar eficiencia."</div>
+            <div class="ctx-row"><div class="ctx"><strong>Bodega</strong>"¿Qué hago distinto hoy?"</div><div class="ctx"><strong>Campo</strong>No ve el correo.</div></div>
+            <p>Resultado: Nada cambia.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Se comunicó o solo se informó?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">📡</div><div class="con-txt">La comunicación efectiva es <strong>lo que el otro puede ejecutar</strong>, no lo que suena correcto en un correo.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="si">📋</span><div><strong>Oficina:</strong> Indicador concreto y objetivo medible</div></li>
+            <li><span class="si">📦</span><div><strong>Bodega:</strong> Acción concreta del turno con estándar claro</div></li>
+            <li><span class="si">🌾</span><div><strong>Campo:</strong> Preparación práctica con hora y resultado esperado</div></li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L22">
+      <button class="lcard-toggle" onclick="tog('L22')"><span class="lcard-num">2.2</span><span class="lcard-title">Errores de comunicación más frecuentes</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Indicación al equipo de despacho:</p>
+            <div class="quote">"Despachen rápido."</div>
+            <p>Resultado: faltantes en pedidos y devoluciones del cliente.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Qué parte de la instrucción faltó para garantizar el resultado correcto?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">⚠️</div><div class="con-txt">Las instrucciones ambiguas generan <strong>resultados inconsistentes</strong>. Sin estructura, cada persona ejecuta según su propia interpretación.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Estructura Mínima</span>
+          <div class="apl-box"><div class="pills-row">
+            <div class="fpill"><strong>Qué</strong>"Pedido completo según orden"</div>
+            <div class="fpill"><strong>Cómo</strong>"Con checklist de 5 puntos"</div>
+            <div class="fpill"><strong>Cuándo</strong>"Antes de las 16:00"</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L23">
+      <button class="lcard-toggle" onclick="tog('L23')"><span class="lcard-num">2.3</span><span class="lcard-title">Cómo dar instrucciones claras</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>El jefe al terminar la reunión:</p>
+            <div class="quote">"Revisen ese tema."</div>
+            <p>El colaborador no actúa. Más tarde:</p>
+            <div class="quote quote-bad">"No entendí si era para hoy ni qué revisar exactamente."</div>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Se dio una instrucción o simplemente un comentario?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🎯</div><div class="con-txt"><strong>Sin estructura no hay ejecución.</strong> Una instrucción sin responsable, tiempo y resultado esperado es solo una intención.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Formato de 4 Elementos</span>
+          <div class="apl-box"><div class="pills-row">
+            <div class="fpill"><strong>Tarea</strong>"Revisar lote 245"</div>
+            <div class="fpill"><strong>Responsable</strong>"Carlos"</div>
+            <div class="fpill"><strong>Tiempo</strong>"Hoy 14:00"</div>
+            <div class="fpill"><strong>Resultado</strong>"Validación + foto enviada"</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L24">
+      <button class="lcard-toggle" onclick="tog('L24')"><span class="lcard-num">2.4</span><span class="lcard-title">Adaptación del lenguaje sin perder autoridad</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>El jefe, intentando "ser cercano":</p>
+            <div class="quote">"Si pueden, ayúdenme con esto hoy."</div>
+            <p>Se posterga. Nadie lo prioriza. Al final del día: sin resolver.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Era cercanía o falta de claridad en la instrucción?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">⚖️</div><div class="con-txt"><strong>Cercano ≠ Débil.</strong> La autoridad se expresa con <strong>claridad y prioridad</strong>. Se puede ser directo y respetuoso al mismo tiempo.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box"><div class="key-action">"Esto es prioridad 1. Necesito el lote listo a las 15:00. Me confirman a las 14:30."</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L25">
+      <button class="lcard-toggle" onclick="tog('L25')"><span class="lcard-num">2.5</span><span class="lcard-title">Feedback efectivo según tipo de colaborador</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>En reunión de equipo, frente a todos:</p>
+            <div class="quote quote-bad">"Tú siempre te equivocas."</div>
+            <p>El colaborador se cierra y evita participar en las siguientes reuniones.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Se corrigió la acción o se bloqueó a la persona?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🔧</div><div class="con-txt">El feedback debe <strong>corregir la acción, no etiquetar a la persona</strong>. De "tú eres así" a "esto que hiciste puede mejorar".</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Protocolo de Feedback</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="sn">1</span><div><strong>Privado:</strong> Nunca frente al equipo</div></li>
+            <li><span class="sn">2</span><div><strong>Específico:</strong> "En el pedido 324 faltó la verificación final"</div></li>
+            <li><span class="sn">3</span><div><strong>Acción:</strong> "Usa el checklist antes de cerrar el pedido"</div></li>
+            <li><span class="sn">4</span><div><strong>Seguimiento:</strong> "Mañana revisamos juntos la siguiente orden"</div></li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /m2 -->
+
+<!-- ═══════════ M3 ═══════════ -->
+<div class="tab-panel" id="m3">
+  <div class="mod-header" data-num="03">
+    <div class="mod-icon">👥</div>
+    <div>
+      <h2>Módulo 3 · Gestión de Equipos en Entornos Reales</h2>
+      <p>Coordinación inter-áreas · Objetivo común · Seguimiento sin fricción · Análisis de errores con causa</p>
+    </div>
+  </div>
+  <div class="lessons">
+
+    <div class="lcard" id="L31">
+      <button class="lcard-toggle" onclick="tog('L31')"><span class="lcard-num">3.1</span><span class="lcard-title">Coordinación entre oficina, bodega y campo</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Planificación define un despacho grande para el viernes.</p>
+            <ul><li>Bodega se entera el viernes a las 9:00</li><li>Campo no terminó la producción</li></ul>
+            <p>Resultado: Retraso y reclamos del cliente.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿La planificación fue realista o de escritorio, sin validar la operación?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">📐</div><div class="con-txt"><strong>Plan sin validación operativa = incumplimiento.</strong> La planificación debe construirse con quienes la ejecutan.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="sn">1</span> Validar capacidad de bodega: horas/hombre disponibles</li>
+            <li><span class="sn">2</span> Validar tiempos reales en campo antes de confirmar</li>
+            <li><span class="sn">3</span> Ajustar el plan con ambas áreas <strong>antes</strong> de comprometer la entrega</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L32">
+      <button class="lcard-toggle" onclick="tog('L32')"><span class="lcard-num">3.2</span><span class="lcard-title">Alineación de tareas entre áreas</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+            <div class="ctx-row"><div class="ctx"><strong>Oficina</strong>Prioriza orden documental</div><div class="ctx"><strong>Bodega</strong>Prioriza volumen</div><div class="ctx"><strong>Campo</strong>Prioriza disponibilidad</div></div>
+            <p>Cada uno "hace bien lo suyo", pero el despacho sale tarde.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Un buen desempeño individual asegura el resultado global del proceso?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🏆</div><div class="con-txt">Sin objetivo común, hay <strong>esfuerzo disperso</strong>. Cada área necesita saber cómo su trabajo alimenta el resultado final.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Objetivo Único Compartido</span>
+          <div class="apl-box">
+            <div class="key-action" style="margin-bottom:14px">"Despacho completo, correcto y a tiempo"</div>
+            <ul class="steps">
+              <li><span class="si">📋</span><div><strong>Oficina:</strong> Documentación correcta y enviada a tiempo</div></li>
+              <li><span class="si">📦</span><div><strong>Bodega:</strong> Armado sin errores antes de la hora de corte</div></li>
+              <li><span class="si">🌾</span><div><strong>Campo:</strong> Disponibilidad del producto en el tiempo acordado</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L33">
+      <button class="lcard-toggle" onclick="tog('L33')"><span class="lcard-num">3.3</span><span class="lcard-title">Seguimiento operativo sin fricción</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>El jefe pregunta cada hora:</p>
+            <div class="quote">"¿Ya? ¿Ya? ¿Cómo van? ¿Ya?"</div>
+            <p>El equipo se irrita y comienza a ocultar los problemas reales.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿El seguimiento excesivo ayuda al equipo o genera el efecto contrario?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🔭</div><div class="con-txt"><strong>El micromanagement reduce la autonomía y la transparencia.</strong> Un equipo vigilado aprende a esconder problemas, no a resolverlos.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="sn">1</span> Checkpoints fijos: <strong>10:00 / 14:00 / 17:00</strong></li>
+            <li><span class="sn">2</span> Tablero simple de avance visible para todos</li>
+            <li><span class="sn">3</span> Alertas ante desvíos — no persecución constante</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L34">
+      <button class="lcard-toggle" onclick="tog('L34')"><span class="lcard-num">3.4</span><span class="lcard-title">Manejo de errores en distintos contextos</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Error en campo. Mensaje enviado desde oficina:</p>
+            <div class="quote quote-bad">"Inaceptable. Mejoren ya."</div>
+            <p>Campo responde: "Vengan a ver cómo trabajamos." El error se repite.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Se corrigió la causa del error o solo se expresó la molestia?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🔍</div><div class="con-txt"><strong>Castigo sin análisis = repetición del error.</strong> El error es una señal: hay que entender la causa para corregirla de verdad.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Protocolo ante un Error (4 pasos)</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="sn">H</span><div><strong>Hecho:</strong> ¿Qué pasó exactamente?</div></li>
+            <li><span class="sn">C</span><div><strong>Causa:</strong> ¿Por qué pasó?</div></li>
+            <li><span class="sn">A</span><div><strong>Ajuste:</strong> ¿Qué cambia en el proceso?</div></li>
+            <li><span class="sn">V</span><div><strong>Verificación:</strong> Acompañar la próxima ejecución</div></li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /m3 -->
+
+<!-- ═══════════ M4 ═══════════ -->
+<div class="tab-panel" id="m4">
+  <div class="mod-header" data-num="04">
+    <div class="mod-icon">⚖️</div>
+    <div>
+      <h2>Módulo 4 · Manejo de Conflictos y Toma de Decisiones</h2>
+      <p>Conflictos de sistema · El líder ordena, no evita · Decisiones con impacto operativo real</p>
+    </div>
+  </div>
+  <div class="lessons">
+
+    <div class="lcard" id="L41">
+      <button class="lcard-toggle" onclick="tog('L41')"><span class="lcard-num">4.1</span><span class="lcard-title">Conflictos típicos: oficina vs. operación vs. campo</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Reunión semanal:</p>
+            <div class="ctx-row">
+              <div class="ctx"><strong>Oficina</strong>"Operación no sigue procesos"</div>
+              <div class="ctx"><strong>Bodega</strong>"Planificación es irreal"</div>
+              <div class="ctx"><strong>Campo</strong>"Administración no entiende tiempos"</div>
+            </div>
+            <p>Se interrumpen. Sube el tono. Nadie acuerda nada.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Es un problema de actitud de las personas o de desalineación del sistema?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🔄</div><div class="con-txt">El conflicto recurrente es una señal de <strong>desalineación de roles y expectativas</strong>, no solo de personalidades difíciles.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="sn">1</span> Definir qué entrega cada área y en qué plazo</li>
+            <li><span class="sn">2</span> Establecer límites operativos reales del sistema</li>
+            <li><span class="sn">3</span> Acordar reglas de interacción y tiempos de aviso previo</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L42">
+      <button class="lcard-toggle" onclick="tog('L42')"><span class="lcard-num">4.2</span><span class="lcard-title">Resolución práctica de conflictos</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Bodega y oficina llevan semanas enfrentadas. El jefe decide no intervenir:</p>
+            <div class="quote">"Arréglense entre ustedes."</div>
+            <p>El problema escala. Afecta ahora a otros equipos.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿No intervenir en un conflicto lo resuelve o lo agrava?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🛡️</div><div class="con-txt"><strong>El líder ordena el conflicto, no lo evita.</strong> No intervenir no es neutralidad: es abandono del rol de liderazgo.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Método de Resolución (5 pasos)</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="sn">1</span><div><strong>Hechos:</strong> "El pedido 456 salió incompleto 3 veces este mes"</div></li>
+            <li><span class="sn">2</span><div><strong>Impacto:</strong> "Devoluciones y costo adicional para la empresa"</div></li>
+            <li><span class="sn">3</span><div><strong>Responsables:</strong> Quién hace qué y en qué etapa</div></li>
+            <li><span class="sn">4</span><div><strong>Solución acordada:</strong> Checklist + validación antes del cierre</div></li>
+            <li><span class="sn">5</span><div><strong>Seguimiento a 48 horas:</strong> Verificar si el acuerdo se cumple</div></li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L43">
+      <button class="lcard-toggle" onclick="tog('L43')"><span class="lcard-num">4.3</span><span class="lcard-title">Toma de decisiones considerando impacto operativo</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>Oficina decide cambiar el formato de pedidos "para ordenar mejor".</p>
+            <ul><li>Campo tarda más en llenarlo</li><li>Bodega lo recibe tarde</li></ul>
+            <p>El "orden" administrativo generó fricción en toda la cadena.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Se evaluó cómo la decisión impactaría en la ejecución real?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🗺️</div><div class="con-txt"><strong>Decisión sin considerar la operación = fricción y retraso.</strong> Toda decisión de escritorio tiene consecuencias en la ejecución.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Checklist Antes de Decidir</span>
+          <div class="apl-box"><ul class="steps">
+            <li><span class="si">✅</span> ¿Cómo se ejecuta esta decisión en campo?</li>
+            <li><span class="si">✅</span> ¿Qué cambia en bodega con este ajuste?</li>
+            <li><span class="si">✅</span> ¿Hay una prueba piloto corta antes de implementar?</li>
+            <li><span class="si">✅</span> ¿Se informó a los afectados antes del cambio?</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /m4 -->
+
+<!-- ═══════════ M5 ═══════════ -->
+<div class="tab-panel" id="m5">
+  <div class="mod-header" data-num="05">
+    <div class="mod-icon">🎯</div>
+    <div>
+      <h2>Módulo 5 · Liderazgo Orientado a Resultados</h2>
+      <p>El resultado manda · Lo que no se mide no se controla · Responsabilidad con nombre, fecha y entregable</p>
+    </div>
+  </div>
+  <div class="lessons">
+
+    <div class="lcard" id="L51">
+      <button class="lcard-toggle" onclick="tog('L51')"><span class="lcard-num">5.1</span><span class="lcard-title">Alineación de equipos diversos hacia objetivos comunes</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+            <div class="ctx-row"><div class="ctx"><strong>Oficina</strong>Busca control documental</div><div class="ctx"><strong>Bodega</strong>Busca velocidad de despacho</div><div class="ctx"><strong>Campo</strong>Busca disponibilidad inmediata</div></div>
+            <ul><li>Documentos correctos pero enviados tarde</li><li>Producto listo pero mal coordinado con despacho</li></ul>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿El buen trabajo de cada área garantiza el resultado global del proceso?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🎯</div><div class="con-txt"><strong>El resultado manda.</strong> Las áreas se alinean a un objetivo común — no a sus propias métricas individuales.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+            <div class="key-action" style="margin-bottom:14px">"Despacho completo, correcto y a tiempo" — objetivo único compartido</div>
+            <ul class="steps">
+              <li><span class="si">📋</span><div>Oficina: % de documentos completos y enviados a tiempo</div></li>
+              <li><span class="si">📦</span><div>Bodega: % de pedidos sin errores por turno</div></li>
+              <li><span class="si">🌾</span><div>Campo: % de disponibilidad antes de hora límite</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L52">
+      <button class="lcard-toggle" onclick="tog('L52')"><span class="lcard-num">5.2</span><span class="lcard-title">Control y seguimiento en entornos mixtos</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>El jefe dice al equipo:</p>
+            <div class="quote">"Confío en ustedes."</div>
+            <p>No hay indicadores. No hay revisión. Cierre del día: nadie sabe qué se cumplió.</p>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Confiar en el equipo significa no medir ni hacer seguimiento?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">📊</div><div class="con-txt"><strong>Lo que no se mide, no se controla.</strong> Medir no es desconfiar: es respetar al equipo dándole claridad sobre si está logrando el objetivo.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ 3 Indicadores + Revisión Diaria</span>
+          <div class="apl-box">
+            <div class="pills-row" style="margin-bottom:14px">
+              <div class="fpill"><strong>KPI 1</strong>% pedidos completos</div>
+              <div class="fpill"><strong>KPI 2</strong>Tiempo de preparación</div>
+              <div class="fpill"><strong>KPI 3</strong>Errores por turno</div>
+            </div>
+            <ul class="steps"><li><span class="si">⏱</span><div>Revisión diaria de <strong>10 minutos</strong> con el equipo — no más</div></li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L53">
+      <button class="lcard-toggle" onclick="tog('L53')"><span class="lcard-num">5.3</span><span class="lcard-title">Responsabilidad y cumplimiento de tareas</span><span class="lcard-arrow">▼</span></button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box"><p>En reunión semanal:</p>
+            <div class="quote">"Todos vemos este tema."</div>
+            <p>Nadie lo hace. En la siguiente reunión:</p>
+            <div class="quote quote-bad">"Yo pensé que lo hacías tú." &nbsp; "Tú pensé que era él."</div>
+          </div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span><div class="ref-box"><div class="ref-q">¿Cómo se asignó la responsabilidad? ¿Quedó claro quién era el dueño de esa tarea?</div></div></div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">🙋</div><div class="con-txt"><strong>Responsabilidad difusa = incumplimiento garantizado.</strong> Si todos son responsables, en la práctica nadie lo es.</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Regla de Oro de la Asignación</span>
+          <div class="apl-box">
+            <ul class="steps">
+              <li><span class="sn">✦</span><div><strong>1 tarea = 1 responsable</strong> — con nombre y apellido, no "el área"</div></li>
+              <li><span class="sn">✦</span><div>Fecha de entrega y entregable definido con claridad</div></li>
+              <li><span class="sn">✦</span><div>Check de avance intermedio antes de la fecha límite</div></li>
+            </ul>
+            <div class="key-action" style="margin-top:14px">"Carlos revisa el lote 245 y envía confirmación antes del miércoles a las 14:00"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /m5 -->
+
+  </div><!-- /container -->
+</section>
+
+<!-- ══ IDEAS CLAVE ══ -->
+<section class="section alt" id="secIdeasClave">
+  <div class="container">
+    <span class="section-label" id="ideasLabel">Ideas clave del programa</span>
+    <h2 id="ideasTitle">Qué debes llevarte de este programa</h2>
+    <div class="grid-3" style="margin-top:26px">
+      <div class="card" id="ideasCard1">
+        <h3 id="ideasCard1Title">El liderazgo no es posición</h3>
+        <p id="ideasCard1Text">El liderazgo no está en el título ni en la jerarquía. Está en la capacidad de alinear personas, comunicar con claridad y hacerse responsable del resultado del equipo.</p>
+      </div>
+      <div class="card" id="ideasCard2">
+        <h3 id="ideasCard2Title">La estructura evita el caos</h3>
+        <p id="ideasCard2Text">Una instrucción sin responsable, una tarea sin fecha y un conflicto sin resolución son los tres generadores de ineficiencia más comunes en las operaciones.</p>
+      </div>
+      <div class="card" id="ideasCard3">
+        <h3 id="ideasCard3Title">Lo que no se mide, no mejora</h3>
+        <p id="ideasCard3Text">Tres indicadores simples revisados 10 minutos al día generan más impacto que largos reportes semanales que nadie actúa.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:22px">
+      <h3 id="conclTitle">Conclusión del programa</h3>
+      <p id="conclText">El liderazgo operativo no se desarrolla en teoría — se construye en el turno, en la instrucción, en el conflicto y en el seguimiento diario. Las organizaciones que invierten en líderes con criterio claro reducen hasta un 40% sus errores operativos, retienen a su talento clave y cumplen sus resultados con consistencia. Este programa convierte situaciones reales en competencias concretas: cada módulo es una herramienta que puede aplicar desde el día siguiente. La diferencia entre una organización que crece ordenada y una que apaga incendios permanentemente no está en la tecnología ni en los procesos — está en la calidad de su liderazgo operativo.</p>
+    </div>
+    <div class="contact-grid" style="margin-top:28px">
+      <div class="contact-box"><small>Correo</small><strong>gjfariasriveras@gmail.com</strong></div>
+      <div class="contact-box"><small>Sitio web</small><strong>eficienciaoperativa360.com</strong></div>
+      <div class="contact-box"><small>WhatsApp</small><strong>0979 001 810</strong></div>
+      <div class="contact-box"><small>Ubicación</small><strong>Guayaquil, Ecuador</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="container">
+    <p><strong>EO360 · Eficiencia Operativa 360</strong> · Liderazgo Aplicado en Entornos Corporativos</p>
+    <p>Control total · Costos a la baja · Decisiones con datos</p>
+  </div>
+</footer>
+
+<script>
+const _ideasData = {
+  'inicio': {
+    label: 'Ideas clave del programa',
+    title: 'Qué debes llevarte de este programa',
+    c1h: 'El liderazgo no es posición',
+    c1t: 'El liderazgo no está en el título ni en la jerarquía. Está en la capacidad de alinear personas, comunicar con claridad y hacerse responsable del resultado del equipo.',
+    c2h: 'La estructura evita el caos',
+    c2t: 'Una instrucción sin responsable, una tarea sin fecha y un conflicto sin resolución son los tres generadores de ineficiencia más comunes en las operaciones.',
+    c3h: 'Lo que no se mide, no mejora',
+    c3t: 'Tres indicadores simples revisados 10 minutos al día generan más impacto que largos reportes semanales que nadie actúa.',
+    conclH: 'Conclusión del programa',
+    conclT: 'El liderazgo operativo no se desarrolla en teoría — se construye en el turno, en la instrucción, en el conflicto y en el seguimiento diario. Las organizaciones que invierten en líderes con criterio claro reducen hasta un 40% sus errores operativos, retienen a su talento clave y cumplen sus resultados con consistencia. Este programa convierte situaciones reales en competencias concretas: cada módulo es una herramienta que puede aplicar desde el día siguiente.',
+  },
+  'm1': {
+    label: 'Ideas clave del módulo',
+    title: 'Qué debes llevarte del Módulo 1',
+    c1h: 'Jefe empuja, líder alinea',
+    c1t: 'La presión genera movimiento, pero no genera criterio. Un equipo que ejecuta porque entiende el objetivo comete menos errores que un equipo que ejecuta porque le temen al jefe.',
+    c2h: 'El mensaje debe poder ejecutarse',
+    c2t: 'Un buen liderazgo no se mide por lo que se dice — se mide por lo que el equipo entiende y puede hacer. Si la instrucción no llega igual a bodega, campo y oficina, no es liderazgo: es comunicado.',
+    c3h: 'Sin integración, el resultado global falla',
+    c3t: 'Cuando cada área optimiza solo lo suyo sin coordinación, el resultado final siempre se resiente. El líder es el integrador del proceso — esa responsabilidad no puede delegarse.',
+    conclH: 'Conclusión del Módulo 1',
+    conclT: 'Los fundamentos del liderazgo no son conceptos abstractos — son decisiones concretas que toma usted cada turno: cómo abre el día, cómo comunica el objetivo, cómo coordina con otras áreas. La diferencia entre un jefe y un líder se ve en los resultados al cierre del día.',
+  },
+  'm2': {
+    label: 'Ideas clave del módulo',
+    title: 'Qué debes llevarte del Módulo 2',
+    c1h: 'Comunicar no es informar',
+    c1t: 'Un mensaje enviado no es un mensaje recibido. La comunicación efectiva es la que el otro puede ejecutar: con responsable, acción, tiempo y resultado esperado. Sin esos elementos, es solo ruido.',
+    c2h: 'La autoridad se ejerce con claridad',
+    c2t: 'Ser cercano con el equipo no significa ser ambiguo con las instrucciones. "Si pueden ayúdenme" no es una instrucción — es una invitación que se ignora. La claridad no distancia: protege el resultado.',
+    c3h: 'El feedback corrige la acción, no a la persona',
+    c3t: 'Corregir en público, con etiquetas o sin contexto específico, bloquea al colaborador en lugar de mejorarlo. Un feedback que funciona es privado, concreto, orientado a la acción y tiene seguimiento.',
+    conclH: 'Conclusión del Módulo 2',
+    conclT: 'La comunicación es la herramienta más usada en el liderazgo y, a la vez, la más descuidada. Una instrucción con los 4 elementos — tarea, responsable, tiempo y resultado — elimina el 80% de las interpretaciones incorrectas. Aplíquelo desde el próximo turno.',
+  },
+  'm3': {
+    label: 'Ideas clave del módulo',
+    title: 'Qué debes llevarte del Módulo 3',
+    c1h: 'El plan sin validación operativa no existe',
+    c1t: 'Planificar sin consultar a bodega ni a campo es planificar en el aire. Un plan que no considera la capacidad real del sistema no es un plan — es una expectativa que generará incumplimiento.',
+    c2h: 'Esfuerzo individual no es resultado global',
+    c2t: 'Cuando cada área prioriza sus propias métricas sin un objetivo común, todos pueden "hacer bien lo suyo" y el proceso igual falla. El líder define el objetivo compartido y baja las métricas a cada área.',
+    c3h: 'El seguimiento correcto genera transparencia',
+    c3t: 'El micromanagement enseña al equipo a esconder problemas. Los checkpoints fijos a horas establecidas generan el hábito de reportar a tiempo — y eso convierte los problemas en alertas, no en sorpresas al cierre.',
+    conclH: 'Conclusión del Módulo 3',
+    conclT: 'Gestionar equipos en entornos reales exige coordinación antes de la ejecución, un objetivo que todos comparten y un sistema de seguimiento que detecte desvíos a tiempo. El líder que instala esos tres elementos reduce el retrabajo, el conflicto y las sorpresas operativas de manera sostenida.',
+  },
+  'm4': {
+    label: 'Ideas clave del módulo',
+    title: 'Qué debes llevarte del Módulo 4',
+    c1h: 'El conflicto recurrente es un problema de sistema',
+    c1t: 'Cuando bodega, campo y oficina se culpan entre sí semana a semana, el problema no son las personas — son los roles mal definidos, las expectativas no acordadas y los límites operativos no comunicados.',
+    c2h: 'El líder ordena, no evita',
+    c2t: 'No intervenir en un conflicto no es neutralidad — es dejar que el problema escale. El líder que ordena el conflicto con hechos, responsables y solución acordada lo resuelve. El que lo evita lo multiplica.',
+    c3h: 'Toda decisión tiene impacto operativo',
+    c3t: 'Cambiar un formato, modificar un horario o establecer un nuevo proceso sin consultar a quienes lo ejecutan genera fricción y retraso. Antes de decidir: ¿cómo se ejecuta en campo? ¿qué cambia en bodega?',
+    conclH: 'Conclusión del Módulo 4',
+    conclT: 'Los conflictos y las decisiones mal gestionadas son dos de las principales fuentes de ineficiencia operativa. El líder que enfrenta el conflicto con datos, que toma decisiones considerando la operación y que genera acuerdos verificables convierte la tensión en coordinación y el desacuerdo en mejora.',
+  },
+  'm5': {
+    label: 'Ideas clave del módulo',
+    title: 'Qué debes llevarte del Módulo 5',
+    c1h: 'El resultado manda sobre las métricas individuales',
+    c1t: 'Que oficina cumpla su parte, bodega la suya y campo la suya no garantiza el resultado global. El líder alinea las tres áreas a un objetivo único medible — y baja ese objetivo con métricas específicas para cada uno.',
+    c2h: 'Medir no es desconfiar',
+    c2t: 'Tres indicadores simples revisados 10 minutos al día son suficientes para saber si la operación va bien. El equipo que tiene visibilidad de sus propios resultados se autorregula — y el líder deja de apagar incendios.',
+    c3h: 'Una tarea, un responsable, una fecha',
+    c3t: 'Cuando todos son responsables, nadie lo es. La regla es simple: cada tarea tiene un nombre y apellido, una fecha de entrega y un entregable claro. Sin esos tres elementos, la tarea no existe — es solo una intención.',
+    conclH: 'Conclusión del Módulo 5',
+    conclT: 'El liderazgo orientado a resultados no depende de esfuerzo extra ni de largas reuniones — depende de claridad: objetivo compartido, indicadores simples y responsabilidades definidas. Un equipo que sabe qué se espera de él, cómo se mide y quién responde por qué, entrega resultados consistentes sin necesidad de supervisión permanente.',
+  },
+};
+
+function _updateIdeasClave(id){
+  const d = _ideasData[id] || _ideasData['inicio'];
+  const el = (eid) => document.getElementById(eid);
+  if(el('ideasLabel'))     el('ideasLabel').textContent     = d.label;
+  if(el('ideasTitle'))     el('ideasTitle').textContent     = d.title;
+  if(el('ideasCard1Title'))el('ideasCard1Title').textContent= d.c1h;
+  if(el('ideasCard1Text')) el('ideasCard1Text').textContent = d.c1t;
+  if(el('ideasCard2Title'))el('ideasCard2Title').textContent= d.c2h;
+  if(el('ideasCard2Text')) el('ideasCard2Text').textContent = d.c2t;
+  if(el('ideasCard3Title'))el('ideasCard3Title').textContent= d.c3h;
+  if(el('ideasCard3Text')) el('ideasCard3Text').textContent = d.c3t;
+  if(el('conclTitle'))     el('conclTitle').textContent     = d.conclH;
+  if(el('conclText'))      el('conclText').textContent      = d.conclT;
+}
+function tab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const panel=document.getElementById(id);
+  if(panel)panel.classList.add('active');
+  btn.classList.add('active');
+  _updateIdeasClave(id);
+  const nav=document.querySelector('.tab-nav-wrap');
+  if(nav)nav.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function tog(id){
+  const c=document.getElementById(id);
+  if(!c)return;
+  const open=c.classList.contains('open');
+  const panel=c.closest('.tab-panel');
+  if(panel)panel.querySelectorAll('.lcard.open').forEach(x=>{if(x.id!==id)x.classList.remove('open')});
+  c.classList.toggle('open',!open);
+  if(!open)setTimeout(()=>{if(c)c.scrollIntoView({behavior:'smooth',block:'nearest'})},60);
+}
+</script>
+</body>
+</html>
