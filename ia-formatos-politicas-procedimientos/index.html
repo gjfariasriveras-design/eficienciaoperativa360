@@ -1,1 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IA aplicada a formatos, políticas y procedimientos | EO360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3A5F; --navy-dark:#172E4D; --navy-10:#F0F4F9; --navy-20:#DDE7F0;
+  --gold:#D4AF37; --gold-2:#B88A1B;
+  --white:#FFF; --text:#1A1F2E; --text-2:#374151;
+  --gray:#6B7280; --lt:#F7F9FC; --border:#E8ECF0;
+  --ok:#0F766E; --ok-2:#166534; --bad:#B91C1C;
+  --shadow:0 18px 45px rgba(31,58,95,.10);
+  --max:1220px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Open Sans',sans-serif;color:var(--text);background:#fff;line-height:1.65}
+.container{max-width:var(--max);margin:0 auto;padding:0 24px}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px}
+.brand{display:flex;align-items:center;gap:14px;font-family:'Montserrat',sans-serif;text-decoration:none}
+.brand-mark{font-size:26px;font-weight:800;color:var(--navy);letter-spacing:-.04em}
+.brand-mark span{opacity:.35}
+.brand-copy strong{display:block;font-size:13px;color:var(--navy)}
+.brand-copy span{display:block;font-size:11px;color:var(--gray)}
+.tab-nav{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-btn{font-size:12px;font-weight:700;font-family:'Montserrat',sans-serif;color:var(--navy);padding:8px 14px;border-radius:999px;background:var(--navy-10);border:1px solid rgba(31,58,95,.08);text-decoration:none;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;letter-spacing:.02em}
+.tab-btn:hover{background:var(--navy-20)}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hero{padding:56px 0 32px;background:linear-gradient(180deg,#fff 0%,var(--lt) 100%);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-40px;width:320px;height:320px;background:radial-gradient(circle,rgba(212,175,55,.18) 0%,rgba(212,175,55,.04) 40%,rgba(212,175,55,0) 75%);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(31,58,95,.06);border:1px solid rgba(31,58,95,.08);font:800 11px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-2));flex-shrink:0}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;margin:0}
+h1{font-size:clamp(32px,4.5vw,52px);line-height:1.05;letter-spacing:-.03em;max-width:960px;margin-bottom:14px;color:var(--text)}
+h2{font-size:clamp(26px,3.5vw,40px);line-height:1.1;letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
+h3{font-size:20px;color:var(--navy);margin-bottom:10px;line-height:1.25}
+.hero-sub,.section-sub{max-width:900px;font-size:17px;color:var(--gray);line-height:1.8;margin-bottom:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start;margin-top:32px}
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:0 8px 24px rgba(31,58,95,.06)}
+.card p{color:var(--text-2);font-size:14px;line-height:1.7;margin:0}
+.card ul,.card ol{color:var(--text-2);font-size:14px;line-height:1.75;padding-left:20px}
+.card li{margin-bottom:4px}
+.hero-card{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 12px 32px rgba(31,58,95,.07)}
+.hero-card-top{background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);color:#fff;padding:24px 24px 18px}
+.hero-card-top h3{color:#fff;font-size:22px;margin-bottom:8px}
+.hero-card-top p{font-size:14px;color:rgba(255,255,255,.82);margin:0}
+.hero-card-body{padding:22px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.kpi{background:#fff;border:1px solid rgba(31,58,95,.08);border-radius:16px;padding:16px;min-width:0}
+.kpi .klabel{display:block;font-size:12px;color:var(--gray);margin-bottom:8px;font-family:'Montserrat',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.kpi .kvalue{display:block;font:800 28px 'Montserrat',sans-serif;color:var(--navy);line-height:1}
+.kpi .ktrend{display:block;font-size:12px;font-weight:700;margin-top:8px;color:var(--gray)}
+.section{padding:72px 0}
+.section.alt{background:var(--lt)}
+.section-label{font:800 11px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.16em;text-transform:uppercase;opacity:.68;margin-bottom:10px;display:block}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.pill{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(31,58,95,.08);color:var(--navy);font-size:12px;font-weight:700;margin-bottom:12px;font-family:'Montserrat',sans-serif}
+.erca-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px}
+.erca-box{background:#fff;border:1px solid var(--border);border-radius:18px;padding:22px;position:relative;overflow:hidden;box-shadow:0 8px 20px rgba(31,58,95,.05)}
+.erca-box::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-2))}
+.erca-box .step{display:inline-flex;width:38px;height:38px;border-radius:50%;align-items:center;justify-content:center;background:var(--navy);color:#fff;font:800 16px 'Montserrat',sans-serif;margin-bottom:12px}
+.erca-box h3{font-size:17px;margin-bottom:8px}
+.erca-box p{font-size:13px;color:var(--text-2);line-height:1.65;margin:0}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.mod-header{display:flex;align-items:flex-start;gap:18px;padding:28px 32px;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);border-radius:20px;margin-bottom:28px;position:relative;overflow:hidden}
+.mod-header::after{content:attr(data-num);position:absolute;right:24px;top:50%;transform:translateY(-50%);font:800 80px 'Montserrat',sans-serif;color:rgba(255,255,255,.05);pointer-events:none;line-height:1}
+.mod-icon{font-size:28px;width:54px;height:54px;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.28);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mod-header h2{color:#fff;font-size:19px;margin-bottom:6px}
+.mod-header p{font-size:13px;color:rgba(255,255,255,.72);margin:0;line-height:1.6}
+.lessons{display:grid;gap:14px}
+.lcard{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(31,58,95,.05);transition:box-shadow .2s,border-color .2s}
+.lcard:hover{box-shadow:0 8px 28px rgba(31,58,95,.1);border-color:rgba(31,58,95,.18)}
+.lcard.open{border-color:var(--navy);box-shadow:0 10px 36px rgba(31,58,95,.12)}
+.lcard-toggle{width:100%;display:flex;align-items:center;gap:14px;padding:18px 22px;background:none;border:none;cursor:pointer;text-align:left;transition:background .15s}
+.lcard-toggle:hover{background:var(--navy-10)}
+.lcard.open .lcard-toggle{background:var(--navy-10)}
+.lcard-num{font:800 10px 'Montserrat',sans-serif;letter-spacing:1px;color:var(--navy);background:var(--navy-10);border:1px solid rgba(31,58,95,.15);padding:4px 11px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.lcard.open .lcard-num{background:var(--navy);color:#fff;border-color:var(--navy)}
+.lcard-title{font:700 14px 'Montserrat',sans-serif;color:var(--navy);flex:1;text-align:left;line-height:1.3}
+.lcard-arrow{width:28px;height:28px;background:var(--navy-10);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--navy);flex-shrink:0;transition:transform .25s,background .2s;font-family:'Montserrat',sans-serif;font-weight:800}
+.lcard.open .lcard-arrow{transform:rotate(180deg);background:var(--navy);color:#fff}
+.lcard-body{display:none;padding:6px 22px 28px;border-top:1px solid var(--border)}
+.lcard.open .lcard-body{display:block}
+.blk{margin-top:22px}
+.blk-label{display:inline-flex;align-items:center;gap:6px;font:800 10px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:999px;margin-bottom:11px}
+.lbl-o{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.lbl-e{background:rgba(31,58,95,.07);color:var(--navy);border:1px solid rgba(31,58,95,.1)}
+.lbl-r{background:rgba(212,175,55,.1);color:#7a5a08;border:1px solid rgba(212,175,55,.25)}
+.lbl-c{background:var(--navy);color:#fff;border:1px solid var(--navy)}
+.lbl-a{background:rgba(15,118,110,.08);color:var(--ok-2);border:1px solid rgba(15,118,110,.2)}
+.lbl-s{background:#eef6ff;color:var(--navy);border:1px solid var(--navy-20)}
+.lbl-x{background:#fff5f5;color:#991b1b;border:1px solid #fecaca}
+.lbl-k{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.lbl-d{background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe}
+.exp-box{background:var(--navy-10);border:1px solid var(--navy-20);border-radius:14px;padding:18px 20px;font-size:14px;color:var(--text-2);line-height:1.7}
+.obj-box{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #f97316;border-radius:0 12px 12px 0;padding:14px 16px;color:#9a3412;font-size:14px;font-weight:700;line-height:1.55}
+.err-box{background:#fff5f5;border:1px solid #fecaca;border-left:4px solid var(--bad);border-radius:0 12px 12px 0;padding:14px 16px;color:#7f1d1d;font-size:14px;font-weight:700;line-height:1.55}
+.deliver-box{background:#f5f3ff;border:1px solid #ddd6fe;border-left:4px solid #7c3aed;border-radius:0 12px 12px 0;padding:14px 16px;color:#4c1d95;font-size:14px;font-weight:700;line-height:1.55}
+.exp-box p+p{margin-top:8px}
+.exp-box ul{list-style:none;padding:0;margin:10px 0}
+.exp-box ul li{padding-left:16px;position:relative;margin-bottom:5px;font-size:13px}
+.exp-box ul li::before{content:'▸';position:absolute;left:0;color:var(--navy);font-size:11px;top:1px}
+.quote{font-style:italic;color:var(--navy-dark);background:#fff;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 15px;margin:11px 0;font-size:14px;line-height:1.65;box-shadow:0 2px 8px rgba(31,58,95,.05)}
+.ctx-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.ctx{background:#fff;border:1px solid var(--border);border-radius:12px;border-top:3px solid var(--gold);padding:10px 14px;font-size:13px;color:var(--text-2);line-height:1.45;box-shadow:0 2px 8px rgba(31,58,95,.04);flex:1 1 230px}
+.ctx strong{display:block;font:700 9px 'Montserrat',sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:var(--navy);margin-bottom:3px}
+.ref-box{background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.22);border-radius:14px;padding:16px 20px}
+.ref-q{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text);margin-bottom:7px;line-height:1.6}
+.ref-q:last-child{margin-bottom:0}
+.ref-q::before{content:"?";font:800 10px 'Montserrat',sans-serif;color:#fff;background:linear-gradient(180deg,var(--gold),var(--gold-2));width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.con-box{background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.con-icon{font-size:22px;width:44px;height:44px;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.28);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.con-txt{font-size:14px;color:rgba(255,255,255,.88);line-height:1.75;flex:1}
+.con-txt strong,.con-txt b{color:#fff;font-weight:700}
+.con-txt ul{margin:8px 0 0 0;padding-left:18px}
+.apl-box{background:var(--lt);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.code{background:#0f172a;color:#e5eef8;border-radius:14px;padding:18px;font:14px/1.65 Consolas,Monaco,monospace;white-space:pre-wrap;margin:12px 0}
+.resp-box{background:#fff;border:1px solid var(--navy-20);border-left:4px solid var(--navy);border-radius:0 12px 12px 0;padding:14px 16px;color:var(--navy);font-size:14px;font-weight:700;line-height:1.6;box-shadow:0 2px 8px rgba(31,58,95,.04)}
+.data-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-top:12px;font-size:13px;color:var(--text-2)}
+.data-table th{background:var(--navy);color:#fff;text-align:left;font-family:'Montserrat',sans-serif;font-size:12px;padding:10px 12px}
+.data-table td{padding:10px 12px;border-top:1px solid var(--border);vertical-align:top}
+.data-table tr:nth-child(even) td{background:#FAFBFD}
+.footer{padding:36px 0 48px;background:#fff;border-top:1px solid var(--border);text-align:center}
+.footer p{font-size:13px;color:var(--gray);margin:4px 0}
+.footer strong{color:var(--navy)}
+.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.contact-box{background:var(--lt);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:left}
+.contact-box small{display:block;font:800 10px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.6;margin-bottom:6px}
+.contact-box strong{display:block;font-size:14px;color:var(--navy);font-family:'Montserrat',sans-serif}
+@media(max-width:1180px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1024px){.hero-grid,.grid-2,.grid-3,.grid-4,.erca-grid,.contact-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){
+  .topbar-inner{flex-wrap:wrap;padding:12px 0;gap:12px}
+  .hero{padding-top:36px}h1{font-size:32px}h2{font-size:26px}
+  .hero-grid,.grid-2,.grid-3,.grid-4,.erca-grid,.kpis,.contact-grid{grid-template-columns:1fr}
+  .container{padding:0 16px}.section{padding:52px 0}
+  .mod-header{padding:20px 20px;flex-direction:column;gap:12px}
+  .tab-nav{gap:4px}
+}
 
+.template-box{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  margin-top:14px;
+  box-shadow:0 4px 14px rgba(31,58,95,.04);
+}
+.template-title{
+  font:800 12px 'Montserrat',sans-serif;
+  color:var(--navy);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.template-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.template-field{
+  border:1px dashed var(--navy-20);
+  border-radius:10px;
+  padding:10px 12px;
+  background:#FAFBFD;
+  min-height:44px;
+}
+.template-field strong{
+  display:block;
+  font:800 10px 'Montserrat',sans-serif;
+  color:var(--navy);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.template-field span{
+  color:var(--text-2);
+  font-size:13px;
+}
+.template-field.full{grid-column:1/-1}
+.template-check{
+  display:grid;
+  gap:8px;
+  margin-top:8px;
+}
+.template-check div{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:9px 12px;
+  background:#fff;
+  font-size:13px;
+  color:var(--text-2);
+}
+.template-check div::before{
+  content:"☐";
+  color:var(--navy);
+  font-weight:800;
+  margin-right:8px;
+}
+@media(max-width:700px){
+  .template-grid{grid-template-columns:1fr}
+  .template-field.full{grid-column:auto}
+}
+
+
+.doc-funnel{
+  display:grid;
+  gap:12px;
+  margin-top:18px;
+}
+.funnel-step{
+  background:#fff;
+  border:1px solid var(--border);
+  border-left:5px solid var(--gold);
+  border-radius:0 16px 16px 0;
+  padding:16px 18px;
+  box-shadow:0 6px 18px rgba(31,58,95,.05);
+}
+.funnel-step strong{
+  display:block;
+  font:800 13px 'Montserrat',sans-serif;
+  color:var(--navy);
+  margin-bottom:4px;
+}
+.funnel-step span{
+  display:block;
+  color:var(--text-2);
+  font-size:14px;
+}
+.trace-flow{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+.trace-node{
+  background:var(--navy-10);
+  border:1px solid var(--navy-20);
+  border-radius:16px;
+  padding:14px;
+  text-align:center;
+  color:var(--navy);
+  font:800 12px 'Montserrat',sans-serif;
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.trace-arrow{
+  text-align:center;
+  color:var(--gold-2);
+  font:800 18px 'Montserrat',sans-serif;
+}
+@media(max-width:900px){
+  .trace-flow{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .trace-flow{grid-template-columns:1fr}
+}
+
+
+/* EO360 ajuste navegación superior */
+.tab-nav{
+  flex-wrap:wrap !important;
+  overflow-x:visible !important;
+  row-gap:8px !important;
+}
+.tab-btn{
+  padding:8px 12px !important;
+  font-size:11.5px !important;
+}
+@media(max-width:900px){
+  .tab-nav{
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+  }
+}
+
+
+/* EO360 ajuste bloque de impacto */
+.kpis-clean{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:16px !important;
+}
+.kpis-clean .kpi{
+  min-height:128px;
+  padding:18px 18px !important;
+}
+.kpis-clean .klabel{
+  font-size:11px !important;
+  line-height:1.25 !important;
+  white-space:normal !important;
+  overflow-wrap:anywhere !important;
+}
+.kpis-clean .kvalue{
+  font-size:25px !important;
+  line-height:1.05 !important;
+  white-space:normal !important;
+}
+.kpis-clean .ktrend{
+  font-size:12px !important;
+  line-height:1.45 !important;
+  white-space:normal !important;
+}
+@media(max-width:700px){
+  .kpis-clean{
+    grid-template-columns:1fr !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">E<span>O</span>360</div>
+        <div class="brand-copy">
+          <strong>IA Aplicada</strong>
+          <span>a formatos, políticas y procedimientos</span>
+        </div>
+      </div>
+      <nav class="tab-nav">
+        <button class="tab-btn active" onclick="tab('inicio',this)">🏠 Inicio</button>
+        <button class="tab-btn" onclick="tab('m0',this)">0 · Gobierno</button>
+        <button class="tab-btn" onclick="tab('m1',this)">1 · Diagnóstico</button>
+<button class="tab-btn" onclick="tab('m2',this)">2 · Formatos</button>
+<button class="tab-btn" onclick="tab('m3',this)">3 · Políticas</button>
+<button class="tab-btn" onclick="tab('m4',this)">4 · Procedimientos</button>
+<button class="tab-btn" onclick="tab('m5',this)">5 · Implementar</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="tab-panel active" id="inicio">
+      <section class="hero">
+        <div class="container">
+          <div class="eyebrow"><span class="dot"></span>Programa de Formación Corporativa · EO360</div>
+          <h1>IA aplicada a formatos, políticas y procedimientos</h1>
+          <p class="hero-sub">Curso oficial para utilizar inteligencia artificial en la estructuración, rediseño y mejora de formatos, políticas y procedimientos, fortaleciendo trazabilidad documental, control interno y eficiencia operativa.</p>
+
+          <div class="hero-grid">
+            <div class="grid-2">
+              <div class="card">
+                <span class="pill">Propósito general</span>
+                <h3>Qué busca este curso</h3>
+                <p>Enseñar cómo utilizar inteligencia artificial para estructurar mejor la documentación, acelerar la actualización documental, fortalecer control interno y reducir improvisación operativa.</p>
+              </div>
+              <div class="card">
+                <span class="pill">Dirigido a</span>
+                <h3>Perfil de participantes</h3>
+                <ul>
+                  <li>Asistentes y coordinadores administrativos</li>
+                  <li>Responsables de calidad y procesos</li>
+                  <li>Jefaturas administrativas u operativas</li>
+                  <li>Profesionales que generan documentación interna</li>
+                  <li>Equipos que necesitan fortalecer control documental</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="hero-card">
+              <div class="hero-card-top">
+                <h3>Lo que cambia con IA bien aplicada</h3>
+                <p>Impacto práctico en control documental, trazabilidad y reducción de reprocesos.</p>
+              </div>
+              <div class="hero-card-body">
+                <div class="kpis kpis-clean">
+                  <div class="kpi"><span class="klabel">Ruta formativa</span><span class="kvalue">6 bloques</span><span class="ktrend">Gobierno documental + 5 módulos aplicados</span></div>
+                  <div class="kpi"><span class="klabel">Documentos trabajados</span><span class="kvalue">3 tipos</span><span class="ktrend">Formato, política y procedimiento</span></div>
+                  <div class="kpi"><span class="klabel">Meta de control</span><span class="kvalue">≥ 90%</span><span class="ktrend" style="color:var(--ok)">Documentos estandarizados</span></div>
+                  <div class="kpi"><span class="klabel">Meta de mejora</span><span class="kvalue">-60%</span><span class="ktrend" style="color:var(--ok)">Duplicidad documental</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt">
+        <div class="container">
+          <span class="section-label">Ruta metodológica</span>
+          <h2>Cómo trabajamos cada módulo con el modelo ERCA</h2>
+          <p class="section-sub">Cada módulo combina caso real, reflexión, respuesta sugerida, conceptualización, aplicación inmediata, KPI y entregable.</p>
+          <div class="erca-grid">
+            <div class="erca-box"><div class="step">E</div><h3>Experiencia</h3><p>Partimos de una situación real que el participante reconoce en su operación.</p></div>
+            <div class="erca-box"><div class="step">R</div><h3>Reflexión</h3><p>Analizamos qué falla, qué riesgo aparece y qué decisión debería tomarse.</p></div>
+            <div class="erca-box"><div class="step">C</div><h3>Conceptualización</h3><p>Ordenamos el criterio técnico que explica el problema y guía la solución.</p></div>
+            <div class="erca-box"><div class="step">A</div><h3>Aplicación</h3><p>Llevamos el concepto a prompts, formatos, políticas, procedimientos y KPIs.</p></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    
+
+<div class="tab-panel" id="m0">
+  <div class="mod-header" data-num="00">
+    <div class="mod-icon">🏛️</div>
+    <div>
+      <h2>Módulo 0 · Arquitectura documental y gobierno corporativo</h2>
+      <p>Jerarquía documental · criterios de creación · aprobación · socialización · trazabilidad</p>
+    </div>
+  </div>
+
+  <div class="lessons">
+
+    <div class="lcard open" id="L01">
+      <button class="lcard-toggle" onclick="tog('L01')">
+        <span class="lcard-num">0.1</span>
+        <span class="lcard-title">Jerarquía documental corporativa</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto clave</span>
+          <div class="con-box"><div class="con-icon">🏛️</div><div class="con-txt">
+            <p>La documentación corporativa tiene niveles. No todo debe ser política, no todo debe ser procedimiento y no todo necesita instructivo.</p>
+            <p>La jerarquía correcta evita confusión, exceso documental y aprobaciones innecesarias.</p>
+          </div></div>
+        </div>
+
+        <div class="blk"><span class="blk-label lbl-a">⚡ Embudo documental</span>
+          <div class="apl-box">
+            <div class="doc-funnel">
+              <div class="funnel-step"><strong>1. Política</strong><span>Define reglas, límites, lineamientos y criterios institucionales. Tiene nivel estratégico.</span></div>
+              <div class="funnel-step"><strong>2. Procedimiento</strong><span>Define el flujo de trabajo, responsables, entradas, salidas y puntos de control.</span></div>
+              <div class="funnel-step"><strong>3. Instructivo</strong><span>Explica el paso a paso operativo para ejecutar una tarea específica.</span></div>
+              <div class="funnel-step"><strong>4. Formato</strong><span>Captura información necesaria para ejecutar, controlar o aprobar un proceso.</span></div>
+              <div class="funnel-step"><strong>5. Registro / evidencia</strong><span>Demuestra que la actividad se realizó y permite auditoría o trazabilidad.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta guía</span>
+          <div class="resp-box">Primero se define la política, luego el procedimiento, después el instructivo, y finalmente los formatos y registros que permiten evidenciar la ejecución.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L02">
+      <button class="lcard-toggle" onclick="tog('L02')">
+        <span class="lcard-num">0.2</span>
+        <span class="lcard-title">Diferencia entre política, procedimiento, instructivo, formato y registro</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-a">⚡ Diferencias clave</span>
+          <div class="apl-box">
+            <table class="data-table">
+              <thead><tr><th>Documento</th><th>¿Para qué sirve?</th><th>Pregunta que responde</th><th>Nivel</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Política</strong></td><td>Define reglas, límites y criterios generales.</td><td>¿Qué se permite, qué no y bajo qué lineamientos?</td><td>Estratégico</td></tr>
+                <tr><td><strong>Procedimiento</strong></td><td>Define flujo, responsables y controles.</td><td>¿Cómo fluye el proceso de inicio a fin?</td><td>Táctico</td></tr>
+                <tr><td><strong>Instructivo</strong></td><td>Detalla cómo ejecutar una tarea específica.</td><td>¿Cómo se realiza esta actividad paso a paso?</td><td>Operativo</td></tr>
+                <tr><td><strong>Formato</strong></td><td>Captura datos necesarios para operar o controlar.</td><td>¿Qué información debo registrar?</td><td>Operativo</td></tr>
+                <tr><td><strong>Registro</strong></td><td>Evidencia que algo fue ejecutado.</td><td>¿Qué prueba demuestra que se hizo?</td><td>Control / auditoría</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box">
+            <div class="ref-q">¿Estoy creando una política cuando en realidad solo necesito un procedimiento?</div>
+            <div class="ref-q">¿Estoy pidiendo demasiada aprobación para documentos operativos?</div>
+            <div class="ref-q">¿Tengo registros que realmente sirven como evidencia?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L03">
+      <button class="lcard-toggle" onclick="tog('L03')">
+        <span class="lcard-num">0.3</span>
+        <span class="lcard-title">Niveles de aprobación, actualización y socialización</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-a">⚡ Matriz de gobierno documental</span>
+          <div class="apl-box">
+            <table class="data-table">
+              <thead><tr><th>Documento</th><th>Propone</th><th>Revisa</th><th>Aprueba</th><th>Actualización sugerida</th><th>Socialización</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Política</strong></td><td>Dueño del proceso</td><td>Calidad / Legal / Control interno</td><td>Comité / Gerencia General</td><td>Cada 12 meses o ante cambios normativos</td><td>Capacitación + aceptación formal</td></tr>
+                <tr><td><strong>Procedimiento</strong></td><td>Jefatura del área</td><td>Calidad / Control interno</td><td>Gerencia funcional</td><td>Cada 6–12 meses</td><td>Inducción operativa + evidencia</td></tr>
+                <tr><td><strong>Instructivo</strong></td><td>Supervisor / Coordinador</td><td>Jefatura del área</td><td>Jefatura del área</td><td>Cada 3–6 meses o ante cambio operativo</td><td>Entrenamiento práctico</td></tr>
+                <tr><td><strong>Formato</strong></td><td>Usuario clave</td><td>Coordinación</td><td>Jefatura / dueño del proceso</td><td>Cuando cambie el proceso</td><td>Comunicación y uso controlado</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta guía</span>
+          <div class="resp-box">Las políticas normalmente requieren aprobación de Comité o Gerencia General porque fijan reglas institucionales. Los procedimientos e instructivos tienen niveles de aprobación más funcionales y operativos.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lcard" id="L04">
+      <button class="lcard-toggle" onclick="tog('L04')">
+        <span class="lcard-num">0.4</span>
+        <span class="lcard-title">Trazabilidad documental y ciclo de vida</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-a">⚡ Flujo de trazabilidad</span>
+          <div class="apl-box">
+            <div class="trace-flow">
+              <div class="trace-node">Necesidad detectada</div>
+              <div class="trace-node">Creación del documento</div>
+              <div class="trace-node">Revisión técnica</div>
+              <div class="trace-node">Aprobación</div>
+              <div class="trace-node">Publicación controlada</div>
+              <div class="trace-node">Socialización</div>
+              <div class="trace-node">Aplicación</div>
+              <div class="trace-node">Auditoría / actualización</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="blk"><span class="blk-label lbl-k">📊 KPI sugeridos</span>
+          <div class="apl-box">
+            <table class="data-table">
+              <thead><tr><th>KPI</th><th>Fórmula / criterio</th><th>Meta sugerida</th></tr></thead>
+              <tbody>
+                <tr><td>Documentos con aprobación vigente</td><td>Documentos aprobados ÷ documentos activos × 100</td><td>≥ 98%</td></tr>
+                <tr><td>Documentos socializados</td><td>Documentos socializados ÷ documentos publicados × 100</td><td>≥ 95%</td></tr>
+                <tr><td>Documentos vencidos</td><td>Documentos vencidos ÷ documentos activos × 100</td><td>&lt; 2%</td></tr>
+                <tr><td>Tiempo de actualización</td><td>Días entre solicitud de cambio y versión aprobada</td><td>&lt; 7 días</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="tab-panel" id="m1">
+  <div class="mod-header" data-num="01">
+    <div class="mod-icon">📂</div>
+    <div>
+      <h2>Módulo 1 · Diagnóstico documental y madurez organizacional</h2>
+      <p>Control documental · trazabilidad · madurez organizacional · documentos optimizados con IA</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L11">
+      <button class="lcard-toggle" onclick="tog('L11')">
+        <span class="lcard-num">1.1</span>
+        <span class="lcard-title">Diagnóstico documental y madurez organizacional</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-o">🎯 Objetivo</span>
+          <div class="obj-box">Identificar el nivel real de control documental de la organización.</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Una empresa tiene:</p>
+<table class="data-table">
+<thead><tr><th>Área</th><th>Herramienta utilizada</th></tr></thead>
+<tbody>
+<tr><td>Compras</td><td>Excel</td></tr>
+<tr><td>RRHH</td><td>Word</td></tr>
+<tr><td>Operaciones</td><td>Formato impreso</td></tr>
+<tr><td>Administración</td><td>WhatsApp</td></tr>
+</tbody>
+</table>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Qué está fallando?</div>
+<div class="ref-q">¿La empresa tiene documentos o tiene trazabilidad?</div>
+<div class="ref-q">¿Qué riesgo aparece cuando cada área documenta con una lógica distinta?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta guía</span>
+          <div class="resp-box">“La empresa trabaja, pero no tiene un sistema documental integrado. Existe ejecución, pero no existe trazabilidad.”</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-x">⚠️ Error típico</span>
+          <div class="err-box">““Mientras el trabajo salga, el formato no importa.””</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Conceptualización</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Sin estandarización documental aparecen errores, duplicidad, retrabajos, dependencia de personas y pérdida de evidencia.</p>
+<p>Un sistema documental no es solo archivo: es control, trazabilidad, estándar y protección operativa.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación inmediata</span>
+          <div class="apl-box">
+<p><strong>Matriz de madurez documental EO360</strong></p>
+<table class="data-table">
+<thead><tr><th>Nivel</th><th>Estado</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Documentos dispersos</td></tr>
+<tr><td>2</td><td>Documentos repetidos</td></tr>
+<tr><td>3</td><td>Documentos estandarizados</td></tr>
+<tr><td>4</td><td>Documentos medidos</td></tr>
+<tr><td>5</td><td>Documentos optimizados con IA</td></tr>
+</tbody>
+</table>
+</div>
+        </div>
+        
+<div class="blk"><span class="blk-label lbl-d">🧾 Plantilla visible · Diagnóstico documental</span>
+  <div class="template-box">
+    <div class="template-title">Plantilla de diagnóstico documental EO360</div>
+    <div class="template-grid">
+      <div class="template-field"><strong>Área / proceso</strong><span>Ej.: compras, RRHH, mantenimiento, operaciones.</span></div>
+      <div class="template-field"><strong>Documento revisado</strong><span>Nombre del formato, política, procedimiento o instructivo.</span></div>
+      <div class="template-field"><strong>Versión actual</strong><span>Código, fecha, responsable y estado de vigencia.</span></div>
+      <div class="template-field"><strong>Problema detectado</strong><span>Duplicidad, vencimiento, ausencia de responsable, falta de evidencia.</span></div>
+      <div class="template-field"><strong>Nivel de madurez</strong><span>1 disperso · 2 repetido · 3 estandarizado · 4 medido · 5 optimizado con IA.</span></div>
+      <div class="template-field"><strong>Prioridad</strong><span>Alta · media · baja.</span></div>
+      <div class="template-field full"><strong>Acción sugerida</strong><span>Actualizar, consolidar, eliminar duplicidad, rediseñar o validar con líderes.</span></div>
+    </div>
+  </div>
+</div>
+
+        <div class="blk"><span class="blk-label lbl-k">📊 KPI sugeridos</span>
+          <div class="apl-box">
+<table class="data-table">
+<thead><tr><th>KPI sugerido</th><th>Fórmula / criterio</th><th>Meta sugerida</th></tr></thead>
+<tbody><tr><td>Documentos estandarizados</td><td>Documentos estandarizados ÷ documentos totales × 100</td><td>≥ 90%</td></tr>
+<tr><td>Tiempo promedio de aprobación documental</td><td>Tiempo transcurrido entre solicitud, revisión y aprobación</td><td>&lt; 24 horas</td></tr></tbody>
+</table>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-d">📁 Entregable del módulo</span>
+          <div class="deliver-box">Matriz de madurez documental aplicada a su empresa.</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="tab-panel" id="m2">
+  <div class="mod-header" data-num="02">
+    <div class="mod-icon">🧩</div>
+    <div>
+      <h2>Módulo 2 · Rediseño de formatos con IA</h2>
+      <p>Formatos críticos · campos de control · evidencia · reducción de errores documentales</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L21">
+      <button class="lcard-toggle" onclick="tog('L21')">
+        <span class="lcard-num">2.1</span>
+        <span class="lcard-title">Rediseño de formatos críticos con IA</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-o">🎯 Objetivo</span>
+          <div class="obj-box">Optimizar formatos críticos del negocio.</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Formato de requisición actual:</p>
+<ul>
+<li>❌ no tiene fecha</li>
+<li>❌ no tiene código</li>
+<li>❌ no tiene prioridad</li>
+<li>❌ no tiene aprobador</li>
+<li>❌ no tiene evidencia</li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Qué riesgo genera?</div>
+<div class="ref-q">¿Qué ocurre cuando el dato crítico no se captura al origen?</div>
+<div class="ref-q">¿Qué costo produce un formato débil?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta guía</span>
+          <div class="resp-box">“Genera compras incorrectas, conflictos internos, falta de accountability y retrasos operativos.”</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-x">⚠️ Error típico</span>
+          <div class="err-box">““Después completamos los datos.””</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Conceptualización</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Los datos críticos deben capturarse en el origen.</p>
+<p>Un formato débil no solo genera información incompleta: genera decisiones lentas, errores y conflictos entre áreas.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación inmediata</span>
+          <div class="apl-box">
+<p><strong>Prompt EO360</strong></p>
+<div class="code">Actúa como consultor senior de procesos.
+
+Rediseña un formato de requisición para una empresa industrial.
+
+Debe incluir:
+código,
+versión,
+fecha,
+prioridad,
+responsable,
+evidencia,
+aprobación.</div>
+</div>
+        </div>
+        
+<div class="blk"><span class="blk-label lbl-d">🧾 Plantilla visible · Formato crítico</span>
+  <div class="template-box">
+    <div class="template-title">Plantilla base para formato operativo / administrativo</div>
+    <div class="template-grid">
+      <div class="template-field"><strong>Código del formato</strong><span>Ej.: F-COM-001.</span></div>
+      <div class="template-field"><strong>Versión / fecha</strong><span>Versión vigente y fecha de actualización.</span></div>
+      <div class="template-field"><strong>Solicitante</strong><span>Nombre, cargo y área.</span></div>
+      <div class="template-field"><strong>Responsable de atención</strong><span>Persona o área que ejecuta.</span></div>
+      <div class="template-field"><strong>Prioridad</strong><span>Alta · media · baja · urgente justificada.</span></div>
+      <div class="template-field"><strong>Aprobador</strong><span>Nombre y cargo de quien autoriza.</span></div>
+      <div class="template-field full"><strong>Descripción de la solicitud</strong><span>Qué se solicita, por qué se solicita y para cuándo se necesita.</span></div>
+      <div class="template-field full"><strong>Evidencia / soporte</strong><span>Factura, foto, correo, cotización, guía, acta o documento respaldo.</span></div>
+      <div class="template-field full"><strong>Observaciones y cierre</strong><span>Resultado final, fecha de cierre y responsable del cierre.</span></div>
+    </div>
+  </div>
+</div>
+
+        <div class="blk"><span class="blk-label lbl-k">📊 KPI sugeridos</span>
+          <div class="apl-box">
+<table class="data-table">
+<thead><tr><th>KPI sugerido</th><th>Fórmula / criterio</th><th>Meta sugerida</th></tr></thead>
+<tbody><tr><td>Tiempo de llenado</td><td>Minutos promedio para completar correctamente el formato</td><td>&lt; 4 minutos</td></tr>
+<tr><td>Errores documentales mensuales</td><td>Número de errores detectados por mes</td><td>&lt; 3 errores</td></tr>
+<tr><td>Requisiciones devueltas</td><td>Requisiciones devueltas ÷ requisiciones totales × 100</td><td>&lt; 5%</td></tr></tbody>
+</table>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-d">📁 Entregable del módulo</span>
+          <div class="deliver-box">Formato crítico rediseñado.</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="tab-panel" id="m3">
+  <div class="mod-header" data-num="03">
+    <div class="mod-icon">📜</div>
+    <div>
+      <h2>Módulo 3 · Diseño de políticas con IA</h2>
+      <p>Políticas claras · adopción interna · evidencia · cumplimiento y seguimiento</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L31">
+      <button class="lcard-toggle" onclick="tog('L31')">
+        <span class="lcard-num">3.1</span>
+        <span class="lcard-title">Diseño de políticas claras, aplicables y medibles</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-o">🎯 Objetivo</span>
+          <div class="obj-box">Diseñar políticas claras, aplicables y medibles.</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>La empresa tiene política de vehículos.</p>
+<p>Pero:</p>
+<ul>
+<li>nadie la conoce</li>
+<li>nadie la firma</li>
+<li>nadie la aplica</li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Existe política?</div>
+<div class="ref-q">¿Tener un archivo significa tener implementación?</div>
+<div class="ref-q">¿Qué evidencia demuestra que una política está viva?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta guía</span>
+          <div class="resp-box">“Existe archivo. No existe implementación.”</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-x">⚠️ Error típico</span>
+          <div class="err-box">““Ya está redactada, entonces está implementada.””</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Conceptualización</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Una política viva requiere comunicación, adopción, evidencia y seguimiento.</p>
+<p>No basta redactar una política; debe ser conocida, aceptada, aplicada y medida.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación inmediata</span>
+          <div class="apl-box">
+<p><strong>Prompt EO360</strong></p>
+<div class="code">Actúa como consultor senior de flota.
+
+Diseña una política de uso de vehículos corporativos para una empresa con 25 unidades móviles.
+
+Incluye:
+responsabilidades,
+restricciones,
+sanciones,
+mantenimiento,
+trazabilidad.</div>
+</div>
+        </div>
+        
+<div class="blk"><span class="blk-label lbl-d">🧾 Plantilla visible · Política interna</span>
+  <div class="template-box">
+    <div class="template-title">Plantilla base para política interna</div>
+    <div class="template-grid">
+      <div class="template-field"><strong>Nombre de la política</strong><span>Ej.: Política de uso de vehículos corporativos.</span></div>
+      <div class="template-field"><strong>Código / versión</strong><span>Identificación y control documental.</span></div>
+      <div class="template-field full"><strong>Objetivo</strong><span>Qué busca regular o proteger la política.</span></div>
+      <div class="template-field full"><strong>Alcance</strong><span>A quién aplica, áreas incluidas y excepciones.</span></div>
+      <div class="template-field"><strong>Responsables</strong><span>Dueño del proceso, usuarios, aprobadores y control interno.</span></div>
+      <div class="template-field"><strong>Lineamientos</strong><span>Reglas principales de aplicación.</span></div>
+      <div class="template-field full"><strong>Restricciones / prohibiciones</strong><span>Qué no está permitido y bajo qué condiciones.</span></div>
+      <div class="template-field full"><strong>Sanciones o consecuencias</strong><span>Medidas por incumplimiento, según reglamento interno aplicable.</span></div>
+      <div class="template-field full"><strong>Evidencia de aceptación</strong><span>Firma, acta, inducción, correo de aceptación o registro de capacitación.</span></div>
+    </div>
+  </div>
+</div>
+
+        <div class="blk"><span class="blk-label lbl-k">📊 KPI sugeridos</span>
+          <div class="apl-box">
+<table class="data-table">
+<thead><tr><th>KPI sugerido</th><th>Fórmula / criterio</th><th>Meta sugerida</th></tr></thead>
+<tbody><tr><td>Personal capacitado en la política</td><td>Colaboradores capacitados ÷ colaboradores alcanzados × 100</td><td>≥ 95%</td></tr>
+<tr><td>Firmas de aceptación</td><td>Firmas recibidas ÷ colaboradores alcanzados × 100</td><td>≥ 95%</td></tr>
+<tr><td>Incidentes por incumplimiento</td><td>Número de incidentes asociados a la política</td><td>&lt; 2 por trimestre</td></tr></tbody>
+</table>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-d">📁 Entregable del módulo</span>
+          <div class="deliver-box">Política lista para validación interna.</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="tab-panel" id="m4">
+  <div class="mod-header" data-num="04">
+    <div class="mod-icon">⚙️</div>
+    <div>
+      <h2>Módulo 4 · Procedimientos e instructivos operativos</h2>
+      <p>Operación real · instructivos útiles · flujo de trabajo · cumplimiento del procedimiento</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L41">
+      <button class="lcard-toggle" onclick="tog('L41')">
+        <span class="lcard-num">4.1</span>
+        <span class="lcard-title">Procedimientos que reflejan la operación real</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-o">🎯 Objetivo</span>
+          <div class="obj-box">Diseñar procedimientos que reflejen la operación real.</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>El procedimiento dice:</p>
+<div class="quote">“Solicitar aprobación.”</div>
+<p>Pero cada supervisor trabaja distinto.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Qué está ocurriendo?</div>
+<div class="ref-q">¿El procedimiento representa la realidad operativa?</div>
+<div class="ref-q">¿Qué pasa cuando cada supervisor interpreta el proceso a su manera?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta guía</span>
+          <div class="resp-box">“El procedimiento no representa la realidad operativa.”</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-x">⚠️ Error típico</span>
+          <div class="err-box">“Copiar procedimientos de internet o de otras empresas.”</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Conceptualización</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Un procedimiento debe reflejar la operación real del negocio.</p>
+<p>Si el documento no coincide con la operación, no controla nada: solo crea una apariencia de orden.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación inmediata</span>
+          <div class="apl-box">
+<p><strong>Actividad aplicada: mapear el proceso real</strong></p>
+<div class="ctx-row">
+<div class="ctx"><strong>Entrada</strong>Solicitud.</div>
+<div class="ctx"><strong>Proceso</strong>Validación.</div>
+<div class="ctx"><strong>Salida</strong>Aprobación.</div>
+</div>
+</div>
+        </div>
+        
+<div class="blk"><span class="blk-label lbl-d">🧾 Plantilla visible · Procedimiento / instructivo</span>
+  <div class="template-box">
+    <div class="template-title">Plantilla base para procedimiento o instructivo operativo</div>
+    <div class="template-grid">
+      <div class="template-field"><strong>Nombre del procedimiento</strong><span>Ej.: Procedimiento de solicitud y aprobación de compras.</span></div>
+      <div class="template-field"><strong>Código / versión</strong><span>Control documental del procedimiento.</span></div>
+      <div class="template-field full"><strong>Objetivo</strong><span>Resultado que debe lograr el procedimiento.</span></div>
+      <div class="template-field full"><strong>Alcance</strong><span>Desde dónde inicia y dónde termina el proceso.</span></div>
+      <div class="template-field"><strong>Entrada</strong><span>Solicitud, documento, necesidad, alerta o requerimiento.</span></div>
+      <div class="template-field"><strong>Salida</strong><span>Aprobación, cierre, entrega, registro o evidencia.</span></div>
+      <div class="template-field full"><strong>Secuencia de pasos</strong><span>1. Recibir solicitud · 2. Validar · 3. Aprobar · 4. Ejecutar · 5. Registrar cierre.</span></div>
+      <div class="template-field full"><strong>Responsables por etapa</strong><span>Asignar un responsable claro para cada paso crítico.</span></div>
+      <div class="template-field full"><strong>Controles y evidencias</strong><span>Checklist, firma, captura, correo, registro, foto, acta o soporte.</span></div>
+    </div>
+  </div>
+</div>
+
+        <div class="blk"><span class="blk-label lbl-k">📊 KPI sugeridos</span>
+          <div class="apl-box">
+<table class="data-table">
+<thead><tr><th>KPI sugerido</th><th>Fórmula / criterio</th><th>Meta sugerida</th></tr></thead>
+<tbody><tr><td>Cumplimiento del procedimiento</td><td>Ejecuciones conforme al procedimiento ÷ ejecuciones totales × 100</td><td>≥ 90%</td></tr>
+<tr><td>Desviaciones operativas</td><td>Desviaciones detectadas ÷ operaciones revisadas × 100</td><td>&lt; 5%</td></tr>
+<tr><td>Tiempo de ciclo</td><td>Tiempo total desde entrada hasta salida del proceso</td><td>Reducir ≥ 20%</td></tr></tbody>
+</table>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-d">📁 Entregable del módulo</span>
+          <div class="deliver-box">Procedimiento actualizado.</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="tab-panel" id="m5">
+  <div class="mod-header" data-num="05">
+    <div class="mod-icon">📊</div>
+    <div>
+      <h2>Módulo 5 · Auditoría documental e implementación</h2>
+      <p>Control preventivo · vigencia documental · hallazgos críticos · plan de 30 días</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L51">
+      <button class="lcard-toggle" onclick="tog('L51')">
+        <span class="lcard-num">5.1</span>
+        <span class="lcard-title">Auditoría documental e implementación sostenible</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-o">🎯 Objetivo</span>
+          <div class="obj-box">Sostener la mejora documental.</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Auditoría interna detecta:</p>
+<ul>
+<li>documentos vencidos</li>
+<li>versiones incorrectas</li>
+<li>formatos obsoletos</li>
+<li>procedimientos sin evidencia</li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Qué refleja esto?</div>
+<div class="ref-q">¿El control documental es preventivo o reactivo?</div>
+<div class="ref-q">¿Qué riesgo aparece cuando la actualización solo ocurre por auditoría?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta guía</span>
+          <div class="resp-box">“Refleja debilidad de control interno.”</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-x">⚠️ Error típico</span>
+          <div class="err-box">“Actualizar documentos solo cuando auditoría lo exige.”</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Conceptualización</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>El control documental debe ser preventivo.</p>
+<p>Una organización madura no espera auditoría para corregir documentos: mantiene vigencia, control de versiones y trazabilidad de manera continua.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación inmediata</span>
+          <div class="apl-box">
+<p><strong>Checklist EO360</strong></p>
+<div class="ctx-row">
+<div class="ctx"><strong>Política</strong>clara · aplicable · medible</div>
+<div class="ctx"><strong>Procedimiento</strong>lógico · usable · ejecutable</div>
+<div class="ctx"><strong>Formato</strong>simple · rápido · trazable</div>
+</div>
+</div>
+        </div>
+        
+<div class="blk"><span class="blk-label lbl-d">🧾 Plantilla visible · Auditoría y plan de implementación</span>
+  <div class="template-box">
+    <div class="template-title">Checklist de auditoría documental y plan 30 días</div>
+    <div class="template-check">
+      <div>El documento tiene código, versión, fecha de actualización y responsable.</div>
+      <div>El documento vigente está disponible para los usuarios que lo aplican.</div>
+      <div>La política, formato o procedimiento tiene evidencia de uso o aceptación.</div>
+      <div>Las versiones anteriores fueron retiradas o marcadas como obsoletas.</div>
+      <div>El documento tiene KPI asociado y responsable de seguimiento.</div>
+    </div>
+    <table class="data-table">
+      <thead><tr><th>Semana</th><th>Acción</th><th>Resultado esperado</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Diagnóstico documental</td><td>Listado priorizado de documentos críticos.</td></tr>
+        <tr><td>2</td><td>Rediseño con IA</td><td>Formatos, políticas o procedimientos mejorados.</td></tr>
+        <tr><td>3</td><td>Validación con líderes</td><td>Observaciones incorporadas y versión ajustada.</td></tr>
+        <tr><td>4</td><td>Implementación y seguimiento</td><td>Documento vigente, comunicado y medido.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+        <div class="blk"><span class="blk-label lbl-k">📊 KPI sugeridos</span>
+          <div class="apl-box">
+<table class="data-table">
+<thead><tr><th>KPI sugerido</th><th>Fórmula / criterio</th><th>Meta sugerida</th></tr></thead>
+<tbody><tr><td>Documentos vigentes</td><td>Documentos vigentes ÷ documentos totales × 100</td><td>≥ 98%</td></tr>
+<tr><td>Hallazgos críticos</td><td>Hallazgos críticos en auditoría documental</td><td>0 hallazgos críticos</td></tr>
+<tr><td>Tiempo de actualización</td><td>Días entre detección y actualización aprobada</td><td>&lt; 7 días</td></tr>
+<tr><td>Reducción de duplicidad</td><td>Documentos duplicados eliminados ÷ documentos duplicados iniciales × 100</td><td>≥ 60%</td></tr></tbody>
+</table>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-d">📁 Entregable del módulo</span>
+          <div class="deliver-box">Plan de implementación documental.</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+  </div>
+</section>
+
+<section class="section alt" id="secIdeasClave">
+  <div class="container">
+    <span class="section-label" id="ideasLabel">Ideas clave del programa</span>
+    <h2 id="ideasTitle">Qué debes llevarte de este programa</h2>
+    <div class="grid-3" style="margin-top:26px">
+      <div class="card"><h3 id="ideasCard1Title">La IA acelera, pero no valida sola</h3><p id="ideasCard1Text">La IA ayuda a redactar, estructurar y mejorar documentos, pero la validación debe seguir siendo humana y operativa.</p></div>
+      <div class="card"><h3 id="ideasCard2Title">Documentar no es acumular archivos</h3><p id="ideasCard2Text">Un documento útil debe generar trazabilidad, reducir errores y proteger la operación.</p></div>
+      <div class="card"><h3 id="ideasCard3Title">La evidencia sostiene el control</h3><p id="ideasCard3Text">Formatos, políticas y procedimientos deben poder auditarse, medirse y sostenerse en el tiempo.</p></div>
+    </div>
+    <div class="card" style="margin-top:22px">
+      <h3 id="conclTitle">Conclusión del programa</h3>
+      <p id="conclText">No se trata de tener más documentos. Se trata de tener documentos que realmente protejan la operación.</p>
+    </div>
+
+    
+<div class="card" style="margin-top:22px">
+  <h3 id="closureTitle"></h3>
+  <p id="closureIntro"></p>
+  <table class="data-table">
+    <thead><tr><th>Evidencia</th><th>Resultado esperado del participante</th></tr></thead>
+    <tbody id="closureBody"></tbody>
+  </table>
+</div>
+<div class="contact-grid"
+ style="margin-top:28px">
+      <div class="contact-box"><small>Correo</small><strong>contacto@eficienciaoperativa360.com</strong></div>
+      <div class="contact-box"><small>Sitio web</small><strong>eficienciaoperativa360.com</strong></div>
+      <div class="contact-box"><small>WhatsApp</small><strong>0979 001 810</strong></div>
+      <div class="contact-box"><small>Ubicación</small><strong>Guayaquil, Ecuador</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>EO360 · Eficiencia Operativa 360</strong> · Material académico de apoyo</p>
+    <p>IA aplicada a formatos, políticas y procedimientos · Menos improvisación · Más trazabilidad · Mejor control documental</p>
+  </div>
+</footer>
+
+<script>
+const _ideasData = {
+  "inicio": {
+    "label": "Ideas clave del programa",
+    "title": "Qué debes llevarte de este programa",
+    "c1h": "La IA acelera, pero no valida sola",
+    "c1t": "La IA ayuda a redactar, estructurar y mejorar documentos, pero la validación debe seguir siendo humana y operativa.",
+    "c2h": "Documentar no es acumular archivos",
+    "c2t": "Un documento útil debe generar trazabilidad, reducir errores y proteger la operación.",
+    "c3h": "La evidencia sostiene el control",
+    "c3t": "Formatos, políticas y procedimientos deben poder auditarse, medirse y sostenerse en el tiempo.",
+    "conclH": "Conclusión del programa",
+    "conclT": "No se trata de tener más documentos. Se trata de tener documentos que realmente protejan la operación."
+  },
+  "m1": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 1",
+    "c1h": "Sin sistema documental no hay trazabilidad",
+    "c1t": "Cada área puede trabajar, pero si documenta distinto, la organización pierde control.",
+    "c2h": "Tener formatos no significa tener control",
+    "c2t": "El control aparece cuando hay estándar, versión, responsable y evidencia.",
+    "c3h": "La madurez documental se mide",
+    "c3t": "La matriz EO360 permite clasificar el punto de partida antes de intervenir.",
+    "conclH": "Conclusión del Módulo 1",
+    "conclT": "El primer paso no es redactar más documentos. Es diagnosticar qué tan controlada está la documentación actual."
+  },
+  "m2": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 2",
+    "c1h": "El dato crítico se captura al origen",
+    "c1t": "Lo que no se registra correctamente desde el inicio genera reproceso después.",
+    "c2h": "Un formato débil genera conflicto",
+    "c2t": "Si no define responsable, prioridad y evidencia, el formato no protege la operación.",
+    "c3h": "La IA ayuda a estructurar campos",
+    "c3t": "Pero la utilidad final depende del criterio operativo del área.",
+    "conclH": "Conclusión del Módulo 2",
+    "conclT": "El formato correcto reduce errores, acelera aprobación y mejora trazabilidad."
+  },
+  "m3": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 3",
+    "c1h": "Una política no es un archivo",
+    "c1t": "Es una regla viva que debe comunicarse, firmarse, aplicarse y medirse.",
+    "c2h": "Redacción sin adopción no sirve",
+    "c2t": "La política debe entenderse y ejecutarse en la realidad del negocio.",
+    "c3h": "La IA ordena la estructura",
+    "c3t": "Puede proponer alcance, responsabilidades, restricciones y sanciones para revisión interna.",
+    "conclH": "Conclusión del Módulo 3",
+    "conclT": "Una política bien diseñada reduce ambigüedad y mejora el control interno."
+  },
+  "m4": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 4",
+    "c1h": "El procedimiento debe reflejar la operación",
+    "c1t": "Si no coincide con lo que realmente ocurre, no controla nada.",
+    "c2h": "Copiar procesos es riesgoso",
+    "c2t": "Cada empresa necesita adaptar entradas, validaciones, responsables y salidas.",
+    "c3h": "Medir cumplimiento evita desviaciones",
+    "c3t": "Los procedimientos deben tener indicadores, no solo pasos escritos.",
+    "conclH": "Conclusión del Módulo 4",
+    "conclT": "Un procedimiento útil convierte la operación real en una secuencia clara, ejecutable y medible."
+  },
+  "m5": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 5",
+    "c1h": "El control debe ser preventivo",
+    "c1t": "No se actualizan documentos solo porque auditoría los pidió.",
+    "c2h": "La vigencia documental protege la operación",
+    "c2t": "Versiones correctas y documentos vigentes reducen hallazgos y errores.",
+    "c3h": "La implementación requiere seguimiento",
+    "c3t": "KPIs, responsables y revisión periódica sostienen la mejora.",
+    "conclH": "Conclusión del Módulo 5",
+    "conclT": "La mejora documental solo genera valor si se implementa, mide y sostiene."
+  }
+};
+
+
+const _closuresData = {"inicio": {"title": "Cierre del programa", "intro": "Síntesis general del programa y evidencias de aprendizaje.", "rows": [["Diagnóstico inicial", "Identificación de oportunidades de mejora."], ["Intervención con IA", "Aplicación práctica sobre formato, política y procedimiento."], ["Indicadores", "Medición básica de control documental."], ["Plan 30 días", "Ruta de implementación y seguimiento."]]}, "m1": {"title": "Cierre del Módulo 1 · Diagnóstico documental", "intro": "El participante identifica el nivel real de madurez documental.", "rows": [["Mapa documental", "Listado de documentos actuales."], ["Nivel de madurez", "Clasificación del área."], ["Riesgos", "Duplicidad, obsolescencia o falta de control."], ["Prioridades", "Procesos a intervenir primero."]]}, "m2": {"title": "Cierre del Módulo 2 · Formatos críticos", "intro": "El participante rediseña formatos con ayuda de IA.", "rows": [["Formato intervenido", "Versión actual vs. versión optimizada."], ["Campos críticos", "Código, versión, prioridad y evidencia."], ["Tiempo de llenado", "Comparación antes y después."], ["Errores corregidos", "Hallazgos eliminados."]]}, "m3": {"title": "Cierre del Módulo 3 · Políticas internas", "intro": "El participante estructura políticas claras y aplicables.", "rows": [["Política creada", "Documento listo para revisión."], ["Roles", "Responsables definidos."], ["Lineamientos", "Reglas y restricciones."], ["Aceptación", "Firma, capacitación o evidencia."]]}, "m4": {"title": "Cierre del Módulo 4 · Procedimientos e instructivos", "intro": "El participante documenta la operación real.", "rows": [["Proceso mapeado", "Entrada, validación y salida."], ["Responsables", "Dueños por etapa."], ["Controles", "Checklist y evidencias."], ["Brechas", "Desviaciones detectadas."]]}, "m5": {"title": "Cierre del Módulo 5 · Auditoría e implementación", "intro": "El participante prepara la sostenibilidad del sistema documental.", "rows": [["Checklist", "Vigencia y control de versiones."], ["KPIs", "Indicadores de cumplimiento."], ["Hallazgos", "Acciones correctivas."], ["Implementación", "Ruta de 30 días."]]}};
+function _updateClosure(id){
+  const d = _closuresData[id] || _closuresData['inicio'];
+  const title = document.getElementById('closureTitle');
+  const intro = document.getElementById('closureIntro');
+  const body = document.getElementById('closureBody');
+  if(title) title.textContent = d.title;
+  if(intro) intro.textContent = d.intro;
+  if(body) body.innerHTML = d.rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+}
+
+function _updateIdeasClave(id){
+  const d = _ideasData[id] || _ideasData['inicio'];
+  const el = (eid) => document.getElementById(eid);
+  if(el('ideasLabel'))     el('ideasLabel').textContent     = d.label;
+  if(el('ideasTitle'))     el('ideasTitle').textContent     = d.title;
+  if(el('ideasCard1Title'))el('ideasCard1Title').textContent= d.c1h;
+  if(el('ideasCard1Text')) el('ideasCard1Text').textContent = d.c1t;
+  if(el('ideasCard2Title'))el('ideasCard2Title').textContent= d.c2h;
+  if(el('ideasCard2Text')) el('ideasCard2Text').textContent = d.c2t;
+  if(el('ideasCard3Title'))el('ideasCard3Title').textContent= d.c3h;
+  if(el('ideasCard3Text')) el('ideasCard3Text').textContent = d.c3t;
+  if(el('conclTitle'))     el('conclTitle').textContent     = d.conclH;
+  if(el('conclText'))      el('conclText').textContent      = d.conclT;
+}
+function tab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const panel=document.getElementById(id);
+  if(panel)panel.classList.add('active');
+  btn.classList.add('active');
+  _updateIdeasClave(id); _updateClosure(id);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function tog(id){
+  const c=document.getElementById(id);
+  if(!c)return;
+  const open=c.classList.contains('open');
+  const panel=c.closest('.tab-panel');
+  if(panel)panel.querySelectorAll('.lcard.open').forEach(x=>{if(x.id!==id)x.classList.remove('open')});
+  c.classList.toggle('open',!open);
+  if(!open)setTimeout(()=>{if(c)c.scrollIntoView({behavior:'smooth',block:'nearest'})},60);
+}
+_updateClosure('inicio');
+</script>
+</body>
+</html>
