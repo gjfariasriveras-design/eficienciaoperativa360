@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IA Aplicada a Procesos de Selección | EO360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3A5F; --navy-dark:#172E4D; --navy-10:#F0F4F9; --navy-20:#DDE7F0;
+  --gold:#D4AF37; --gold-2:#B88A1B;
+  --white:#FFF; --text:#1A1F2E; --text-2:#374151;
+  --gray:#6B7280; --lt:#F7F9FC; --border:#E8ECF0;
+  --ok:#0F766E; --ok-2:#166534; --bad:#B91C1C;
+  --shadow:0 18px 45px rgba(31,58,95,.10);
+  --max:1220px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Open Sans',sans-serif;color:var(--text);background:#fff;line-height:1.65}
+.container{max-width:var(--max);margin:0 auto;padding:0 24px}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px}
+.brand{display:flex;align-items:center;gap:14px;font-family:'Montserrat',sans-serif;text-decoration:none}
+.brand-mark{font-size:26px;font-weight:800;color:var(--navy);letter-spacing:-.04em}
+.brand-mark span{opacity:.35}
+.brand-copy strong{display:block;font-size:13px;color:var(--navy)}
+.brand-copy span{display:block;font-size:11px;color:var(--gray)}
+.tab-nav{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-btn{font-size:12px;font-weight:700;font-family:'Montserrat',sans-serif;color:var(--navy);padding:8px 14px;border-radius:999px;background:var(--navy-10);border:1px solid rgba(31,58,95,.08);text-decoration:none;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s;letter-spacing:.02em}
+.tab-btn:hover{background:var(--navy-20)}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hero{padding:56px 0 32px;background:linear-gradient(180deg,#fff 0%,var(--lt) 100%);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-40px;width:320px;height:320px;background:radial-gradient(circle,rgba(212,175,55,.18) 0%,rgba(212,175,55,.04) 40%,rgba(212,175,55,0) 75%);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(31,58,95,.06);border:1px solid rgba(31,58,95,.08);font:800 11px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-2));flex-shrink:0}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;margin:0}
+h1{font-size:clamp(32px,4.5vw,52px);line-height:1.05;letter-spacing:-.03em;max-width:960px;margin-bottom:14px;color:var(--text)}
+h2{font-size:clamp(26px,3.5vw,40px);line-height:1.1;letter-spacing:-.02em;color:var(--navy);margin-bottom:14px}
+h3{font-size:20px;color:var(--navy);margin-bottom:10px;line-height:1.25}
+.hero-sub,.section-sub{max-width:900px;font-size:17px;color:var(--gray);line-height:1.8;margin-bottom:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start;margin-top:32px}
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:0 8px 24px rgba(31,58,95,.06)}
+.card p{color:var(--text-2);font-size:14px;line-height:1.7;margin:0}
+.card ul,.card ol{color:var(--text-2);font-size:14px;line-height:1.75;padding-left:20px}
+.card li{margin-bottom:4px}
+.hero-card{background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 12px 32px rgba(31,58,95,.07)}
+.hero-card-top{background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);color:#fff;padding:24px 24px 18px}
+.hero-card-top h3{color:#fff;font-size:22px;margin-bottom:8px}
+.hero-card-top p{font-size:14px;color:rgba(255,255,255,.82);margin:0}
+.hero-card-body{padding:22px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.kpi{background:#fff;border:1px solid rgba(31,58,95,.08);border-radius:16px;padding:16px;min-width:0}
+.kpi .klabel{display:block;font-size:12px;color:var(--gray);margin-bottom:8px;font-family:'Montserrat',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.kpi .kvalue{display:block;font:800 28px 'Montserrat',sans-serif;color:var(--navy);line-height:1}
+.kpi .ktrend{display:block;font-size:12px;font-weight:700;margin-top:8px;color:var(--gray)}
+.section{padding:72px 0}
+.section.alt{background:var(--lt)}
+.section-label{font:800 11px 'Montserrat',sans-serif;color:var(--navy);letter-spacing:.16em;text-transform:uppercase;opacity:.68;margin-bottom:10px;display:block}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.pill{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(31,58,95,.08);color:var(--navy);font-size:12px;font-weight:700;margin-bottom:12px;font-family:'Montserrat',sans-serif}
+.erca-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px}
+.erca-box{background:#fff;border:1px solid var(--border);border-radius:18px;padding:22px;position:relative;overflow:hidden;box-shadow:0 8px 20px rgba(31,58,95,.05)}
+.erca-box::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-2))}
+.erca-box .step{display:inline-flex;width:38px;height:38px;border-radius:50%;align-items:center;justify-content:center;background:var(--navy);color:#fff;font:800 16px 'Montserrat',sans-serif;margin-bottom:12px}
+.erca-box h3{font-size:17px;margin-bottom:8px}
+.erca-box p{font-size:13px;color:var(--text-2);line-height:1.65;margin:0}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.mod-header{display:flex;align-items:flex-start;gap:18px;padding:28px 32px;background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);border-radius:20px;margin-bottom:28px;position:relative;overflow:hidden}
+.mod-header::after{content:attr(data-num);position:absolute;right:24px;top:50%;transform:translateY(-50%);font:800 80px 'Montserrat',sans-serif;color:rgba(255,255,255,.05);pointer-events:none;line-height:1}
+.mod-icon{font-size:28px;width:54px;height:54px;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.28);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mod-header h2{color:#fff;font-size:19px;margin-bottom:6px}
+.mod-header p{font-size:13px;color:rgba(255,255,255,.72);margin:0;line-height:1.6}
+.lessons{display:grid;gap:14px}
+.lcard{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(31,58,95,.05);transition:box-shadow .2s,border-color .2s}
+.lcard:hover{box-shadow:0 8px 28px rgba(31,58,95,.1);border-color:rgba(31,58,95,.18)}
+.lcard.open{border-color:var(--navy);box-shadow:0 10px 36px rgba(31,58,95,.12)}
+.lcard-toggle{width:100%;display:flex;align-items:center;gap:14px;padding:18px 22px;background:none;border:none;cursor:pointer;text-align:left;transition:background .15s}
+.lcard-toggle:hover{background:var(--navy-10)}
+.lcard.open .lcard-toggle{background:var(--navy-10)}
+.lcard-num{font:800 10px 'Montserrat',sans-serif;letter-spacing:1px;color:var(--navy);background:var(--navy-10);border:1px solid rgba(31,58,95,.15);padding:4px 11px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.lcard.open .lcard-num{background:var(--navy);color:#fff;border-color:var(--navy)}
+.lcard-title{font:700 14px 'Montserrat',sans-serif;color:var(--navy);flex:1;text-align:left;line-height:1.3}
+.lcard-arrow{width:28px;height:28px;background:var(--navy-10);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--navy);flex-shrink:0;transition:transform .25s,background .2s;font-family:'Montserrat',sans-serif;font-weight:800}
+.lcard.open .lcard-arrow{transform:rotate(180deg);background:var(--navy);color:#fff}
+.lcard-body{display:none;padding:6px 22px 28px;border-top:1px solid var(--border)}
+.lcard.open .lcard-body{display:block}
+.blk{margin-top:22px}
+.blk-label{display:inline-flex;align-items:center;gap:6px;font:800 10px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:5px 13px;border-radius:999px;margin-bottom:11px}
+.lbl-e{background:rgba(31,58,95,.07);color:var(--navy);border:1px solid rgba(31,58,95,.1)}
+.lbl-r{background:rgba(212,175,55,.1);color:#7a5a08;border:1px solid rgba(212,175,55,.25)}
+.lbl-c{background:var(--navy);color:#fff;border:1px solid var(--navy)}
+.lbl-a{background:rgba(15,118,110,.08);color:var(--ok-2);border:1px solid rgba(15,118,110,.2)}
+.lbl-s{background:#eef6ff;color:var(--navy);border:1px solid var(--navy-20)}
+.exp-box{background:var(--navy-10);border:1px solid var(--navy-20);border-radius:14px;padding:18px 20px;font-size:14px;color:var(--text-2);line-height:1.7}
+.exp-box p+p{margin-top:8px}
+.exp-box ul{list-style:none;padding:0;margin:10px 0}
+.exp-box ul li{padding-left:16px;position:relative;margin-bottom:5px;font-size:13px}
+.exp-box ul li::before{content:'▸';position:absolute;left:0;color:var(--navy);font-size:11px;top:1px}
+.quote{font-style:italic;color:var(--navy-dark);background:#fff;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 15px;margin:11px 0;font-size:14px;line-height:1.65;box-shadow:0 2px 8px rgba(31,58,95,.05)}
+.quote-bad{border-left-color:var(--bad);color:#7f1d1d;background:#fff5f5}
+.quote-good{border-left-color:var(--ok);color:#064e3b;background:#ecfdf5}
+.ctx-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.ctx{background:#fff;border:1px solid var(--border);border-radius:12px;border-top:3px solid var(--gold);padding:10px 14px;font-size:13px;color:var(--text-2);line-height:1.45;box-shadow:0 2px 8px rgba(31,58,95,.04);flex:1 1 230px}
+.ctx strong{display:block;font:700 9px 'Montserrat',sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:var(--navy);margin-bottom:3px}
+.ref-box{background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.22);border-radius:14px;padding:16px 20px}
+.ref-q{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text);margin-bottom:7px;line-height:1.6}
+.ref-q:last-child{margin-bottom:0}
+.ref-q::before{content:"?";font:800 10px 'Montserrat',sans-serif;color:#fff;background:linear-gradient(180deg,var(--gold),var(--gold-2));width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.con-box{background:linear-gradient(135deg,var(--navy) 0%,#274872 100%);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.con-icon{font-size:22px;width:44px;height:44px;background:rgba(212,175,55,.18);border:1px solid rgba(212,175,55,.28);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.con-txt{font-size:14px;color:rgba(255,255,255,.88);line-height:1.75;flex:1}
+.con-txt strong,.con-txt b{color:#fff;font-weight:700}
+.con-txt ul{margin:8px 0 0 0;padding-left:18px}
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c-bad{padding:11px 14px;font-size:13px;line-height:1.55;background:#fff5f5;border-radius:10px;border-left:3px solid var(--bad);color:#7f1d1d}
+.c-good{padding:11px 14px;font-size:13px;line-height:1.55;background:#ecfdf5;border-radius:10px;border-left:3px solid var(--ok);color:#064e3b}
+.c-lbl{font:800 9px 'Montserrat',sans-serif;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;opacity:.65}
+.apl-box{background:var(--lt);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.steps{list-style:none!important;padding:0!important;display:grid;gap:8px;margin:0!important}
+.steps li{display:flex!important;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-2);line-height:1.6}
+.steps li strong{color:var(--navy)}
+.sn{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font:800 10px 'Montserrat',sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.si{font-size:15px;flex-shrink:0;margin-top:1px;line-height:1.4;color:var(--ok-2)}
+.pills-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.fpill{display:flex;align-items:baseline;gap:6px;background:#fff;border:1px solid rgba(31,58,95,.12);border-radius:999px;padding:7px 14px;font-size:13px;color:var(--text-2);box-shadow:0 2px 6px rgba(31,58,95,.04)}
+.fpill strong{font:700 9px 'Montserrat',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
+.key-action{background:linear-gradient(135deg,rgba(31,58,95,.06) 0%,rgba(31,58,95,.03) 100%);border:1px solid rgba(31,58,95,.14);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:13px 16px;font-size:14px;color:var(--navy);font-weight:600;line-height:1.55;margin-top:12px}
+.resp-box{background:#fff;border:1px solid var(--navy-20);border-left:4px solid var(--navy);border-radius:0 12px 12px 0;padding:14px 16px;color:var(--navy);font-size:14px;font-weight:700;line-height:1.6;box-shadow:0 2px 8px rgba(31,58,95,.04)}
+.data-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-top:12px;font-size:13px;color:var(--text-2)}
+.data-table th{background:var(--navy);color:#fff;text-align:left;font-family:'Montserrat',sans-serif;font-size:12px;padding:10px 12px}
+.data-table td{padding:10px 12px;border-top:1px solid var(--border)}
+.data-table tr:nth-child(even) td{background:#FAFBFD}
+.footer{padding:36px 0 48px;background:#fff;border-top:1px solid var(--border);text-align:center}
+.footer p{font-size:13px;color:var(--gray);margin:4px 0}
+.footer strong{color:var(--navy)}
+.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.contact-box{background:var(--lt);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:left}
+.contact-box small{display:block;font:800 10px 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.6;margin-bottom:6px}
+.contact-box strong{display:block;font-size:14px;color:var(--navy);font-family:'Montserrat',sans-serif}
+@media(max-width:1180px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1024px){.hero-grid,.grid-2,.grid-3,.grid-4,.erca-grid,.contact-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){
+  .topbar-inner{flex-wrap:wrap;padding:12px 0;gap:12px}
+  .hero{padding-top:36px}h1{font-size:32px}h2{font-size:26px}
+  .hero-grid,.grid-2,.grid-3,.grid-4,.erca-grid,.kpis,.contact-grid,.contrast{grid-template-columns:1fr}
+  .container{padding:0 16px}.section{padding:52px 0}
+  .mod-header{padding:20px 20px;flex-direction:column;gap:12px}
+  .tab-nav{gap:4px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">E<span>O</span>360</div>
+        <div class="brand-copy">
+          <strong>IA Aplicada</strong>
+          <span>a Procesos de Selección</span>
+        </div>
+      </div>
+      <nav class="tab-nav">
+        <button class="tab-btn active" onclick="tab('inicio',this)">🏠 Inicio</button>
+        <button class="tab-btn" onclick="tab('m1',this)">1 · Fundamentos</button>
+<button class="tab-btn" onclick="tab('m2',this)">2 · Screening</button>
+<button class="tab-btn" onclick="tab('m3',this)">3 · Prompts</button>
+<button class="tab-btn" onclick="tab('m4',this)">4 · Decisión</button>
+<button class="tab-btn" onclick="tab('m5',this)">5 · Implementación</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="tab-panel active" id="inicio">
+      <section class="hero">
+        <div class="container">
+          <div class="eyebrow"><span class="dot"></span>Programa de Formación Corporativa · EO360</div>
+          <h1>IA Aplicada a Procesos de Selección</h1>
+          <p class="hero-sub">Microcurrículo desarrollado completo para aplicar inteligencia artificial en reclutamiento, filtrado curricular, evaluación de candidatos, entrevistas, reportes ejecutivos y toma de decisiones, manteniendo siempre el criterio humano, la ética y la trazabilidad del proceso.</p>
+
+          <div class="hero-grid">
+            <div class="grid-2">
+              <div class="card">
+                <span class="pill">Propósito general</span>
+                <h3>Qué busca este curso</h3>
+                <p>Capacitar a profesionales de Talento Humano, jefaturas, coordinadores y responsables de selección para aplicar herramientas de IA en procesos reales de selección, mejorando orden, criterio, evidencia y trazabilidad.</p>
+              </div>
+              <div class="card">
+                <span class="pill">Dirigido a</span>
+                <h3>Perfil de participantes</h3>
+                <ul>
+                  <li>Profesionales de Talento Humano</li>
+                  <li>Jefaturas que participan en selección</li>
+                  <li>Coordinadores administrativos</li>
+                  <li>Responsables de reclutamiento</li>
+                  <li>Empresas que buscan reducir errores de contratación</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="hero-card">
+              <div class="hero-card-top">
+                <h3>Lo que cambia con IA bien aplicada</h3>
+                <p>Impacto práctico en procesos de selección, shortlist y reportes para gerencia.</p>
+              </div>
+              <div class="hero-card-body">
+                <div class="kpis">
+                  <div class="kpi"><span class="klabel">Módulos</span><span class="kvalue">5</span><span class="ktrend">Temas aplicados</span></div>
+                  <div class="kpi"><span class="klabel">Lecciones</span><span class="kvalue">18</span><span class="ktrend">Casos reales</span></div>
+                  <div class="kpi"><span class="klabel">Time-to-hire</span><span class="kvalue">-50%</span><span class="ktrend" style="color:var(--ok)">↓ con flujo ordenado</span></div>
+                  <div class="kpi"><span class="klabel">Decisión</span><span class="kvalue">+Evid.</span><span class="ktrend" style="color:var(--ok)">↑ más defendible</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt">
+        <div class="container">
+          <span class="section-label">Ruta metodológica</span>
+          <h2>Cómo trabajamos cada lección con el modelo ERCA</h2>
+          <p class="section-sub">Cada lección sigue la misma estructura para que el aprendizaje sea concreto, reflexivo y aplicable desde el primer día.</p>
+          <div class="erca-grid">
+            <div class="erca-box"><div class="step">E</div><h3>Experiencia</h3><p>Partimos de una situación real que el participante reconoce en procesos de selección.</p></div>
+            <div class="erca-box"><div class="step">R</div><h3>Reflexión</h3><p>Analizamos qué falló, qué pregunta debe hacerse RRHH y dónde aparece el riesgo.</p></div>
+            <div class="erca-box"><div class="step">C</div><h3>Conceptualización</h3><p>Ordenamos el principio técnico que explica la situación y define la conducta correcta.</p></div>
+            <div class="erca-box"><div class="step">A</div><h3>Aplicación</h3><p>Traducimos el concepto en prompts, matrices, reportes y acciones aplicables.</p></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    
+<div class="tab-panel" id="m1">
+  <div class="mod-header" data-num="01">
+    <div class="mod-icon">🤖</div>
+    <div>
+      <h2>Módulo 1 · Fundamentos de IA en Reclutamiento</h2>
+      <p>Del filtro manual al filtro inteligente · Perfil ideal vs urgencia · Sesgos humanos en entrevistas</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L11">
+      <button class="lcard-toggle" onclick="tog('L11')">
+        <span class="lcard-num">1.1</span>
+        <span class="lcard-title">Del reclutamiento manual a la selección inteligente</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Lunes, 8:00 am.</p>
+<p>La analista de Talento Humano recibe <strong>127 hojas de vida</strong> para una vacante de supervisor operativo.</p>
+<p>Empieza a revisar CV por CV.</p>
+<p>A las 11:30 am:</p>
+<ul>
+<li>lleva revisados 34 CV</li>
+<li>ya perdió concentración</li>
+<li>empieza a saltarse perfiles</li>
+<li>algunos candidatos buenos quedan fuera</li>
+<li>otros perfiles medianos avanzan solo porque fueron leídos al inicio</li>
+</ul>
+<p>A las 17:30 dice:</p>
+<div class="quote">“Mañana sigo, ya no distingo perfiles.”</div>
+<p>Tres días después se contrata al candidato “menos riesgoso”, no necesariamente al mejor.</p>
+<p>A los 45 días, el nuevo supervisor renuncia porque no se adapta al ritmo operativo.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿El problema fue falta de candidatos o exceso de información?</div>
+<div class="ref-q">¿La decisión se tomó con criterio o por cansancio?</div>
+<div class="ref-q">¿Cuánto cuesta volver a iniciar un proceso de selección?</div>
+<div class="ref-q">¿Cuántos candidatos buenos pueden perderse por revisión manual desordenada?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>La mayoría de errores en selección no empiezan en la entrevista.</p>
+<p>Empiezan en:</p>
+<ul>
+<li>filtros manuales poco consistentes</li>
+<li>cansancio cognitivo</li>
+<li>criterios cambiantes</li>
+<li>presión por contratar rápido</li>
+<li>falta de trazabilidad en la revisión</li>
+</ul>
+<p>La IA no debe reemplazar a Talento Humano, pero sí puede ayudar a ordenar, clasificar y priorizar mejor la información.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<p><strong>Con IA se puede:</strong></p>
+<ul class="steps">
+<li><span class="si">✓</span><div>leer grandes volúmenes de CV en menos tiempo</div></li>
+<li><span class="si">✓</span><div>identificar palabras clave según el cargo</div></li>
+<li><span class="si">✓</span><div>comparar experiencia contra el perfil requerido</div></li>
+<li><span class="si">✓</span><div>detectar brechas relevantes</div></li>
+<li><span class="si">✓</span><div>generar un ranking preliminar</div></li>
+<li><span class="si">✓</span><div>reducir tiempo de revisión inicial</div></li>
+</ul>
+<div class="key-action"><strong>Ejemplo práctico:</strong> Vacante: Supervisor de distribución. La IA puede identificar candidatos con experiencia liderando rutas, manejo de indicadores logísticos, control de personal operativo, experiencia en consumo masivo, estabilidad laboral mínima y manejo de presión operativa.</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“La IA no contrata por nosotros. Nos ayuda a reducir ruido, ordenar información y llegar más rápido a candidatos que realmente merecen nuestra atención.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L12">
+      <button class="lcard-toggle" onclick="tog('L12')">
+        <span class="lcard-num">1.2</span>
+        <span class="lcard-title">Perfil ideal vs contratación por urgencia</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Una empresa industrial necesita cubrir un supervisor de bodega de manera urgente.</p>
+<p>El jefe de operaciones dice:</p>
+<div class="quote">“Contraten rápido, luego vemos. Necesito a alguien ya.”</div>
+<p>Talento Humano recibe varios candidatos. Dos perfiles llegan a la etapa final:</p>
+<div class="ctx-row">
+<div class="ctx"><strong>Candidato A</strong>Buena presencia, habla muy bien, se muestra seguro y genera buena impresión.</div>
+<div class="ctx"><strong>Candidato B</strong>Más técnico, menos carismático, pero con experiencia real en bodegas, inventarios, manejo de personal operativo y control de despachos.</div>
+</div>
+<p>Por urgencia, escogen al Candidato A.</p>
+<p>45 días después:</p>
+<ul>
+<li>no logra liderar al equipo</li>
+<li>evita confrontar errores</li>
+<li>tiene conflictos con personal operativo</li>
+<li>se incrementan errores de inventario</li>
+<li>el jefe de operaciones reclama a RRHH</li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Se contrató por evidencia o por impresión?</div>
+<div class="ref-q">¿La urgencia justificaba bajar el estándar?</div>
+<div class="ref-q">¿El perfil ideal estaba realmente definido?</div>
+<div class="ref-q">¿Qué costó más: esperar mejor o contratar mal?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>La urgencia suele afectar la calidad de selección.</p>
+<p>Cuando una empresa no tiene definido el perfil ideal, termina contratando por:</p>
+<ul>
+<li>simpatía</li>
+<li>apariencia</li>
+<li>disponibilidad inmediata</li>
+<li>presión interna</li>
+<li>intuición sin evidencia</li>
+</ul>
+<p>La IA ayuda a comparar candidatos contra criterios previamente definidos.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<p><strong>Con IA se puede construir una matriz comparativa según:</strong></p>
+<div class="pills-row">
+<div class="fpill">experiencia sectorial</div>
+<div class="fpill">estabilidad laboral</div>
+<div class="fpill">liderazgo operativo</div>
+<div class="fpill">competencias técnicas</div>
+<div class="fpill">manejo de presión</div>
+<div class="fpill">compatibilidad con cultura</div>
+<div class="fpill">logros cuantificables</div>
+</div>
+<table class="data-table">
+<thead><tr><th>Criterio</th><th>Peso</th></tr></thead>
+<tbody>
+<tr><td>Experiencia en bodega</td><td>30%</td></tr>
+<tr><td>Manejo de personal</td><td>25%</td></tr>
+<tr><td>Control de inventarios</td><td>20%</td></tr>
+<tr><td>Estabilidad laboral</td><td>15%</td></tr>
+<tr><td>Comunicación</td><td>10%</td></tr>
+</tbody>
+</table>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“Cuando se contrata por presión, el costo aparece después. La IA ayuda a priorizar evidencia, no impresiones.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L13">
+      <button class="lcard-toggle" onclick="tog('L13')">
+        <span class="lcard-num">1.3</span>
+        <span class="lcard-title">Sesgos humanos en entrevistas</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Durante una entrevista, el gerente comenta:</p>
+<div class="quote">“Este candidato me cayó excelente. Tiene buena actitud.”</div>
+<p>RRHH también percibe que el candidato se expresa bien. Avanza en el proceso.</p>
+<p>Tres meses después:</p>
+<ul>
+<li>no logra adaptarse al ritmo de trabajo</li>
+<li>evita asumir presión</li>
+<li>tiene bajo cumplimiento</li>
+<li>el equipo lo percibe como débil</li>
+<li>la jefatura solicita reemplazo</li>
+</ul>
+<p>Al revisar el CV, se detecta que había señales previas:</p>
+<ul>
+<li>cambios laborales frecuentes</li>
+<li>poca permanencia en cargos similares</li>
+<li>logros poco claros</li>
+<li>experiencia real menor a la percibida en entrevista</li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Contratamos por datos o por simpatía?</div>
+<div class="ref-q">¿Qué tanto influye la primera impresión?</div>
+<div class="ref-q">¿El candidato era bueno o solo entrevistaba bien?</div>
+<div class="ref-q">¿Qué señales estaban visibles y no se analizaron?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Los sesgos humanos existen en todo proceso de selección.</p>
+<p>Algunos sesgos frecuentes:</p>
+<ul>
+<li>simpatía personal</li>
+<li>buena presencia</li>
+<li>facilidad de palabra</li>
+<li>afinidad con el entrevistador</li>
+<li>exceso de confianza</li>
+<li>prejuicios por edad, universidad o empresa anterior</li>
+</ul>
+<p>La IA puede ayudar a reducir sesgos al comparar información contra criterios objetivos.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<p><strong>Con IA se puede revisar:</strong></p>
+<ul class="steps">
+<li><span class="si">✓</span><div>coherencia de trayectoria</div></li>
+<li><span class="si">✓</span><div>estabilidad laboral</div></li>
+<li><span class="si">✓</span><div>relación entre experiencia y cargo</div></li>
+<li><span class="si">✓</span><div>señales de riesgo</div></li>
+<li><span class="si">✓</span><div>brechas entre CV y entrevista</div></li>
+<li><span class="si">✓</span><div>nivel de ajuste al perfil</div></li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“No siempre el candidato más carismático es el más compatible con la operación. La IA ayuda a mirar más allá de la primera impresión.”</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="tab-panel" id="m2">
+  <div class="mod-header" data-num="02">
+    <div class="mod-icon">🔎</div>
+    <div>
+      <h2>Módulo 2 · Herramientas de IA para Screening, Ranking y Entrevistas</h2>
+      <p>Filtrado inteligente · Ranking con scoring · Entrevistas asistidas · Informes para gerencia</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L21">
+      <button class="lcard-toggle" onclick="tog('L21')">
+        <span class="lcard-num">2.1</span>
+        <span class="lcard-title">Filtrado inteligente de hojas de vida</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Miércoles, 9:00 am.</p>
+<p>Talento Humano recibe <strong>94 hojas de vida</strong> para una vacante de coordinador administrativo.</p>
+<p>La analista empieza a revisar manualmente. A media jornada detecta que está perdiendo consistencia:</p>
+<ul>
+<li>los primeros perfiles fueron revisados con más detalle</li>
+<li>los perfiles del medio fueron revisados más rápido</li>
+<li>algunos candidatos parecen buenos, pero no sabe cómo compararlos</li>
+<li>la jefatura pregunta por el shortlist</li>
+<li>RRHH aún no tiene una base sólida</li>
+</ul>
+<p>A las 16:30, el jefe pregunta:</p>
+<div class="quote">“¿Ya tenemos candidatos para entrevistar?”</div>
+<p>La respuesta es:</p>
+<div class="quote quote-bad">“Todavía no.”</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿La demora está en la falta de candidatos o en el proceso?</div>
+<div class="ref-q">¿Cuánto cuesta tener una vacante crítica abierta?</div>
+<div class="ref-q">¿Todos los CV fueron revisados con el mismo criterio?</div>
+<div class="ref-q">¿Cómo sabemos que no descartamos un buen candidato?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Cuando el filtrado depende 100% del ojo humano:</p>
+<ul>
+<li>baja la consistencia</li>
+<li>aumenta el sesgo</li>
+<li>sube el tiempo de contratación</li>
+<li>se pierde trazabilidad</li>
+<li>se dificulta justificar descartes</li>
+</ul>
+<p>El screening inteligente permite ordenar candidatos antes de pasar a revisión humana.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<p><strong>Con IA se puede:</strong></p>
+<ul class="steps">
+<li><span class="si">✓</span><div>cargar CV o resúmenes de candidatos</div></li>
+<li><span class="si">✓</span><div>comparar contra el perfil requerido</div></li>
+<li><span class="si">✓</span><div>identificar candidatos con mayor ajuste</div></li>
+<li><span class="si">✓</span><div>separar descartes claros</div></li>
+<li><span class="si">✓</span><div>priorizar entrevistas</div></li>
+<li><span class="si">✓</span><div>generar alertas sobre brechas relevantes</div></li>
+</ul>
+<div class="key-action"><strong>Ejemplo práctico:</strong> Vacante: Coordinador administrativo. La IA puede revisar experiencia en seguimiento de tareas, manejo documental, control administrativo, comunicación interáreas, Excel, estabilidad laboral y reportes.</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“La IA no reemplaza el análisis humano. Le entrega al reclutador una base mejor organizada para decidir.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L22">
+      <button class="lcard-toggle" onclick="tog('L22')">
+        <span class="lcard-num">2.2</span>
+        <span class="lcard-title">Ranking de candidatos con scoring inteligente</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Una empresa tiene 6 candidatos finalistas para supervisor de bodega.</p>
+<p>Todos tienen experiencia. Todos parecen cumplir.</p>
+<p>El gerente dice:</p>
+<div class="quote">“Escoge tú.”</div>
+<p>RRHH responde:</p>
+<div class="quote">“Todos están bien.”</div>
+<p>Nadie quiere asumir el riesgo.</p>
+<p>Al final, escogen al candidato que habló mejor en la entrevista. Dos meses después, se evidencia que tenía poca capacidad para manejar conflictos y bajo seguimiento operativo.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Se estaba decidiendo con criterios claros?</div>
+<div class="ref-q">¿Todos eran buenos o nadie fue evaluado correctamente?</div>
+<div class="ref-q">¿Cómo priorizamos cuando varios candidatos parecen similares?</div>
+<div class="ref-q">¿Qué evidencia respalda la recomendación?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Sin scoring:</p>
+<ul>
+<li>todos los candidatos pueden parecer similares</li>
+<li>la decisión se vuelve subjetiva</li>
+<li>aumenta la posibilidad de error</li>
+<li>gerencia recibe recomendaciones poco defendibles</li>
+<li>RRHH queda expuesto ante una mala contratación</li>
+</ul>
+<p>El scoring inteligente permite ponderar variables y comparar candidatos de forma estructurada.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<table class="data-table">
+<thead><tr><th>Criterio</th><th>Peso</th></tr></thead>
+<tbody>
+<tr><td>Experiencia sectorial</td><td>30%</td></tr>
+<tr><td>Liderazgo operativo</td><td>25%</td></tr>
+<tr><td>Estabilidad laboral</td><td>20%</td></tr>
+<tr><td>Resultados previos</td><td>15%</td></tr>
+<tr><td>Formación</td><td>10%</td></tr>
+</tbody>
+</table>
+<div class="ctx-row">
+<div class="ctx"><strong>Candidato A</strong>Mayor comunicación, menor experiencia operativa.</div>
+<div class="ctx"><strong>Candidato B</strong>Menor presencia, mayor experiencia en bodega y personal operativo.</div>
+<div class="ctx"><strong>Candidato C</strong>Buen nivel técnico, baja estabilidad laboral.</div>
+</div>
+<div class="key-action">El scoring permite comparar con evidencia, no solo con percepción.</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“No se trata de escoger al que mejor habla. Se trata de escoger al que mejor encaja con el reto del cargo.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L23">
+      <button class="lcard-toggle" onclick="tog('L23')">
+        <span class="lcard-num">2.3</span>
+        <span class="lcard-title">Entrevistas asistidas con IA</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>RRHH entrevista a tres candidatos para una misma posición.</p>
+<div class="ctx-row">
+<div class="ctx"><strong>Primer candidato</strong>Entrevista de 40 minutos, preguntas amplias, conversación extensa.</div>
+<div class="ctx"><strong>Segundo candidato</strong>Entrevista de 25 minutos, preguntas más técnicas.</div>
+<div class="ctx"><strong>Tercer candidato</strong>Entrevista de 15 minutos, preguntas rápidas porque ya no había tiempo.</div>
+</div>
+<p>El gerente pregunta:</p>
+<div class="quote">“¿Todos fueron evaluados igual?”</div>
+<p>Silencio.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Todos tuvieron la misma oportunidad?</div>
+<div class="ref-q">¿Estamos comparando respuestas equivalentes?</div>
+<div class="ref-q">¿La entrevista fue justa?</div>
+<div class="ref-q">¿Cómo defendemos la comparación?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Entrevistas sin estructura generan:</p>
+<ul>
+<li>comparaciones injustas</li>
+<li>sesgos del entrevistador</li>
+<li>pérdida de trazabilidad</li>
+<li>decisiones poco defendibles</li>
+<li>candidatos evaluados bajo criterios distintos</li>
+</ul>
+<p>La IA puede ayudar a diseñar entrevistas estructuradas según el cargo.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<p><strong>Con IA se puede generar:</strong></p>
+<ul class="steps">
+<li><span class="si">✓</span><div>batería de preguntas por competencia</div></li>
+<li><span class="si">✓</span><div>preguntas por nivel jerárquico</div></li>
+<li><span class="si">✓</span><div>preguntas situacionales</div></li>
+<li><span class="si">✓</span><div>rúbricas de evaluación</div></li>
+<li><span class="si">✓</span><div>criterios de observación</div></li>
+<li><span class="si">✓</span><div>resumen posterior de entrevista</div></li>
+</ul>
+<div class="key-action"><strong>Ejemplo:</strong> Competencia: manejo de conflictos. Pregunta: “Cuéntame una situación donde dos áreas tenían posiciones enfrentadas y tú debiste resolver el conflicto.” Criterios: identifica hechos, no culpa a terceros, propone solución, mide impacto y da seguimiento.</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“Una buena entrevista no depende del tiempo. Depende de la calidad y consistencia de las preguntas.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L24">
+      <button class="lcard-toggle" onclick="tog('L24')">
+        <span class="lcard-num">2.4</span>
+        <span class="lcard-title">Generación de informes para gerencia</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Después del proceso de selección, el gerente general pregunta:</p>
+<div class="quote">“¿Por qué recomiendan a este candidato?”</div>
+<p>RRHH responde:</p>
+<div class="quote">“Nos dio buena impresión.”</div>
+<p>El gerente insiste:</p>
+<div class="quote">“¿Pero qué evidencia tenemos?”</div>
+<p>La respuesta queda débil. Gerencia percibe que el proceso fue subjetivo.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Estamos recomendando o justificando?</div>
+<div class="ref-q">¿La recomendación se puede defender?</div>
+<div class="ref-q">¿Qué espera gerencia de RRHH?</div>
+<div class="ref-q">¿Estamos entregando información útil para decidir?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Alta dirección necesita evidencia, no percepciones.</p>
+<p>Un informe ejecutivo debe mostrar:</p>
+<ul>
+<li>fortalezas</li>
+<li>riesgos</li>
+<li>compatibilidad con el cargo</li>
+<li>brechas relevantes</li>
+<li>recomendación sustentada</li>
+<li>próximos pasos</li>
+</ul>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<div class="ctx-row">
+<div class="ctx"><strong>Candidato A · Fortalezas</strong>Liderazgo operativo, experiencia sectorial, estabilidad laboral.</div>
+<div class="ctx"><strong>Riesgos</strong>Limitada experiencia financiera.</div>
+<div class="ctx"><strong>Compatibilidad</strong>87%</div>
+<div class="ctx"><strong>Recomendación</strong>Avanzar a entrevista final con gerencia.</div>
+</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“La IA no decide quién entra. Ayuda a que la recomendación sea clara, ordenada y defendible.”</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="tab-panel" id="m3">
+  <div class="mod-header" data-num="03">
+    <div class="mod-icon">✍️</div>
+    <div>
+      <h2>Módulo 3 · Diseño de Prompts y Criterios de Evaluación para RRHH</h2>
+      <p>Cómo pedir bien · Prompts por cargo · Matrices de evaluación · Detección de riesgos</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L31">
+      <button class="lcard-toggle" onclick="tog('L31')">
+        <span class="lcard-num">3.1</span>
+        <span class="lcard-title">Cómo pedirle correctamente información a la IA</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>La analista de RRHH abre ChatGPT y escribe:</p>
+<div class="quote quote-bad">“Analiza este CV.”</div>
+<p>La IA responde:</p>
+<ul>
+<li>buen perfil</li>
+<li>experiencia interesante</li>
+<li>candidato con potencial</li>
+</ul>
+<p>La analista queda igual. Cinco minutos después dice:</p>
+<div class="quote quote-bad">“Esto no sirve.”</div>
+<p>El problema no era la herramienta. El problema era la instrucción.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Se dio una instrucción o una orden incompleta?</div>
+<div class="ref-q">¿La IA recibió contexto suficiente?</div>
+<div class="ref-q">¿Qué se esperaba como resultado?</div>
+<div class="ref-q">¿La pregunta fue profesional?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>La IA responde según la calidad del contexto que recibe. Si la instrucción es pobre, la respuesta también.</p>
+<p>Un buen prompt debe incluir:</p>
+<ul>
+<li>cargo</li>
+<li>contexto de empresa</li>
+<li>criterios de evaluación</li>
+<li>formato esperado</li>
+<li>nivel de profundidad</li>
+<li>restricciones o alertas</li>
+</ul>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<div class="contrast">
+<div class="c-bad"><div class="c-lbl">❌ Prompt débil</div>“Analiza este CV.”</div>
+<div class="c-good"><div class="c-lbl">✅ Prompt correcto</div>“Analiza este CV para el cargo de supervisor logístico en una empresa de consumo masivo. Evalúa experiencia liderando equipos, manejo de presión, estabilidad laboral, indicadores de gestión, comunicación con áreas operativas y compatibilidad con operación. Devuelve fortalezas, riesgos y nivel de ajuste.”</div>
+</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“La IA no adivina lo que necesitas. La calidad del resultado depende de la calidad de la instrucción.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L32">
+      <button class="lcard-toggle" onclick="tog('L32')">
+        <span class="lcard-num">3.2</span>
+        <span class="lcard-title">Cómo construir prompts por tipo de cargo</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Una empresa usa el mismo prompt para evaluar:</p>
+<ul>
+<li>asistente administrativo</li>
+<li>supervisor de bodega</li>
+<li>jefe comercial</li>
+<li>coordinador de campo</li>
+<li>analista de RRHH</li>
+</ul>
+<p>El resultado parece ordenado, pero no sirve. Todos los candidatos parecen “buenos” porque la IA no recibió criterios específicos por cargo.</p>
+<p>Después de contratar, aparecen problemas:</p>
+<ul>
+<li>el administrativo no daba seguimiento</li>
+<li>el supervisor no lideraba al equipo</li>
+<li>el jefe comercial no manejaba indicadores</li>
+<li>el coordinador de campo no se adaptó al entorno operativo</li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Todos los cargos requieren lo mismo?</div>
+<div class="ref-q">¿Estamos evaluando funciones o competencias reales?</div>
+<div class="ref-q">¿El prompt estaba adaptado al cargo?</div>
+<div class="ref-q">¿Qué pasa cuando evaluamos perfiles diferentes con el mismo criterio?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Cada posición necesita criterios distintos. No se evalúa igual:</p>
+<ul>
+<li>un cargo administrativo</li>
+<li>un cargo operativo</li>
+<li>un cargo comercial</li>
+<li>un cargo de liderazgo</li>
+<li>un cargo técnico</li>
+</ul>
+<p>La IA necesita contexto para interpretar correctamente.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<div class="ctx-row">
+<div class="ctx"><strong>Supervisor de bodega</strong>“Analiza este candidato considerando liderazgo operativo, control de inventarios, manejo de conflictos, seguimiento de personal, trabajo bajo presión y experiencia en despacho o almacenamiento.”</div>
+<div class="ctx"><strong>Asistente administrativo</strong>“Analiza este candidato considerando organización, seguimiento documental, control de pendientes, comunicación interáreas, manejo de Excel y cumplimiento de fechas.”</div>
+<div class="ctx"><strong>Jefe comercial</strong>“Analiza este candidato considerando cumplimiento de metas, gestión de cartera, negociación, prospección, manejo de indicadores comerciales y liderazgo de equipo.”</div>
+<div class="ctx"><strong>Coordinador de campo</strong>“Analiza este candidato considerando liderazgo en campo, adaptación a entornos operativos, comunicación con personal operativo, cumplimiento de planificación y resolución de problemas en sitio.”</div>
+</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“No se evalúa igual a quien administra documentos que a quien lidera operación. El prompt debe reflejar la realidad del cargo.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L33">
+      <button class="lcard-toggle" onclick="tog('L33')">
+        <span class="lcard-num">3.3</span>
+        <span class="lcard-title">Cómo diseñar matrices de evaluación con IA</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Después de entrevistar cuatro candidatos, el gerente pregunta:</p>
+<div class="quote">“¿Por qué escogimos a este?”</div>
+<p>RRHH responde:</p>
+<div class="quote">“Nos pareció más seguro.”</div>
+<p>Gerencia pregunta:</p>
+<div class="quote">“¿Basado en qué?”</div>
+<p>Silencio. La decisión no estaba mal necesariamente, pero no estaba estructurada. No había matriz, pesos, criterios ni evidencia.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Tu recomendación es defendible?</div>
+<div class="ref-q">¿Podrías justificarla frente a gerencia?</div>
+<div class="ref-q">¿Qué variables pesaron más?</div>
+<div class="ref-q">¿Cómo comparaste a los candidatos?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Una buena selección debe ser:</p>
+<ul>
+<li>trazable</li>
+<li>objetiva</li>
+<li>defendible</li>
+<li>comparable</li>
+<li>coherente con el cargo</li>
+</ul>
+<p>La matriz de evaluación evita que la decisión dependa solo de percepción.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<table class="data-table wide">
+<thead><tr><th>Competencia</th><th>Peso</th><th>Candidato A</th><th>Candidato B</th><th>Candidato C</th></tr></thead>
+<tbody>
+<tr><td>Liderazgo</td><td>25%</td><td>Alto</td><td>Medio</td><td>Alto</td></tr>
+<tr><td>Experiencia sectorial</td><td>30%</td><td>Medio</td><td>Alto</td><td>Alto</td></tr>
+<tr><td>Estabilidad laboral</td><td>20%</td><td>Alto</td><td>Medio</td><td>Bajo</td></tr>
+<tr><td>Comunicación</td><td>15%</td><td>Alto</td><td>Alto</td><td>Medio</td></tr>
+<tr><td>Adaptabilidad</td><td>10%</td><td>Medio</td><td>Alto</td><td>Medio</td></tr>
+</tbody>
+</table>
+<div class="key-action"><strong>Ejemplo práctico:</strong> Cargo: Jefe administrativo. Criterios clave: control presupuestario, manejo de proveedores, liderazgo de equipo, reportes gerenciales, control documental y cumplimiento de procesos. La IA puede convertir estos criterios en una matriz con peso y evaluación.</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“Cuando la decisión tiene estructura, defenderla frente a gerencia es mucho más fácil.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L34">
+      <button class="lcard-toggle" onclick="tog('L34')">
+        <span class="lcard-num">3.4</span>
+        <span class="lcard-title">Cómo detectar señales de riesgo con IA</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Un candidato impresiona en entrevista. Excelente presencia. Buena comunicación. Responde con seguridad.</p>
+<p>Pero al analizar su trayectoria, la IA detecta:</p>
+<ul>
+<li>6 cambios laborales en 4 años</li>
+<li>permanencia promedio de 6 a 8 meses</li>
+<li>cargos con funciones similares, pero sin crecimiento claro</li>
+<li>logros poco específicos</li>
+<li>períodos sin explicación</li>
+</ul>
+<p>Nadie había reparado en esos patrones porque la entrevista fue muy positiva.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Estamos viendo lo visible o lo importante?</div>
+<div class="ref-q">¿Qué pesa más: discurso o trayectoria?</div>
+<div class="ref-q">¿Qué señales de riesgo estaban presentes?</div>
+<div class="ref-q">¿La entrevista puede ocultar patrones?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Muchos riesgos están en los patrones, no en el discurso.</p>
+<p>La IA puede ayudar a detectar:</p>
+<ul>
+<li>rotación frecuente</li>
+<li>inconsistencias de fechas</li>
+<li>vacíos laborales</li>
+<li>saltos de industria poco coherentes</li>
+<li>baja progresión profesional</li>
+<li>logros ambiguos</li>
+<li>experiencia inflada</li>
+</ul>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<div class="key-action">Prompt sugerido: “Analiza este CV e identifica señales de riesgo. Revisa estabilidad laboral, coherencia de trayectoria, vacíos, cambios frecuentes, progresión profesional, logros verificables y posibles alertas para entrevista.”</div>
+<div class="pills-row">
+<div class="fpill"><strong>Resultado</strong>riesgo bajo</div>
+<div class="fpill"><strong>Resultado</strong>riesgo medio</div>
+<div class="fpill"><strong>Resultado</strong>riesgo alto</div>
+<div class="fpill"><strong>Salida útil</strong>preguntas para validar en entrevista</div>
+</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“La IA no reemplaza la entrevista. Pero puede mostrar señales que el ojo humano pasa por alto.”</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="tab-panel" id="m4">
+  <div class="mod-header" data-num="04">
+    <div class="mod-icon">🧾</div>
+    <div>
+      <h2>Módulo 4 · Entrevistas, Reportes y Decisión Gerencial</h2>
+      <p>Entrevistas por competencia · Resumen inteligente · Presentación a gerencia · Decisión con criterio humano</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L41">
+      <button class="lcard-toggle" onclick="tog('L41')">
+        <span class="lcard-num">4.1</span>
+        <span class="lcard-title">Entrevistas por competencia</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Una empresa del sector industrial está buscando un jefe administrativo.</p>
+<p>RRHH entrevista tres candidatos.</p>
+<div class="ctx-row">
+<div class="ctx"><strong>Primer candidato</strong>Habla muy bien, buena presencia, seguro y con respuestas fluidas.</div>
+<div class="ctx"><strong>Segundo candidato</strong>Más reservado, pero con experiencia real en manejo de presupuestos, control de proveedores, liderazgo de equipos, reportes gerenciales y cumplimiento administrativo.</div>
+<div class="ctx"><strong>Tercer candidato</strong>Muy técnico, pero con dificultad para comunicarse con claridad.</div>
+</div>
+<p>Al terminar, el gerente comenta:</p>
+<div class="quote">“El primero me gustó más.”</div>
+<p>RRHH pregunta: “¿Por qué?” El gerente responde:</p>
+<div class="quote">“Tiene buena actitud.”</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Estamos contratando por competencias o por simpatía?</div>
+<div class="ref-q">¿La presencia garantiza resultados?</div>
+<div class="ref-q">¿Qué necesita realmente el cargo?</div>
+<div class="ref-q">¿Tenemos evidencia del comportamiento pasado?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Las entrevistas por competencia buscan evidencia de comportamientos reales.</p>
+<p>No se enfocan solo en opiniones, simpatía, buena presencia o discurso fluido. Se enfocan en cómo la persona actuó ante situaciones concretas.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<p><strong>Con IA se pueden diseñar preguntas por competencia:</strong></p>
+<div class="ctx-row">
+<div class="ctx"><strong>Liderazgo</strong>“Cuéntame una situación donde tuviste que corregir a un colaborador sin perder su compromiso.”</div>
+<div class="ctx"><strong>Resolución de conflictos</strong>“Describe un conflicto entre dos áreas que hayas tenido que resolver.”</div>
+<div class="ctx"><strong>Presión operativa</strong>“¿Cómo manejas retrasos cuando varias áreas te exigen resultados al mismo tiempo?”</div>
+<div class="ctx"><strong>Control administrativo</strong>“Cuéntame cómo has dado seguimiento a presupuestos, proveedores o compromisos críticos.”</div>
+</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“Una entrevista profesional no busca que el candidato hable bonito. Busca evidencia de cómo actúa en la realidad.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L42">
+      <button class="lcard-toggle" onclick="tog('L42')">
+        <span class="lcard-num">4.2</span>
+        <span class="lcard-title">Resumen inteligente de entrevistas</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Una analista de RRHH entrevista a cuatro candidatos seguidos en una mañana.</p>
+<p>Al terminar la cuarta entrevista intenta recordar:</p>
+<ul>
+<li>quién habló de liderazgo</li>
+<li>quién mencionó indicadores</li>
+<li>quién tenía experiencia real en operación</li>
+<li>quién mostró señales de riesgo</li>
+<li>quién dio ejemplos concretos</li>
+</ul>
+<p>Empieza a confundir respuestas. Al preparar el informe para gerencia, mezcla información de los candidatos.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Nuestra memoria retiene todo lo importante?</div>
+<div class="ref-q">¿Cuántas veces mezclamos candidatos?</div>
+<div class="ref-q">¿Qué pasa cuando no registramos bien la entrevista?</div>
+<div class="ref-q">¿Cómo protegemos la trazabilidad del proceso?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>La memoria humana tiene límites. Mientras más entrevistas se realizan:</p>
+<ul>
+<li>más detalles se pierden</li>
+<li>más sesgo aparece</li>
+<li>más difícil es comparar</li>
+<li>más riesgo hay de mezclar información</li>
+</ul>
+<p>La IA permite resumir, ordenar y comparar entrevistas con mayor claridad.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<div class="ctx-row">
+<div class="ctx"><strong>Candidato A · Fortalezas</strong>Liderazgo de equipos, experiencia industrial, buen manejo de presión.</div>
+<div class="ctx"><strong>Candidato A · Riesgos</strong>Poca experiencia presupuestaria. Compatibilidad: 85%.</div>
+<div class="ctx"><strong>Candidato B · Fortalezas</strong>Excelente comunicación, buena formación académica.</div>
+<div class="ctx"><strong>Candidato B · Riesgos</strong>Alta rotación laboral, poca experiencia operativa. Compatibilidad: 68%.</div>
+</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“La IA no reemplaza tu memoria. La complementa y protege la calidad de tu análisis.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L43">
+      <button class="lcard-toggle" onclick="tog('L43')">
+        <span class="lcard-num">4.3</span>
+        <span class="lcard-title">Presentación a gerencia o directorio</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Comité de selección. Participan:</p>
+<ul>
+<li>Gerente General</li>
+<li>CFO</li>
+<li>RRHH</li>
+<li>Director Administrativo</li>
+</ul>
+<p>Gerencia pregunta:</p>
+<div class="quote">“¿Por qué recomiendan a este candidato?”</div>
+<p>RRHH responde: “Nos gustó bastante.” El CFO pregunta:</p>
+<div class="quote">“¿Cuál es el sustento técnico?”</div>
+<p>Silencio. La recomendación puede ser buena, pero no está defendida.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Tu recomendación es defendible?</div>
+<div class="ref-q">¿Puedes sostenerla frente a un directorio?</div>
+<div class="ref-q">¿Qué necesita gerencia para decidir?</div>
+<div class="ref-q">¿Estás presentando opinión o evidencia?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Alta dirección no compra opiniones. Compra evidencia.</p>
+<p>Un reporte a gerencia debe permitir entender rápidamente quién es el candidato, comparar alternativas, visualizar riesgos, tomar decisión con menos incertidumbre y defender la contratación internamente.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<div class="ctx-row">
+<div class="ctx"><strong>Candidato Finalista A</strong>Fortalezas: liderazgo operativo, manejo presupuestario, estabilidad laboral, experiencia sectorial. Riesgo: limitada exposición comercial. Compatibilidad: 87%. Recomendación: avanzar a oferta laboral, validando referencias.</div>
+<div class="ctx"><strong>Candidato Finalista B</strong>Fortalezas: excelente comunicación, formación académica sólida. Riesgos: poca experiencia operativa, alta rotación laboral. Compatibilidad: 71%. Recomendación: mantener como segunda opción.</div>
+</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“Cuando la recomendación está respaldada con datos, la conversación cambia. Ya no se trata de gustos, se trata de evidencia.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L44">
+      <button class="lcard-toggle" onclick="tog('L44')">
+        <span class="lcard-num">4.4</span>
+        <span class="lcard-title">Decisión final sin perder el criterio humano</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Después de evaluar a los finalistas, RRHH recomienda al candidato B.</p>
+<p>El gerente prefiere al candidato A porque:</p>
+<div class="quote">“Tiene más presencia.”</div>
+<p>RRHH presenta el reporte:</p>
+<ul>
+<li>el candidato B tiene mayor experiencia real</li>
+<li>mejor estabilidad laboral</li>
+<li>mejores referencias</li>
+<li>mayor compatibilidad con el cargo</li>
+</ul>
+<p>El gerente insiste:</p>
+<div class="quote">“Pero el A me pareció mejor.”</div>
+<p>Empieza el debate.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Debe decidir la intuición?</div>
+<div class="ref-q">¿Debe decidir la IA?</div>
+<div class="ref-q">¿Qué pasa cuando la percepción contradice los datos?</div>
+<div class="ref-q">¿Quién asume el riesgo de la contratación?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>La mejor decisión combina:</p>
+<ul>
+<li>datos</li>
+<li>experiencia humana</li>
+<li>contexto del negocio</li>
+<li>validación cultural</li>
+<li>juicio gerencial</li>
+</ul>
+<p>Ni la intuición sola, ni la IA sola. La IA organiza información. La decisión sigue siendo humana.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<ul class="steps">
+<li><span class="sn">1</span><div>IA analiza información.</div></li>
+<li><span class="sn">2</span><div>RRHH valida los datos.</div></li>
+<li><span class="sn">3</span><div>Gerencia evalúa el contexto.</div></li>
+<li><span class="sn">4</span><div>Se revisan riesgos.</div></li>
+<li><span class="sn">5</span><div>Se toma decisión final.</div></li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“La IA organiza la información. Pero la responsabilidad final sigue siendo humana.”</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="tab-panel" id="m5">
+  <div class="mod-header" data-num="05">
+    <div class="mod-icon">🚀</div>
+    <div>
+      <h2>Módulo 5 · Implementación Práctica en RRHH y Plan de Acción EO360</h2>
+      <p>Diagnóstico · Flujo con IA · Herramientas reales · Plan 30 días, ROI y KPIs</p>
+    </div>
+  </div>
+  <div class="lessons">
+    
+    <div class="lcard" id="L51">
+      <button class="lcard-toggle" onclick="tog('L51')">
+        <span class="lcard-num">5.1</span>
+        <span class="lcard-title">Diagnóstico del proceso actual de selección</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>El gerente general le dice a RRHH:</p>
+<div class="quote">“Estamos contratando, pero la gente no dura.”</div>
+<p>RRHH responde: “Sí, hemos tenido varias salidas.”</p>
+<p>Cuando revisan los últimos 6 meses:</p>
+<ul>
+<li>9 ingresos</li>
+<li>4 salidas</li>
+<li>3 desvinculaciones por bajo desempeño</li>
+<li>2 renuncias tempranas</li>
+<li>varios procesos repetidos</li>
+<li>jefaturas insatisfechas</li>
+</ul>
+<p>Nadie había analizado el patrón. La empresa no tenía claro si el problema estaba en el perfil, filtro, entrevista, decisión, inducción o seguimiento inicial.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Estamos contratando o simplemente cubriendo vacantes?</div>
+<div class="ref-q">¿Dónde se rompe el proceso?</div>
+<div class="ref-q">¿Qué etapa genera más riesgo?</div>
+<div class="ref-q">¿Se está midiendo la calidad de contratación?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Antes de aplicar IA, primero hay que entender el proceso actual. No todo problema de contratación se resuelve con tecnología.</p>
+<p>Puede estar en mala definición del cargo, publicación genérica, filtro débil, entrevista subjetiva, mala decisión final, falta de onboarding o expectativas poco claras.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<table class="data-table">
+<thead><tr><th>Etapa</th><th>Situación actual</th><th>Riesgo</th></tr></thead>
+<tbody>
+<tr><td>Definición del cargo</td><td>Perfil incompleto</td><td>Alto</td></tr>
+<tr><td>Publicación</td><td>Genérica</td><td>Medio</td></tr>
+<tr><td>Recepción de CV</td><td>Desordenada</td><td>Alto</td></tr>
+<tr><td>Filtro inicial</td><td>Manual</td><td>Alto</td></tr>
+<tr><td>Entrevista</td><td>Variable</td><td>Medio</td></tr>
+<tr><td>Decisión</td><td>Subjetiva</td><td>Alto</td></tr>
+<tr><td>Reporte</td><td>Poco claro</td><td>Medio</td></tr>
+<tr><td>Seguimiento</td><td>Inexistente</td><td>Alto</td></tr>
+</tbody>
+</table>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“No todo problema de contratación empieza en la entrevista. Muchas veces empieza en cómo definimos el cargo.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L52">
+      <button class="lcard-toggle" onclick="tog('L52')">
+        <span class="lcard-num">5.2</span>
+        <span class="lcard-title">Diseño del flujo de selección con IA</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Una empresa recibe candidatos por diferentes canales:</p>
+<ul>
+<li>correo</li>
+<li>WhatsApp</li>
+<li>referidos</li>
+<li>LinkedIn</li>
+<li>recomendaciones internas</li>
+<li>bolsas de empleo</li>
+</ul>
+<p>Después de una semana:</p>
+<ul>
+<li>nadie sabe quién aplicó primero</li>
+<li>algunos CV se duplican</li>
+<li>otros se pierden en correos</li>
+<li>RRHH no tiene trazabilidad</li>
+<li>las jefaturas presionan por candidatos</li>
+<li>se entrevista a personas sin filtro suficiente</li>
+</ul>
+<p>La IA se intenta usar, pero el proceso sigue desordenado.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Tenemos proceso o improvisación?</div>
+<div class="ref-q">¿Se puede automatizar algo que no está ordenado?</div>
+<div class="ref-q">¿La IA está resolviendo el problema o acelerando el caos?</div>
+<div class="ref-q">¿Dónde debería entrar la IA?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>Si el flujo no está estructurado, la IA no corrige el caos. Solo lo acelera.</p>
+<p><strong>Primero se ordena el proceso, después se automatiza.</strong></p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<ul class="steps">
+<li><span class="sn">1</span><div>Definir perfil del cargo</div></li>
+<li><span class="sn">2</span><div>Recibir candidatos en un solo repositorio</div></li>
+<li><span class="sn">3</span><div>Clasificar CV con IA</div></li>
+<li><span class="sn">4</span><div>Aplicar scoring preliminar</div></li>
+<li><span class="sn">5</span><div>Generar shortlist</div></li>
+<li><span class="sn">6</span><div>Diseñar entrevista estructurada</div></li>
+<li><span class="sn">7</span><div>Resumir entrevistas con IA</div></li>
+<li><span class="sn">8</span><div>Elaborar reporte ejecutivo</div></li>
+<li><span class="sn">9</span><div>Presentar recomendación a gerencia</div></li>
+<li><span class="sn">10</span><div>Tomar decisión final</div></li>
+<li><span class="sn">11</span><div>Registrar aprendizajes del proceso</div></li>
+</ul>
+<div class="key-action"><strong>Antes:</strong> CV por correo, WhatsApp y referidos. Sin registro común. Sin ranking. Sin reporte. <br><strong>Después:</strong> CV organizados, IA clasifica, RRHH valida, gerencia recibe shortlist con evidencia.</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“Primero se ordena el proceso. Después se automatiza.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L53">
+      <button class="lcard-toggle" onclick="tog('L53')">
+        <span class="lcard-num">5.3</span>
+        <span class="lcard-title">Implementación práctica con herramientas reales</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Una coordinadora de RRHH dice:</p>
+<div class="quote">“Todo suena bien, pero en la práctica no sé por dónde empezar.”</div>
+<p>La empresa tiene:</p>
+<ul>
+<li>procesos manuales</li>
+<li>archivos dispersos</li>
+<li>CV en correos</li>
+<li>jefes que piden candidatos rápido</li>
+<li>poca experiencia usando IA</li>
+<li>miedo a equivocarse</li>
+</ul>
+<p>El equipo cree que implementar IA significa cambiar todo de golpe.</p>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿La resistencia está en la tecnología o en el cambio?</div>
+<div class="ref-q">¿Qué se puede implementar primero?</div>
+<div class="ref-q">¿Qué debe seguir siendo humano?</div>
+<div class="ref-q">¿Cómo evitamos complicar el proceso?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>La mayoría de empresas no fracasa por falta de herramientas. Fracasa por falta de implementación.</p>
+<p>La IA debe entrar de forma gradual, práctica y controlada. No se trata de usar muchas herramientas, sino de usar bien las correctas.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<div class="ctx-row">
+<div class="ctx"><strong>Semana 1 · Ordenar el perfil</strong>Definir cargo, listar competencias, establecer criterios mínimos y preparar prompt base.</div>
+<div class="ctx"><strong>Semana 2 · Filtrar CV</strong>Cargar CV, comparar contra perfil, separar candidatos compatibles y descartar perfiles fuera de ajuste.</div>
+<div class="ctx"><strong>Semana 3 · Scoring y entrevistas</strong>Crear matriz, asignar pesos, generar preguntas por competencia y resumir entrevistas.</div>
+<div class="ctx"><strong>Semana 4 · Reporte y decisión</strong>Elaborar reporte ejecutivo, presentar shortlist, identificar riesgos y decidir con evidencia.</div>
+</div>
+<div class="pills-row">
+<div class="fpill"><strong>Herramienta</strong>ChatGPT para análisis y prompts</div>
+<div class="fpill"><strong>Herramienta</strong>Excel o Google Sheets para matriz</div>
+<div class="fpill"><strong>Herramienta</strong>Drive o carpeta digital para CV</div>
+<div class="fpill"><strong>Herramienta</strong>formularios simples para captura de datos</div>
+<div class="fpill"><strong>Herramienta</strong>documento estándar para reporte ejecutivo</div>
+</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“No necesitas transformar todo hoy. Necesitas empezar bien, con un proceso simple, ordenado y defendible.”</div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="lcard" id="L54">
+      <button class="lcard-toggle" onclick="tog('L54')">
+        <span class="lcard-num">5.4</span>
+        <span class="lcard-title">Plan de acción de 30 días, ROI y KPIs</span>
+        <span class="lcard-arrow">▼</span>
+      </button>
+      <div class="lcard-body">
+        <div class="blk"><span class="blk-label lbl-e">🎬 Experiencia</span>
+          <div class="exp-box">
+<p>Después del curso, varios participantes dicen:</p>
+<div class="quote">“Muy bueno, pero si no lo aplicamos, se va a olvidar.”</div>
+<p>Y tienen razón.</p>
+<p>En otra empresa, RRHH mide el proceso antes de implementar IA:</p>
+<ul>
+<li>time-to-hire: 18 días</li>
+<li>entrevistas realizadas: 14</li>
+<li>candidatos realmente fuertes: 3</li>
+<li>reprocesos por mala selección: frecuentes</li>
+<li>reportes a gerencia: poco estructurados</li>
+</ul>
+<p>Luego de implementar un flujo básico con IA:</p>
+<ul>
+<li>time-to-hire baja a 9 días</li>
+<li>entrevistas se reducen a 7</li>
+<li>shortlist mejora</li>
+<li>gerencia recibe reportes más claros</li>
+<li>RRHH defiende mejor sus recomendaciones</li>
+</ul>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-r">🤔 Reflexión</span>
+          <div class="ref-box"><div class="ref-q">¿Capacitamos para escuchar o para ejecutar?</div>
+<div class="ref-q">¿Qué cambia después del curso?</div>
+<div class="ref-q">¿Cómo medimos si la IA está generando valor?</div>
+<div class="ref-q">¿Qué indicadores debe observar RRHH?</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-c">💡 Concepto Clave</span>
+          <div class="con-box"><div class="con-icon">💡</div><div class="con-txt">
+<p>El aprendizaje sin implementación pierde valor.</p>
+<p>La IA genera impacto cuando pasa del aula al proceso real. Y ese impacto debe medirse.</p>
+</div></div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-a">⚡ Aplicación Inmediata</span>
+          <div class="apl-box">
+<div class="ctx-row">
+<div class="ctx"><strong>Día 1–7 · Mapeo</strong>Revisar proceso actual, identificar cuellos de botella, definir cargos críticos y levantar criterios de selección.</div>
+<div class="ctx"><strong>Día 8–15 · Prompts</strong>Crear prompts por cargo, probar análisis de CV, ajustar criterios y validar con RRHH.</div>
+<div class="ctx"><strong>Día 16–22 · Scoring</strong>Diseñar matriz, evaluar candidatos reales, comparar resultados y validar shortlist.</div>
+<div class="ctx"><strong>Día 23–30 · Reporte</strong>Generar informe ejecutivo, presentar a gerencia, registrar aprendizajes y definir estándar.</div>
+</div>
+<table class="data-table">
+<thead><tr><th>Indicador</th><th>Qué mide</th></tr></thead>
+<tbody>
+<tr><td>Time-to-hire</td><td>Días para cubrir una vacante</td></tr>
+<tr><td>Calidad de shortlist</td><td>Nivel de ajuste de candidatos finalistas</td></tr>
+<tr><td>Entrevistas innecesarias</td><td>Tiempo perdido en perfiles no compatibles</td></tr>
+<tr><td>Rotación temprana</td><td>Salidas antes de 90 días</td></tr>
+<tr><td>Tiempo de revisión CV</td><td>Horas invertidas en filtro</td></tr>
+<tr><td>Trazabilidad</td><td>Evidencia disponible por candidato</td></tr>
+<tr><td>Satisfacción de jefatura</td><td>Percepción del área solicitante</td></tr>
+</tbody>
+</table>
+<div class="key-action"><strong>Impacto esperado:</strong> Antes: 18 días para shortlist, 14 entrevistas, informes débiles, decisión subjetiva. Después: 8 a 10 días para shortlist, 6 a 8 entrevistas, reportes estructurados y decisión con evidencia.</div>
+</div>
+        </div>
+        <div class="blk"><span class="blk-label lbl-s">✅ Respuesta sugerida del facilitador</span>
+          <div class="resp-box">“La IA genera valor cuando sale del aula y entra en la operación. No basta aprenderla; hay que implementarla, medirla y mejorarla.”</div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+  </div>
+</section>
+
+<section class="section alt" id="secIdeasClave">
+  <div class="container">
+    <span class="section-label" id="ideasLabel">Ideas clave del programa</span>
+    <h2 id="ideasTitle">Qué debes llevarte de este programa</h2>
+    <div class="grid-3" style="margin-top:26px">
+      <div class="card"><h3 id="ideasCard1Title">La IA ordena, no reemplaza</h3><p id="ideasCard1Text">La inteligencia artificial no sustituye el criterio humano. Ordena información, reduce ruido y ayuda a tomar decisiones con mayor evidencia.</p></div>
+      <div class="card"><h3 id="ideasCard2Title">La selección debe ser defendible</h3><p id="ideasCard2Text">Un proceso de selección profesional no se sostiene en percepciones. Necesita criterios, trazabilidad, matriz, evidencia y reporte ejecutivo.</p></div>
+      <div class="card"><h3 id="ideasCard3Title">RRHH debe hablar con datos</h3><p id="ideasCard3Text">Cuando RRHH presenta candidatos con fortalezas, riesgos, compatibilidad y sustento, gana credibilidad frente a gerencia.</p></div>
+    </div>
+    <div class="card" style="margin-top:22px">
+      <h3 id="conclTitle">Conclusión del programa</h3>
+      <p id="conclText">La IA aplicada a procesos de selección no reemplaza al profesional de Talento Humano. Lo vuelve más estratégico, analítico, rápido, defendible y útil para gerencia. Hoy RRHH ya no compite por entrevistar más candidatos; compite por decidir mejor.</p>
+    </div>
+    <div class="contact-grid" style="margin-top:28px">
+      <div class="contact-box"><small>Correo</small><strong>contacto@eficienciaoperativa360.com</strong></div>
+      <div class="contact-box"><small>Sitio web</small><strong>eficienciaoperativa360.com</strong></div>
+      <div class="contact-box"><small>WhatsApp</small><strong>0979 001 810</strong></div>
+      <div class="contact-box"><small>Ubicación</small><strong>Guayaquil, Ecuador</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>EO360 · Eficiencia Operativa 360</strong> · IA Aplicada a Procesos de Selección</p>
+    <p>Control total · Costos a la baja · Decisiones con datos</p>
+  </div>
+</footer>
+
+<script>
+const _ideasData = {
+  "inicio": {
+    "label": "Ideas clave del programa",
+    "title": "Qué debes llevarte de este programa",
+    "c1h": "La IA ordena, no reemplaza",
+    "c1t": "La inteligencia artificial no sustituye el criterio humano. Ordena información, reduce ruido y ayuda a tomar decisiones con mayor evidencia.",
+    "c2h": "La selección debe ser defendible",
+    "c2t": "Un proceso de selección profesional no se sostiene en percepciones. Necesita criterios, trazabilidad, matriz, evidencia y reporte ejecutivo.",
+    "c3h": "RRHH debe hablar con datos",
+    "c3t": "Cuando RRHH presenta candidatos con fortalezas, riesgos, compatibilidad y sustento, gana credibilidad frente a gerencia.",
+    "conclH": "Conclusión del programa",
+    "conclT": "La IA aplicada a procesos de selección no reemplaza al profesional de Talento Humano. Lo vuelve más estratégico, analítico, rápido, defendible y útil para gerencia. Hoy RRHH ya no compite por entrevistar más candidatos; compite por decidir mejor."
+  },
+  "m1": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 1",
+    "c1h": "El problema no siempre es la falta de candidatos",
+    "c1t": "Muchas veces el problema es exceso de información, revisión manual desordenada y criterios que cambian según el cansancio o la urgencia.",
+    "c2h": "La urgencia puede destruir la calidad",
+    "c2t": "Contratar rápido sin perfil ideal definido aumenta el riesgo de error, rotación temprana y desgaste de la operación.",
+    "c3h": "Los sesgos existen",
+    "c3t": "Simpatía, buena presencia o facilidad de palabra pueden ocultar señales de riesgo visibles en la trayectoria del candidato.",
+    "conclH": "Conclusión del Módulo 1",
+    "conclT": "La IA bien utilizada ayuda a reducir ruido, identificar patrones y priorizar evidencia desde el inicio del proceso."
+  },
+  "m2": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 2",
+    "c1h": "Screening no es leer CV al azar",
+    "c1t": "El filtro inicial debe ser consistente, trazable y alineado al perfil del cargo. La IA permite ordenar antes de decidir.",
+    "c2h": "El scoring reduce subjetividad",
+    "c2t": "Cuando varios candidatos parecen buenos, una matriz de scoring permite comparar con criterios y pesos, no con preferencias personales.",
+    "c3h": "La entrevista debe ser comparable",
+    "c3t": "Sin estructura, cada candidato es evaluado distinto. La IA ayuda a crear preguntas, rúbricas y resúmenes útiles.",
+    "conclH": "Conclusión del Módulo 2",
+    "conclT": "La IA mejora el screening, ranking y entrevista cuando se usa para ordenar información, no para reemplazar el juicio del reclutador."
+  },
+  "m3": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 3",
+    "c1h": "La calidad del prompt define la respuesta",
+    "c1t": "Una instrucción pobre produce una respuesta genérica. Un buen prompt incluye cargo, contexto, criterios, formato y profundidad.",
+    "c2h": "Cada cargo exige un prompt distinto",
+    "c2t": "No se evalúa igual a un administrativo, un supervisor de bodega, un jefe comercial o un coordinador de campo.",
+    "c3h": "La matriz vuelve defendible la decisión",
+    "c3t": "Cuando la decisión tiene criterios, pesos y evidencia, puede sostenerse frente a gerencia.",
+    "conclH": "Conclusión del Módulo 3",
+    "conclT": "El valor de la IA en selección depende de la calidad de los criterios que RRHH le entregue."
+  },
+  "m4": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 4",
+    "c1h": "Entrevistar es buscar evidencia",
+    "c1t": "Una entrevista profesional no busca conversación agradable. Busca conductas reales, ejemplos concretos y compatibilidad con el cargo.",
+    "c2h": "La memoria no alcanza",
+    "c2t": "Después de varias entrevistas, se pierden detalles. La IA ayuda a resumir, comparar y proteger la trazabilidad.",
+    "c3h": "Gerencia compra evidencia",
+    "c3t": "Un reporte con fortalezas, riesgos y compatibilidad cambia la conversación de gustos a datos.",
+    "conclH": "Conclusión del Módulo 4",
+    "conclT": "La IA fortalece la entrevista y la decisión gerencial cuando convierte información dispersa en evidencia clara y defendible."
+  },
+  "m5": {
+    "label": "Ideas clave del módulo",
+    "title": "Qué debes llevarte del Módulo 5",
+    "c1h": "Primero ordena, luego automatiza",
+    "c1t": "La IA no arregla un proceso caótico. Si el flujo está desordenado, solo acelera el desorden.",
+    "c2h": "Implementar no es complicar",
+    "c2t": "Se puede iniciar con herramientas simples: ChatGPT, Excel, Drive, formularios y un reporte estándar.",
+    "c3h": "Lo que no se mide no mejora",
+    "c3t": "Time-to-hire, calidad de shortlist, rotación temprana y trazabilidad permiten demostrar impacto.",
+    "conclH": "Conclusión del Módulo 5",
+    "conclT": "La IA genera valor cuando sale del aula y entra al proceso real de RRHH, con implementación gradual, medición y mejora continua."
+  }
+};
+
+function _updateIdeasClave(id){
+  const d = _ideasData[id] || _ideasData['inicio'];
+  const el = (eid) => document.getElementById(eid);
+  if(el('ideasLabel'))     el('ideasLabel').textContent     = d.label;
+  if(el('ideasTitle'))     el('ideasTitle').textContent     = d.title;
+  if(el('ideasCard1Title'))el('ideasCard1Title').textContent= d.c1h;
+  if(el('ideasCard1Text')) el('ideasCard1Text').textContent = d.c1t;
+  if(el('ideasCard2Title'))el('ideasCard2Title').textContent= d.c2h;
+  if(el('ideasCard2Text')) el('ideasCard2Text').textContent = d.c2t;
+  if(el('ideasCard3Title'))el('ideasCard3Title').textContent= d.c3h;
+  if(el('ideasCard3Text')) el('ideasCard3Text').textContent = d.c3t;
+  if(el('conclTitle'))     el('conclTitle').textContent     = d.conclH;
+  if(el('conclText'))      el('conclText').textContent      = d.conclT;
+}
+function tab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const panel=document.getElementById(id);
+  if(panel)panel.classList.add('active');
+  btn.classList.add('active');
+  _updateIdeasClave(id);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function tog(id){
+  const c=document.getElementById(id);
+  if(!c)return;
+  const open=c.classList.contains('open');
+  const panel=c.closest('.tab-panel');
+  if(panel)panel.querySelectorAll('.lcard.open').forEach(x=>{if(x.id!==id)x.classList.remove('open')});
+  c.classList.toggle('open',!open);
+  if(!open)setTimeout(()=>{if(c)c.scrollIntoView({behavior:'smooth',block:'nearest'})},60);
+}
+</script>
+</body>
+</html>
