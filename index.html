@@ -316,14 +316,22 @@ async function abrirRecurso(e){
     const data=new FormData(form);
     data.append('mensaje','Solicitud de recurso EO360: '+recurso+' | Nombre: '+nombre+' | Email: '+email+' | WhatsApp: '+whatsapp);
     await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
-    if(msg){msg.textContent='Solicitud registrada. Se abrirá WhatsApp con el mensaje listo para enviar.';}
-    const waText='Hola EO360, soy '+nombre+'. Solicito el recurso: '+recurso+'. Mi correo es '+email+(whatsapp?' y mi WhatsApp es '+whatsapp:'')+'.';
-    window.open('https://wa.me/593979001810?text='+encodeURIComponent(waText),'_blank');
+    if(whatsapp.trim()){
+      if(msg){msg.textContent='Solicitud registrada. Como dejó WhatsApp, se abrirá el mensaje listo para enviar.';}
+      const waText='Hola EO360, soy '+nombre+'. Solicito el recurso: '+recurso+'. Mi correo es '+email+' y mi WhatsApp es '+whatsapp+'.';
+      window.open('https://wa.me/593979001810?text='+encodeURIComponent(waText),'_blank');
+    }else{
+      if(msg){msg.textContent='Solicitud registrada. Le enviaremos el recurso al correo indicado.';}
+    }
     form.reset();
   }catch(err){
-    if(msg){msg.classList.add('error');msg.textContent='No se pudo registrar automáticamente. Se abrirá WhatsApp para solicitar el recurso.';}
-    const waText='Hola EO360, solicito información sobre los recursos descargables.';
-    window.open('https://wa.me/593979001810?text='+encodeURIComponent(waText),'_blank');
+    if(whatsapp.trim()){
+      if(msg){msg.classList.add('error');msg.textContent='No se pudo registrar automáticamente. Como dejó WhatsApp, se abrirá un mensaje para solicitar el recurso.';}
+      const waText='Hola EO360, soy '+nombre+'. Solicito el recurso: '+recurso+'. Mi correo es '+email+' y mi WhatsApp es '+whatsapp+'.';
+      window.open('https://wa.me/593979001810?text='+encodeURIComponent(waText),'_blank');
+    }else{
+      if(msg){msg.classList.add('error');msg.textContent='No se pudo registrar automáticamente. Intente nuevamente o escriba a contacto@eficienciaoperativa360.com.';}
+    }
   }finally{
     if(btn){btn.disabled=false;btn.textContent='Solicitar recurso';}
   }
