@@ -123,6 +123,24 @@ footer{background:var(--navy);color:rgba(255,255,255,.62);padding:54px 0 30px}.f
 .quick-menu-card p{font-size:13.5px;color:var(--text-2);line-height:1.65;margin-bottom:18px}
 .quick-menu-card .quick-link{margin-top:auto;color:var(--navy);font-family:var(--font-h);font-size:12px;font-weight:900;display:inline-flex;align-items:center;gap:6px}
 .quick-menu-card .quick-link:after{content:'→';font-size:14px;color:var(--gold-dark)}
+
+.home-pricing-strip{
+  padding:72px 0;
+  background:#fff;
+  border-top:1px solid var(--border);
+}
+.home-pricing-head{text-align:center;max-width:860px;margin:0 auto 30px}
+.home-pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.home-price-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:0 10px 26px rgba(31,58,95,.05);border-top:4px solid var(--gold)}
+.home-price-tag{display:inline-block;background:var(--navy-10);color:var(--navy);border-radius:999px;padding:5px 10px;font-family:var(--font-h);font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.home-price-card h3{font-family:var(--font-h);font-size:20px;color:var(--navy);line-height:1.25;margin-bottom:8px}
+.home-price-value{font-family:var(--font-h);font-size:34px;font-weight:900;color:var(--navy);line-height:1;margin:10px 0}
+.home-price-note{font-size:12.5px;color:var(--gray);line-height:1.55;margin-bottom:14px}
+.home-price-card ul{list-style:none;margin:14px 0 20px}
+.home-price-card li{position:relative;padding-left:16px;font-size:13.5px;color:var(--text-2);line-height:1.55;margin-bottom:8px}
+.home-price-card li:before{content:'•';position:absolute;left:0;color:var(--navy);font-weight:900}
+.home-pricing-foot{margin-top:22px;background:var(--navy-10);border:1px solid var(--navy-20);border-left:4px solid var(--navy);border-radius:14px;padding:18px 22px;font-size:14px;color:var(--text-2);line-height:1.7}
+
 .back-menu-float{
   position:fixed;
   right:24px;
@@ -145,11 +163,11 @@ footer{background:var(--navy);color:rgba(255,255,255,.62);padding:54px 0 30px}.f
 .section-kicker span:first-child{width:10px;height:10px;border-radius:50%;background:var(--gold-dark);display:inline-block;flex:0 0 auto}
 .section-kicker span:last-child{height:1px;background:linear-gradient(90deg,var(--gold-dark),transparent);flex:1}
 @media(max-width:1023px){
-  .quick-menu-grid{grid-template-columns:1fr 1fr}
+  .quick-menu-grid,.home-pricing-grid{grid-template-columns:1fr 1fr}
   .quick-rail-inner{padding:9px 16px}
 }
 @media(max-width:640px){
-  .quick-menu-grid{grid-template-columns:1fr}
+  .quick-menu-grid,.home-pricing-grid{grid-template-columns:1fr}
   #menu-rapido{padding:44px 0 56px}
   .quick-menu-card{min-height:auto}
   .back-menu-float{right:16px;bottom:84px;padding:9px 12px;font-size:11px}
@@ -243,7 +261,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.62);padding:54px 0 30px}.f
 <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 <nav id="navbar" aria-label="Navegación principal"><div class="container"><div class="nav-inner"><a href="index.html" class="nav-logo"><div class="logo-mark">E<span>O</span>360</div><div class="logo-divider"></div><div class="logo-text"><span class="name">Eficiencia Operativa 360</span><span class="domain">eficienciaoperativa360.com</span></div></a><div class="nav-links"><a href="formacion-eo360.html">Formación</a><a href="inducciones-eo360.html">Inducciones</a><a href="ia-aplicada-eo360.html">IA Aplicada</a><a href="soluciones-eo360.html">30 Soluciones</a><a href="blog.html">Ideas EO360</a><a href="geovanny-farias.html">Geovanny</a><a href="index.html#diagnostico" class="btn-cta">Información inicial</a></div><button class="nav-ham" type="button" onclick="toggleMenu()" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button></div></div><div class="mobile-menu" id="mobileMenu"><a href="formacion-eo360.html" onclick="toggleMenu(true)">Formación</a><a href="inducciones-eo360.html" onclick="toggleMenu(true)">Inducciones</a><a href="ia-aplicada-eo360.html" onclick="toggleMenu(true)">IA Aplicada</a><a href="soluciones-eo360.html" onclick="toggleMenu(true)">30 Soluciones</a><a href="blog.html" onclick="toggleMenu(true)">Ideas EO360</a><a href="geovanny-farias.html" onclick="toggleMenu(true)">Geovanny</a><a href="index.html#diagnostico" class="btn-primary" onclick="toggleMenu(true)">Información inicial</a></div></nav>
 <main id="main-content">
-<section id="hero"><div class="hero-bg-text">360</div><div class="container"><div class="hero-inner"><p class="hero-eyebrow">Consultoría Operativa · Formación Empresarial · IA Aplicada · Ecuador</p><h1 class="hero-title">Procesos más claros<span class="dot">.</span><br>Control más visible<span class="dot">.</span><br>Equipos con mejor ejecución<span class="dot">.</span></h1><p class="hero-subtitle">Ayudamos a empresas, emprendedores y profesionales a organizar mejor su operación, fortalecer procesos clave, capacitar equipos e incorporar inteligencia artificial con criterio empresarial.</p><div class="hero-ctas"><a href="#diagnostico" class="btn-primary">Solicitar información inicial</a><a href="#soluciones" class="btn-outline">Ver soluciones EO360</a></div></div></div><div class="hero-kpis"><div class="kpi-item"><div class="kpi-num">IA para selección de personal</div><div class="kpi-label">Use prompts modernos y listos para ejecutar para analizar CVs en masa, rankear candidatos, generar shortlist y sustentar mejor la decisión final de contratación.</div></div><div class="kpi-item"><div class="kpi-num">IA para control administrativo</div><div class="kpi-label">Aplique prompts útiles para seguimiento, trazabilidad, control de pendientes y reportes sin depender de trabajo manual repetitivo.</div></div><div class="kpi-item"><div class="kpi-num">IA para formatos y documentos</div><div class="kpi-label">Genere prompts listos para crear formatos, políticas, procedimientos, instructivos y manuales con mejor estructura y menos tiempo.</div></div><div class="kpi-item"><div class="kpi-num">IA para dashboards y reportes</div><div class="kpi-label">Convierta datos dispersos en dashboards, resúmenes ejecutivos y reportes claros usando inteligencia artificial aplicada a gestión.</div></div></div></section>
+<section id="hero"><div class="hero-bg-text">360</div><div class="container"><div class="hero-inner"><p class="hero-eyebrow">Consultoría Operativa · Formación Empresarial · IA Aplicada · Ecuador</p><h1 class="hero-title">Procesos más claros<span class="dot">.</span><br>Control más visible<span class="dot">.</span><br>Equipos con mejor ejecución<span class="dot">.</span></h1><p class="hero-subtitle">Ayudamos a empresas, emprendedores y profesionales a organizar mejor su operación, fortalecer procesos clave, capacitar equipos e incorporar inteligencia artificial con criterio empresarial.</p><div class="hero-ctas"><a href="#diagnostico" class="btn-primary">Solicitar información inicial</a><a href="soluciones-eo360.html" class="btn-outline">Ver soluciones EO360</a></div></div></div><div class="hero-kpis"><div class="kpi-item"><div class="kpi-num">IA para selección de personal</div><div class="kpi-label">Use prompts modernos y listos para ejecutar para analizar CVs en masa, rankear candidatos, generar shortlist y sustentar mejor la decisión final de contratación.</div></div><div class="kpi-item"><div class="kpi-num">IA para control administrativo</div><div class="kpi-label">Aplique prompts útiles para seguimiento, trazabilidad, control de pendientes y reportes sin depender de trabajo manual repetitivo.</div></div><div class="kpi-item"><div class="kpi-num">IA para formatos y documentos</div><div class="kpi-label">Genere prompts listos para crear formatos, políticas, procedimientos, instructivos y manuales con mejor estructura y menos tiempo.</div></div><div class="kpi-item"><div class="kpi-num">IA para dashboards y reportes</div><div class="kpi-label">Convierta datos dispersos en dashboards, resúmenes ejecutivos y reportes claros usando inteligencia artificial aplicada a gestión.</div></div></div></section>
 <section id="menu-rapido">
   <div class="container">
     <div class="quick-menu-head">
@@ -295,6 +313,55 @@ footer{background:var(--navy);color:rgba(255,255,255,.62);padding:54px 0 30px}.f
         <span class="quick-link">Ir al formulario</span>
       </a>
     </div>
+  </div>
+</section>
+
+<section id="modalidades-persona-natural" class="home-pricing-strip">
+  <div class="container">
+    <div class="home-pricing-head">
+      <p class="section-label">Modalidades para persona natural</p>
+      <h2 class="section-title">También puede capacitarse sin depender de una aprobación empresarial</h2>
+      <p class="section-sub" style="margin:0 auto">EO360 mantiene opciones accesibles para colaboradores, profesionales y grupos pequeños que desean fortalecer habilidades específicas por cuenta propia.</p>
+    </div>
+    <div class="home-pricing-grid">
+      <div class="home-price-card">
+        <span class="home-price-tag">Individual</span>
+        <h3>Profesional independiente</h3>
+        <div class="home-price-value">Desde $49</div>
+        <p class="home-price-note">por persona · valor referencial</p>
+        <ul>
+          <li>1 tema puntual del catálogo</li>
+          <li>Formato práctico y aplicable al trabajo</li>
+          <li>Material de apoyo y guía de implementación</li>
+        </ul>
+        <a href="formacion-eo360.html#alternativas" class="btn-outline">Ver modalidad individual</a>
+      </div>
+      <div class="home-price-card">
+        <span class="home-price-tag">Grupo pequeño</span>
+        <h3>2 a 3 colegas</h3>
+        <div class="home-price-value">Desde $35</div>
+        <p class="home-price-note">por persona · valor referencial</p>
+        <ul>
+          <li>Sesión cerrada para 2 a 3 personas</li>
+          <li>Un mismo tema con enfoque aplicado</li>
+          <li>Mejor costo por participante</li>
+        </ul>
+        <a href="formacion-eo360.html#alternativas" class="btn-outline">Ver grupo pequeño</a>
+      </div>
+      <div class="home-price-card">
+        <span class="home-price-tag">Microgrupo</span>
+        <h3>4 a 5 personas</h3>
+        <div class="home-price-value">Desde $28</div>
+        <p class="home-price-note">por persona · valor referencial</p>
+        <ul>
+          <li>Sesión privada para 4 a 5 participantes</li>
+          <li>Más eficiente en costo unitario</li>
+          <li>Ruta ideal antes de escalar a empresa</li>
+        </ul>
+        <a href="formacion-eo360.html#alternativas" class="btn-outline">Ver microgrupo</a>
+      </div>
+    </div>
+    <div class="home-pricing-foot"><strong>Importante:</strong> estos valores aplican para cursos o workshops puntuales sin adaptación corporativa profunda, informe ejecutivo o levantamiento formal de DNC. Para empresas y PyMEs se mantiene la tabla empresarial de inversión.</div>
   </div>
 </section>
 
