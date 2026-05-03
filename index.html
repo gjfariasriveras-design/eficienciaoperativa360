@@ -50,6 +50,112 @@ footer{background:var(--navy);color:rgba(255,255,255,.62);padding:54px 0 30px}.f
 @media(max-width:640px){.container{padding:0 16px}.hero-kpis,.solution-grid,.planes-grid,.alternativas-grid,.recursos-grid,.programas-grid,.precios-grid,.marco-grid,.interv-grid,.resultados-grid,.erca-grid,.incluye-grid,.credenciales,.footer-top,.form-row,.problemas-check,.ia-metrics-grid,.dashboard-kpis,.roles-grid,.workflow-stats,.task-flow,.admin-summary,.docs-snapshot,.docs-score{grid-template-columns:1fr}.section,#ia-rrhh,#resultados,#problema,#metodologia,#consultor,#intervenciones,#diferenciador,#ideas-eo360,#workbook,#marco-metodologico,#inversion,#cta-final,#diagnostico{padding:64px 0}.hero-title{font-size:34px}.hero-subtitle{font-size:15px}.kpi-item{border-right:0;border-bottom:1px solid var(--border)}.mini-row,.bar-row,.doc-row{grid-template-columns:1fr}.mini-row span:last-child{text-align:left}.comp-head,.comp-row{grid-template-columns:1fr}.comp-cell.malo{display:none}.footer-bottom{flex-direction:column;text-align:center}.contacto-valor{white-space:normal;overflow-wrap:anywhere}.form-card-header h3{font-size:24px}.form-card-body{padding:22px}.marco-top-copy,.marco-top-side{padding:24px}.marco-cierre{margin:0 20px 20px}.wa-float{right:16px;bottom:16px}}
 
 
+/* UX V24 — panel rápido limpio sin barra secundaria */
+.quick-rail{display:none!important}
+/* UX V23 — navegación rápida sin eliminar contenido */
+.quick-rail{
+  position:sticky;
+  top:72px;
+  z-index:92;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 8px 20px rgba(31,58,95,.04);
+}
+.quick-rail-inner{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  overflow-x:auto;
+  padding:10px 24px;
+  scrollbar-width:thin;
+}
+.quick-rail-label{
+  font-family:var(--font-h);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--gray);
+  white-space:nowrap;
+  margin-right:2px;
+}
+.quick-rail a{
+  flex:0 0 auto;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--navy);
+  border-radius:999px;
+  padding:8px 12px;
+  font-family:var(--font-h);
+  font-size:11.5px;
+  font-weight:800;
+  line-height:1;
+}
+.quick-rail a:hover{background:var(--navy-10);border-color:var(--navy-20)}
+.quick-rail a.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+#menu-rapido{padding:56px 0 72px;background:linear-gradient(180deg,#fff,#f7fafc);border-bottom:1px solid var(--border)}
+.quick-menu-head{text-align:center;max-width:900px;margin:0 auto 28px}
+.quick-menu-title{font-family:var(--font-h);font-size:clamp(26px,3vw,38px);line-height:1.15;color:var(--navy);margin-bottom:12px}
+.quick-menu-sub{font-size:15.5px;color:var(--gray);line-height:1.75;margin:0 auto;max-width:760px}
+.quick-menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+.quick-menu-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 10px 26px rgba(31,58,95,.05);
+  display:flex;
+  flex-direction:column;
+  min-height:210px;
+  transition:.18s ease;
+  position:relative;
+  overflow:hidden;
+}
+.quick-menu-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold-dark)}
+.quick-menu-card:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(31,58,95,.08)}
+.quick-menu-icon{
+  width:42px;height:42px;border-radius:12px;background:var(--navy-10);border:1px solid var(--navy-20);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:18px;font-weight:900;color:var(--navy);margin-bottom:14px
+}
+.quick-menu-card h3{font-family:var(--font-h);font-size:19px;line-height:1.25;color:var(--navy);margin-bottom:8px}
+.quick-menu-card p{font-size:13.5px;color:var(--text-2);line-height:1.65;margin-bottom:18px}
+.quick-menu-card .quick-link{margin-top:auto;color:var(--navy);font-family:var(--font-h);font-size:12px;font-weight:900;display:inline-flex;align-items:center;gap:6px}
+.quick-menu-card .quick-link:after{content:'→';font-size:14px;color:var(--gold-dark)}
+.back-menu-float{
+  position:fixed;
+  right:24px;
+  bottom:92px;
+  z-index:998;
+  background:#fff;
+  color:var(--navy);
+  border:1px solid var(--navy-20);
+  border-radius:999px;
+  padding:10px 14px;
+  box-shadow:0 10px 28px rgba(31,58,95,.16);
+  font-family:var(--font-h);
+  font-size:12px;
+  font-weight:900;
+}
+.back-menu-float:hover{background:var(--navy-10)}
+.section-kicker{
+  display:flex;align-items:center;gap:10px;margin:0 auto 26px;max-width:var(--max);padding:0 24px;
+}
+.section-kicker span:first-child{width:10px;height:10px;border-radius:50%;background:var(--gold-dark);display:inline-block;flex:0 0 auto}
+.section-kicker span:last-child{height:1px;background:linear-gradient(90deg,var(--gold-dark),transparent);flex:1}
+@media(max-width:1023px){
+  .quick-menu-grid{grid-template-columns:1fr 1fr}
+  .quick-rail-inner{padding:9px 16px}
+}
+@media(max-width:640px){
+  .quick-menu-grid{grid-template-columns:1fr}
+  #menu-rapido{padding:44px 0 56px}
+  .quick-menu-card{min-height:auto}
+  .back-menu-float{right:16px;bottom:84px;padding:9px 12px;font-size:11px}
+  .quick-rail{top:72px}
+}
+
+
 /* FIX V11 — FOTO GEOVANNY + ALERTAS EJECUTIVAS */
 .consultor-photo{
   min-height:420px;
@@ -109,6 +215,10 @@ footer{background:var(--navy);color:rgba(255,255,255,.62);padding:54px 0 30px}.f
 
 
 /* FIX EO360 — navegación interna y anclas */
+#menu-rapido,
+#alternativas,
+#ideas-eo360,
+#workbook,
 #formacion-eo360,
 #metodologia,
 #soluciones,
@@ -126,6 +236,53 @@ footer{background:var(--navy);color:rgba(255,255,255,.62);padding:54px 0 30px}.f
 <nav id="navbar" aria-label="Navegación principal"><div class="container"><div class="nav-inner"><a href="#hero" class="nav-logo"><div class="logo-mark">E<span>O</span>360</div><div class="logo-divider"></div><div class="logo-text"><span class="name">Eficiencia Operativa 360</span><span class="domain">eficienciaoperativa360.com</span></div></a><div class="nav-links"><a href="#soluciones">Soluciones</a><a href="#intervenciones">Intervenciones</a><a href="#ia-rrhh">IA + RRHH</a><a href="#consultor">Geovanny</a><a href="#workbook">Recursos</a><a href="blog.html">Ideas EO360</a><a href="#diagnostico" class="btn-cta">Diagnóstico ejecutivo</a></div><button class="nav-ham" type="button" onclick="toggleMenu()" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button></div></div><div class="mobile-menu" id="mobileMenu"><a href="#soluciones" onclick="toggleMenu(true)">Soluciones</a><a href="#intervenciones" onclick="toggleMenu(true)">Intervenciones</a><a href="#ia-rrhh" onclick="toggleMenu(true)">IA + RRHH</a><a href="#consultor" onclick="toggleMenu(true)">Geovanny</a><a href="#workbook" onclick="toggleMenu(true)">Recursos</a><a href="blog.html" onclick="toggleMenu(true)">Ideas EO360</a><a href="#diagnostico" class="btn-primary" onclick="toggleMenu(true)">Diagnóstico ejecutivo</a></div></nav>
 <main id="main-content">
 <section id="hero"><div class="hero-bg-text">360</div><div class="container"><div class="hero-inner"><p class="hero-eyebrow">Consultoría Operativa · Formación Empresarial · IA Aplicada · Ecuador</p><h1 class="hero-title">Procesos más claros<span class="dot">.</span><br>Control más visible<span class="dot">.</span><br>Equipos con mejor ejecución<span class="dot">.</span></h1><p class="hero-subtitle">Ayudamos a empresas, emprendedores y profesionales a organizar mejor su operación, fortalecer procesos clave, capacitar equipos e incorporar inteligencia artificial con criterio empresarial.</p><div class="hero-ctas"><a href="#diagnostico" class="btn-primary">Solicitar diagnóstico ejecutivo inicial</a><a href="#soluciones" class="btn-outline">Ver soluciones EO360</a></div></div></div><div class="hero-kpis"><div class="kpi-item"><div class="kpi-num">IA para selección de personal</div><div class="kpi-label">Use prompts modernos y listos para ejecutar para analizar CVs en masa, rankear candidatos, generar shortlist y sustentar mejor la decisión final de contratación.</div></div><div class="kpi-item"><div class="kpi-num">IA para control administrativo</div><div class="kpi-label">Aplique prompts útiles para seguimiento, trazabilidad, control de pendientes y reportes sin depender de trabajo manual repetitivo.</div></div><div class="kpi-item"><div class="kpi-num">IA para formatos y documentos</div><div class="kpi-label">Genere prompts listos para crear formatos, políticas, procedimientos, instructivos y manuales con mejor estructura y menos tiempo.</div></div><div class="kpi-item"><div class="kpi-num">IA para dashboards y reportes</div><div class="kpi-label">Convierta datos dispersos en dashboards, resúmenes ejecutivos y reportes claros usando inteligencia artificial aplicada a gestión.</div></div></div></section>
+<section id="menu-rapido">
+  <div class="container">
+    <div class="quick-menu-head">
+      <p class="section-label">Navegación rápida</p>
+      <h2 class="quick-menu-title">¿Qué necesita revisar primero?</h2>
+      <p class="quick-menu-sub">La web conserva todo el contenido aprobado. Este panel solo evita que el visitante tenga que bajar toda la página para encontrar lo que necesita.</p>
+    </div>
+    <div class="quick-menu-grid">
+      <a class="quick-menu-card" href="#formacion-eo360">
+        <div class="quick-menu-icon">01</div>
+        <h3>Quiero capacitar a mi equipo</h3>
+        <p>Cursos, workshops y programas ajustables al DNC de la empresa o PyME.</p>
+        <span class="quick-link">Ir a formación empresarial</span>
+      </a>
+      <a class="quick-menu-card" href="#alternativas">
+        <div class="quick-menu-icon">02</div>
+        <h3>Quiero capacitarme como profesional</h3>
+        <p>Opciones individuales, grupos pequeños y microcombos para colaboradores o persona natural.</p>
+        <span class="quick-link">Ver modalidad individual</span>
+      </a>
+      <a class="quick-menu-card" href="#ia-rrhh">
+        <div class="quick-menu-icon">03</div>
+        <h3>Quiero aplicar IA en gestión</h3>
+        <p>IA aplicada a selección, control administrativo, documentos, dashboards y reportes.</p>
+        <span class="quick-link">Ir a IA aplicada</span>
+      </a>
+      <a class="quick-menu-card" href="#intervenciones">
+        <div class="quick-menu-icon">04</div>
+        <h3>Quiero ver los 30 temas</h3>
+        <p>Catálogo completo de soluciones formativas EO360, filtradas por categoría.</p>
+        <span class="quick-link">Ver 30 soluciones</span>
+      </a>
+      <a class="quick-menu-card" href="#metodologia">
+        <div class="quick-menu-icon">05</div>
+        <h3>Quiero conocer la metodología</h3>
+        <p>EO360 Learning System: DNC, ADDIE, ERCA, VAC, PNL, ABP, casos y evaluación.</p>
+        <span class="quick-link">Ir a metodología</span>
+      </a>
+      <a class="quick-menu-card" href="#diagnostico">
+        <div class="quick-menu-icon">06</div>
+        <h3>Quiero solicitar información</h3>
+        <p>Formulario directo para diagnóstico ejecutivo, capacitación, IA aplicada o modalidad individual.</p>
+        <span class="quick-link">Ir al formulario</span>
+      </a>
+    </div>
+  </div>
+</section>
 <section id="soluciones" class="section"><div class="container"><p class="section-label">Cómo puede trabajar con EO360</p><h2 class="section-title">Formación empresarial, formación individual, IA aplicada y acompañamiento con base en experiencia real.</h2><p class="section-sub">EO360 mantiene su línea operativa, pero da mayor protagonismo a la formación y capacitación. La propuesta está pensada tanto para empresas y PyMEs como para colaboradores, profesionales o personas naturales que necesitan aprender y aplicar, incluso si toman el programa de manera individual o en grupos pequeños.</p><div class="solution-grid"><div class="solution-card"><h3>Formación Empresarial</h3><p>Programas ajustados al DNC de la empresa, diseñados bajo EO360 Learning System y con evaluación tipo informe para RRHH y gerencia.</p><ul><li>Programas ajustados al DNC</li><li>ADDIE + ERCA + VAC + PNL</li><li>ABP, casos y evaluación ejecutiva</li></ul><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#formacion-eo360" class="btn-outline">Ver cursos</a><a href="#metodologia" class="btn-outline">Ver metodología</a></div></div><div class="solution-card"><h3>Formación Individual</h3><p>Cursos y workshops para colaboradores, profesionales y personas naturales que desean fortalecerse aunque su empresa no financie la capacitación.</p><ul><li>También para 1 o 2 participantes</li><li>Aplicación práctica desde la primera sesión</li><li>Modalidades flexibles y temas accionables</li></ul><div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#formacion-eo360" class="btn-outline">Ver cursos</a><a href="#inversion" class="btn-outline">Ver planes</a></div></div><div class="solution-card"><h3>IA Aplicada a Gestión</h3><p>IA aplicada a selección, control administrativo, formatos, políticas, procedimientos, dashboards y reportes ejecutivos.</p><ul><li>Prompts listos para ejecutar</li><li>Dashboards y reportes</li><li>Transferencia al equipo</li></ul><a href="#ia-rrhh" class="btn-outline">Ver IA aplicada</a></div><div class="solution-card"><h3>Acompañamiento Operativo</h3><p>Cuando la empresa necesita bajar a tierra un problema operativo específico, EO360 puede acompañar con criterio práctico y experiencia de campo en procesos, compras, control y trazabilidad.</p><ul><li>Procesos y riesgos operativos</li><li>Control de gasto y proveedores</li><li>Seguimiento y trazabilidad</li></ul><a href="#resultados" class="btn-outline">Ver evidencia</a></div></div></div>
 </section>
 
@@ -276,7 +433,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.62);padding:54px 0 30px}.f
 <section id="cta-final"><div class="container"><p class="cta-final-tag">La decisión</p><h2 class="cta-final-title">Si identificó al menos 2 problemas,<br>ya tiene una decisión que tomar.</h2><p class="cta-final-sub">Podemos empezar en 5 días.</p><div class="cta-btns"><a href="#diagnostico" class="btn-primary">Solicitar diagnóstico ejecutivo inicial</a><a href="https://wa.me/593979001810" target="_blank" class="btn-secondary">WhatsApp directo</a></div><div class="contacto-strip"><div class="contacto-block"><div class="contacto-tipo">WhatsApp</div><div class="contacto-valor">0979 001 810</div></div><div class="contacto-strip-divider"></div><div class="contacto-block"><div class="contacto-tipo">Correo</div><div class="contacto-valor">contacto@eficienciaoperativa360.com</div></div></div></div></section>
 <section id="diagnostico"><div class="container"><div class="diagnostico-header"><p class="section-label">Diagnóstico ejecutivo</p><h2 class="section-title">Detectemos dónde se está fugando el control</h2><p class="section-sub">En una primera conversación identificamos los puntos críticos de compras, procesos, activos, presupuesto y gestión operativa para definir si existe una intervención de alto impacto.</p></div><div class="diagnostico-inner"><div class="diagnostico-copy"><p class="section-label">Qué recibe en esta primera conversación</p><h3 class="section-title" style="font-size:clamp(24px,3vw,32px);margin-bottom:14px">Claridad antes de invertir tiempo y dinero</h3><p class="section-sub">Esta no es una llamada comercial genérica. Es una revisión ejecutiva inicial para entender el problema, validar si existe fuga operativa real y definir si vale la pena intervenir.</p><div class="garantias"><div class="garantia-item"><div class="garantia-icon">✓</div><p><strong>Diagnóstico inicial con criterio ejecutivo</strong>Revisamos síntomas, impacto operativo y nivel de urgencia.</p></div><div class="garantia-item"><div class="garantia-icon">✓</div><p><strong>Respuesta rápida</strong>Confirmación y contacto en menos de 24 horas hábiles.</p></div><div class="garantia-item"><div class="garantia-icon">✓</div><p><strong>Confidencialidad</strong>La información compartida se trata con absoluta reserva.</p></div><div class="garantia-item"><div class="garantia-icon">✓</div><p><strong>Sin compromiso</strong>Si no hay encaje real, se lo diremos con transparencia.</p></div></div></div><div class="form-card"><div class="form-card-header"><h3>Solicitar diagnóstico ejecutivo inicial</h3><p class="form-sub">Complete el formulario y evaluaremos su caso. Respuesta en menos de 24 horas.</p></div><div class="form-card-body"><form class="form-shell" id="diagnosticoForm" action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="4aeab335-04ab-46a8-a84d-ebe9b274b0ff"><input type="hidden" name="subject" value="Nuevo diagnóstico desde EO360"><input type="hidden" name="from_name" value="EO360 Web"><input type="checkbox" name="botcheck" style="display:none"><div class="form-row"><div class="form-group"><label>Nombre completo *</label><input type="text" name="nombre" required placeholder="Nombre y apellido"></div><div class="form-group"><label>Cargo *</label><select name="cargo" required><option value="">Seleccione</option><option>Gerencia General</option><option>Gerencia Administrativa</option><option>Operaciones</option><option>Compras</option><option>Talento Humano</option><option>Otro</option></select></div></div><div class="form-row"><div class="form-group"><label>Empresa *</label><input type="text" name="empresa" required placeholder="Nombre de la empresa"></div><div class="form-group"><label>Número de empleados</label><select name="empleados"><option value="">Seleccione</option><option>1 - 20</option><option>21 - 50</option><option>51 - 100</option><option>101 - 250</option><option>251 - 500</option><option>500+</option></select></div></div><div class="form-group"><label>¿Qué tipo de apoyo necesita?</label><select name="tipo_apoyo"><option value="">Seleccione</option><option>Consultoría operativa</option><option>Capacitación / workshop empresarial</option><option>Curso individual / persona natural</option><option>Grupo pequeño de capacitación</option><option>IA aplicada a RRHH</option><option>IA para control administrativo</option><option>IA para documentos y dashboards</option><option>No estoy seguro, necesito diagnóstico</option></select></div><div class="form-group problemas-wrap"><label>Problema principal (máx. 3 opciones)</label><p class="problemas-help">Seleccione hasta tres frentes donde hoy percibe mayor fuga operativa.</p><div class="problemas-check"><label class="check-label"><input type="checkbox" name="problemas" value="Compras sin control"><span>Compras sin control</span></label><label class="check-label"><input type="checkbox" name="problemas" value="Presupuesto sin seguimiento"><span>Presupuesto sin seguimiento</span></label><label class="check-label"><input type="checkbox" name="problemas" value="Mantenimiento reactivo"><span>Mantenimiento reactivo</span></label><label class="check-label"><input type="checkbox" name="problemas" value="KPIs que nadie revisa"><span>KPIs que nadie revisa</span></label><label class="check-label"><input type="checkbox" name="problemas" value="Mandos sin herramientas"><span>Mandos sin herramientas</span></label><label class="check-label"><input type="checkbox" name="problemas" value="Procesos no documentados"><span>Procesos no documentados</span></label><label class="check-label"><input type="checkbox" name="problemas" value="Alta rotación de personal"><span>Alta rotación de personal</span></label><label class="check-label"><input type="checkbox" name="problemas" value="Capacitación sin resultado"><span>Capacitación sin resultado</span></label></div></div><div class="form-row"><div class="form-group"><label>WhatsApp *</label><input type="tel" name="whatsapp" required placeholder="099 000 0000"></div><div class="form-group"><label>Correo electrónico *</label><input type="email" name="email" required placeholder="correo@empresa.com"></div></div><div class="form-group"><label>¿Cómo nos conoció?</label><select name="origen"><option value="">Seleccione</option><option>LinkedIn</option><option>Recomendación</option><option>Google</option><option>WhatsApp</option><option>Evento o conferencia</option><option>Otro</option></select></div><button type="submit" class="form-submit">Enviar y agendar diagnóstico</button><div id="form-message" class="form-message"></div><p class="form-note">Sus datos son confidenciales. No compartimos información con terceros.</p></form></div></div></div></div></section>
 </main>
-<footer><div class="container"><div class="footer-top"><div><div class="footer-logo">E<span style="opacity:.4">O</span>360</div><p class="footer-tagline">Formación práctica para trabajar con más orden, criterio y mejores herramientas.</p><div class="footer-contact"><a href="https://wa.me/593979001810" target="_blank">0979 001 810</a><a href="mailto:contacto@eficienciaoperativa360.com">contacto@eficienciaoperativa360.com</a><a href="https://www.linkedin.com/in/geovannyjavier/" target="_blank">linkedin.com/in/geovannyjavier</a><a href="https://eficienciaoperativa360.com">eficienciaoperativa360.com</a></div></div><div class="footer-col"><h4>Servicios</h4><a href="#intervenciones">Las 30 intervenciones</a><a href="#formacion-eo360">Cursos y workshops</a><a href="#inversion">Precios y combos</a><a href="#metodologia">Metodología EO360</a><a href="#workbook">Recursos</a><a href="blog.html">Ideas EO360</a></div><div class="footer-col"><h4>Empresa</h4><a href="#consultor">Sobre Geovanny</a><a href="#resultados">Casos de éxito</a><a href="#diferenciador">Por qué EO360</a><a href="#ia-rrhh">IA aplicada a RRHH</a></div><div class="footer-col"><h4>Contacto</h4><a href="#diagnostico">Diagnóstico ejecutivo</a><a href="https://wa.me/593979001810" target="_blank">WhatsApp directo</a><a href="#">Política de privacidad</a><a href="#">Aviso legal</a></div></div><div class="footer-bottom"><span>© 2026 Eficiencia Operativa 360 — Geovanny J. Farías Riveras. Guayaquil, Ecuador.</span><span>Habilitado — Ministerio de Relaciones Laborales</span></div></div></footer><a href="https://wa.me/593979001810" class="wa-float" target="_blank" aria-label="WhatsApp">☘</a>
+<footer><div class="container"><div class="footer-top"><div><div class="footer-logo">E<span style="opacity:.4">O</span>360</div><p class="footer-tagline">Formación práctica para trabajar con más orden, criterio y mejores herramientas.</p><div class="footer-contact"><a href="https://wa.me/593979001810" target="_blank">0979 001 810</a><a href="mailto:contacto@eficienciaoperativa360.com">contacto@eficienciaoperativa360.com</a><a href="https://www.linkedin.com/in/geovannyjavier/" target="_blank">linkedin.com/in/geovannyjavier</a><a href="https://eficienciaoperativa360.com">eficienciaoperativa360.com</a></div></div><div class="footer-col"><h4>Servicios</h4><a href="#intervenciones">Las 30 intervenciones</a><a href="#formacion-eo360">Cursos y workshops</a><a href="#inversion">Precios y combos</a><a href="#metodologia">Metodología EO360</a><a href="#workbook">Recursos</a><a href="blog.html">Ideas EO360</a></div><div class="footer-col"><h4>Empresa</h4><a href="#consultor">Sobre Geovanny</a><a href="#resultados">Casos de éxito</a><a href="#diferenciador">Por qué EO360</a><a href="#ia-rrhh">IA aplicada a RRHH</a></div><div class="footer-col"><h4>Contacto</h4><a href="#diagnostico">Diagnóstico ejecutivo</a><a href="https://wa.me/593979001810" target="_blank">WhatsApp directo</a><a href="#">Política de privacidad</a><a href="#">Aviso legal</a></div></div><div class="footer-bottom"><span>© 2026 Eficiencia Operativa 360 — Geovanny J. Farías Riveras. Guayaquil, Ecuador.</span><span>Habilitado — Ministerio de Relaciones Laborales</span></div></div></footer><a href="#menu-rapido" class="back-menu-float" aria-label="Volver al menú rápido">↑ Menú</a><a href="https://wa.me/593979001810" class="wa-float" target="_blank" aria-label="WhatsApp">☘</a>
 <script>
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30)});
 function toggleMenu(forceClose=false){const menu=document.getElementById('mobileMenu');const btn=document.querySelector('.nav-ham');const open=forceClose?false:!menu.classList.contains('open');menu.classList.toggle('open',open);if(btn)btn.setAttribute('aria-expanded',String(open))}document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleMenu(true)});window.addEventListener('resize',()=>{if(innerWidth>1023)toggleMenu(true)});
